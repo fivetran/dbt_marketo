@@ -1,11 +1,8 @@
-{% set results = run_query('select restname from ' ~ ref('stg_lead_describe')) %}
-
-{% if execute %}
-{# Return the first column #}
-{% set results_list = results.columns[0].values() %}
-{% else %}
-{% set results_list = [] %}
-{% endif %}
+{% if execute -%}
+    {% set results = run_query('select restname from ' ~ ref('stg_lead_describe')) %}
+    {% set results_list = results.columns[0].values() %}
+    {% set results_list_cleaned = results_list|map('lower')|map('replace', '__c','_c')|list %}
+{% endif -%}
 
 with change_data as (
 
@@ -45,16 +42,17 @@ with change_data as (
 ), pivot as (
 
     select 
-        cast(activity_date as date) as date_day,
         lead_id,
+        cast({{ dbt_utils.dateadd('day', -1, 'activity_date') }} as date) as date_day,
 
         {% for col in results_list %}
         {% set col_xf = col|lower|replace("__c","_c") %}
-        min(case when lower(primary_attribute_column) = '{{ col_xf }}' then new_value end) as {{ col_xf }}
+        min(case when lower(primary_attribute_column) = '{{ col|lower }}' then old_value end) as {{ col_xf }}
         {% if not loop.last %} , {% endif %}
         {% endfor %}
     
-    from filtered
+    from joined
+    where cast(activity_date as date) < current_date
     group by 1,2
 
 )
