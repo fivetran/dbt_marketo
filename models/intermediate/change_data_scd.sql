@@ -28,7 +28,7 @@ with unioned as (
     select 
         coalesce(unioned.date_day, current_date) as valid_to, 
         unioned.lead_id,
-        {% for col in lead_columns if col.name not in  ['lead_id','_fivetran_synced'] %} 
+        {% for col in lead_columns if col.name not in  ['lead_id','_fivetran_synced'] and col.name in var('lead_history_columns') %} 
         {% if col.name not in change_data_columns_xf %}
         last_value(unioned.{{ col.name }}) over (partition by unioned.lead_id order by unioned.date_day asc) as {{ col.name }}
         {% else %}

@@ -1,7 +1,6 @@
 {% if execute -%}
     {% set results = run_query('select restname from ' ~ ref('stg_lead_describe')) %}
     {% set results_list = results.columns[0].values() %}
-    {% set results_list_cleaned = results_list|map('lower')|map('replace', '__c','_c')|list %}
 {% endif -%}
 
 with change_data as (
@@ -45,7 +44,7 @@ with change_data as (
         lead_id,
         cast({{ dbt_utils.dateadd('day', -1, 'activity_date') }} as date) as date_day,
 
-        {% for col in results_list %}
+        {% for col in results_list if col|lower|replace("__c","_c") in var('lead_history_columns') %}
         {% set col_xf = col|lower|replace("__c","_c") %}
         min(case when lower(primary_attribute_column) = '{{ col|lower }}' then old_value end) as {{ col_xf }}
         {% if not loop.last %} , {% endif %}

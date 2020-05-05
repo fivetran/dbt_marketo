@@ -29,7 +29,7 @@ with change_data as (
         lead_id,
         cast({{ dbt_utils.dateadd('day', -1, 'activity_date') }} as date) as date_day,
 
-        {% for col in results_list %}
+        {% for col in results_list if col|lower|replace("__c","_c") in var('lead_history_columns') %}
         {% set col_xf = col|lower|replace("__c","_c") %}
         max(case when lower(primary_attribute_column) = '{{ col|lower }}' then True else False end) as {{ col_xf }}
         {% if not loop.last %} , {% endif %}

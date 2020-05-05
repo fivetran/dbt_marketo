@@ -2,7 +2,7 @@ with base as (
 
     select *
     from {{ source('marketo','lead') }}
-    where id = 29616
+    -- where id = 29616
 
 ), fields as (
 

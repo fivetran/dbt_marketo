@@ -2,7 +2,7 @@ with base as (
 
     select *
     from {{ var('activity_change_data_value') }}
-    where lead_id = 29616
+    -- where lead_id = 29616
 
 ), fields as (
 
