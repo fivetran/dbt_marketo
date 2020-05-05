@@ -26,16 +26,12 @@ with unioned as (
 ), today as (
 
     select 
-        coalesce(unioned.date_day, current_date) as date_day, 
+        coalesce(unioned.date_day, current_date) as valid_to, 
         unioned.lead_id,
         {% for col in lead_columns if col.name not in  ['lead_id','_fivetran_synced'] %} 
-
         {% if col.name not in change_data_columns_xf %}
-        
         last_value(unioned.{{ col.name }}) over (partition by unioned.lead_id order by unioned.date_day asc) as {{ col.name }}
-        
         {% else %}
-        
         case
             when coalesce(details.{{ col.name }}, True) then unioned.{{ col.name }}
             else nullif(
@@ -47,7 +43,6 @@ with unioned as (
                     
                     {{ coalesce_value[col.data_type] }})
         end as {{ col.name }}
-
         {% endif %}
         {% if not loop.last %},{% endif %}
         {% endfor %}
