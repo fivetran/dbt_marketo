@@ -19,4 +19,4 @@ models:
             lead_history_columns: []
         materialized: table
         base:
-            materialized: view
+            materialized: ephemeral
