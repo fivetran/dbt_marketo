@@ -1,5 +1,5 @@
 {% if execute -%}
-    {% set results = run_query('select restname from ' ~ ref('stg_lead_describe')) %}
+    {% set results = run_query('select restname from ' ~ var('lead_describe')) %}
     {% set results_list = results.columns[0].values() %}
     {% set results_list_cleaned = results_list|map('lower')|map('replace', '__c','_c')|list %}
 {% endif -%}
@@ -7,12 +7,12 @@
 with change_data as (
 
     select *
-    from {{ ref('stg_activity_change_data_value') }}
+    from {{ var('change_data_value') }}
 
 ), lead_describe as (
 
     select *
-    from {{ ref('stg_lead_describe') }}
+    from {{ var('lead_describe') }}
 
 ), joined as (
 

@@ -1,12 +1,12 @@
 with calendar as (
 
     select *
-    from {{ ref('calendar_spine') }}
+    from {{ ref('marketo__calendar_spine') }}
 
 ), leads as (
 
     select *
-    from {{ ref('stg_lead') }}
+    from {{ var('lead') }}
     
 ), joined as (
 

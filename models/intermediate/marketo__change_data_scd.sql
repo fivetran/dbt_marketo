@@ -1,5 +1,5 @@
-{%- set lead_columns = adapter.get_columns_in_relation(ref('stg_lead')) -%}
-{%- set change_data_columns = adapter.get_columns_in_relation(ref('change_data_pivot')) -%}
+{%- set lead_columns = adapter.get_columns_in_relation(ref('marketo__lead_adapter')) -%}
+{%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_pivot')) -%}
 {%- set change_data_columns_xf = change_data_columns|map(attribute='name')|list %}
 
 {% set coalesce_value = {
@@ -14,14 +14,14 @@
 with unioned as (
 
     {{ dbt_utils.union_relations(relations=[
-        ref('stg_lead'),
-        ref('change_data_pivot')
+        ref('marketo__lead_adapter'),
+        ref('marketo__change_data_pivot')
     ]) }}
 
 ), details as (
 
     select *
-    from {{ ref('change_data_details') }}
+    from {{ ref('marketo__change_data_details') }}
 
 ), today as (
 

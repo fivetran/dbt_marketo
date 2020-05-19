@@ -3,13 +3,13 @@
 with activity as (
 
     select *
-    from {{ ref('stg_activity_click_email') }}
+    from {{ var('activity_email_bounced') }}
 
 ), aggregate as (
 
     select 
         email_send_id,
-        count(*) as count_clicks
+        count(*) as count_bounces
     from activity
     group by 1
 

@@ -3,13 +3,13 @@
 with activity as (
 
     select *
-    from {{ ref('stg_activity_open_email') }}
+    from {{ var('activity_unsubscribe_email') }}
 
 ), aggregate as (
 
     select 
         email_send_id,
-        count(*) as count_opens
+        count(*) as count_unsubscribes
     from activity
     group by 1
 

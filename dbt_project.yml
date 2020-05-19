@@ -20,6 +20,19 @@ vars:
     marketo:
         lead_history_columns: []
 
+        activity_email_bounced: "{{ ref('stg_marketo__activity_email_bounced') }}"
+        activity_click_email: "{{ ref('stg_marketo__activity_click_email') }}"
+        activity_email_delivered: "{{ ref('stg_marketo__activity_email_delivered') }}"
+        activity_open_email: "{{ ref('stg_marketo__activity_open_email') }}"
+        activity_unsubscribe_email: "{{ ref('stg_marketo__activity_unsubscribe_email') }}"
+        activity_send_email: "{{ ref('stg_marketo__activity_send_email') }}"
+
+        change_data_value: "{{ ref('stg_marketo__activity_change_data_value') }}"
+        lead: "{{ ref('stg_marketo__lead') }}"
+        lead_describe: "{{ ref('stg_marketo__lead_describe') }}"
+        campaigns: "{{ ref('stg_marketo__campaigns') }}"
+        email_tempate_history: "{{ ref('stg_marketo__email_template_history') }}"
+
 models: 
     marketo:
         materialized: table

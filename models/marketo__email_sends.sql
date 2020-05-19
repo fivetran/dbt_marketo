@@ -1,42 +1,42 @@
 with sends as (
 
     select *
-    from {{ ref('stg_activity_send_email') }}
+    from {{ var('activity_send_email') }}
 
 ), opens as (
 
     select *
-    from {{ ref('opens__by_sent_email') }}
+    from {{ ref('marketo__opens__by_sent_email') }}
 
 ), bounces as (
 
     select *
-    from {{ ref('bounces__by_sent_email') }}
+    from {{ ref('marketo__bounces__by_sent_email') }}
 
 ), clicks as (
 
     select *
-    from {{ ref('clicks__by_sent_email') }}
+    from {{ ref('marketo__clicks__by_sent_email') }}
 
 ), deliveries as (
 
     select *
-    from {{ ref('deliveries__by_sent_email') }}
+    from {{ ref('marketo__deliveries__by_sent_email') }}
 
 ), unsubscribes as (
 
     select *
-    from {{ ref('unsubscribes__by_sent_email') }}
+    from {{ ref('marketo__unsubscribes__by_sent_email') }}
 
 ), campaigns as (
 
     select *
-    from {{ ref('stg_campaigns') }}
+    from {{ var('campaigns') }}
 
 ), email_templates as (
 
     select *
-    from {{ ref('stg_email_template_history') }}
+    from {{ var('email_tempate_history') }}
 
 ), metrics as (
 

@@ -1,4 +1,4 @@
-{%- set change_data_columns = adapter.get_columns_in_relation(ref('change_data_scd')) -%}
+{%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_scd')) -%}
 
 {% set coalesce_value = {
  'STRING': "'DUMMY_STRING'",
@@ -11,12 +11,12 @@
 with change_data as (
 
     select *
-    from {{ ref('change_data_scd') }}
+    from {{ ref('marketo__change_data_scd') }}
 
 ), calendar as (
 
     select *
-    from {{ ref('lead_calendar_spine') }}
+    from {{ ref('marketo__lead_calendar_spine') }}
 
 ), joined as (
 
