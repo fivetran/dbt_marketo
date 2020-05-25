@@ -11,8 +11,8 @@ data-paths: ["data"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
+target-path: "target"  
+clean-targets:         
     - "target"
     - "dbt_modules"
 
@@ -36,5 +36,7 @@ vars:
 models: 
     marketo:
         materialized: table
-        base:
+        adapter:
             materialized: ephemeral
+        intermediate:
+            materialized: view
