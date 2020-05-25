@@ -36,7 +36,5 @@ vars:
 models: 
     marketo:
         materialized: table
-        adapter:
-            materialized: ephemeral
         intermediate:
             materialized: ephemeral

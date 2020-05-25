@@ -22,7 +22,7 @@ with change_data as (
         lead_describe.restname as primary_attribute_column
     from change_data
     left join lead_describe
-        on change_data.primary_attribute_value_id = lead_describe.id
+        on change_data.primary_attribute_value_id = lead_describe.lead_describe_id
 
 ), event_order as (
 
@@ -56,7 +56,14 @@ with change_data as (
     where cast(activity_date as date) < current_date
     group by 1,2
 
+), surrogate_key as (
+
+    select 
+        *,
+        {{ dbt_utils.surrogate_key(['lead_id','date_day'])}} as lead_day_id
+    from pivot
+
 )
 
 select *
-from pivot
+from surrogate_key

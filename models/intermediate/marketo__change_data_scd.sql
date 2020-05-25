@@ -54,7 +54,14 @@ with unioned as (
         on unioned.date_day = details.date_day
         and unioned.lead_id = details.lead_id
 
+), surrogate_key as (
+
+    select 
+        *,
+        {{ dbt_utils.surrogate_key(['lead_id','valid_to'])}} as lead_day_id
+    from today
+
 )
 
 select *
-from today
+from surrogate_key

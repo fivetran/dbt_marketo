@@ -16,6 +16,7 @@ with email_sends as (
         count(distinct case when was_opened = True then email_send_id end) as count_unique_opens,
         count(distinct case when was_clicked = True then email_send_id end) as count_unique_clicks
     from email_sends
+    where program_id is not null
     group by 1
 
 )

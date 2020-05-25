@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: marketo__bounces__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__clicks__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__deliveries__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__opens__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__unsubscribes__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__change_data_details
+    columns:
+      - name: lead_day_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__change_data_pivot
+    columns:
+      - name: lead_day_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__change_data_scd
+    columns:
+      - name: lead_day_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__email_stats__by_campaign
+    columns:
+      - name: campaign_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__email_stats__by_email_template
+    columns:
+      - name: email_template_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__email_stats__by_lead
+    columns:
+      - name: lead_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__email_stats__by_program
+    columns:
+      - name: program_id
+        tests:
+          - not_null
+          - unique
