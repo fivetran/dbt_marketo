@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 {%- set lead_columns = adapter.get_columns_in_relation(ref('marketo__lead_adapter')) -%}
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_pivot')) -%}
 {%- set change_data_columns_xf = change_data_columns|map(attribute='name')|list %}

@@ -70,6 +70,7 @@ with sends as (
     select 
         booleans.*,
         campaigns.campaign_type,
+        campaigns.program_id,
         email_templates.is_operational
     from booleans
     left join campaigns using (campaign_id)

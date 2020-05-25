@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 {% if execute -%}
     {% set results = run_query('select restname from ' ~ var('lead_describe')) %}
     {% set results_list = results.columns[0].values() %}
