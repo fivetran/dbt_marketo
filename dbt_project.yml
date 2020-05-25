@@ -39,4 +39,4 @@ models:
         adapter:
             materialized: ephemeral
         intermediate:
-            materialized: view
+            materialized: ephemeral
