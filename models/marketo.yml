@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: marketo__campaigns
+    columns:
+      - name: campaign_id
+        tests:
+          - unique
+          - not_null
+
+  - name: marketo__email_sends
+    columns:
+      - name: email_send_id
+        tests:
+          - unique
+          - not_null
+
+  - name: marketo__email_templates
+    columns:
+      - name: email_template_id
+        tests:
+          - unique
+          - not_null
+
+  - name: marketo__lead_history
+    columns:
+      - name: lead_history_id
+        tests:
+          - unique
+          - not_null
+
+  - name: marketo__leads
+    columns:
+      - name: lead_id
+        tests:
+          - unique
+          - not_null
+
+  - name: marketo__programs
+    columns:
+      - name: program_id
+        tests:
+          - unique
+          - not_null

@@ -84,3 +84,10 @@ models:
         tests:
           - not_null
           - unique
+
+  - name: marketo__email_sends_deduped
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique

@@ -49,7 +49,14 @@ with change_data as (
         {% endfor %}
     from joined
 
+), surrogate_key as (
+
+    select 
+        *,
+        {{ dbt_utils.surrogate_key(['date_day','lead_id'] )}} as lead_history_id
+    from backfill
+
 )
 
 select *
-from backfill
+from surrogate_key

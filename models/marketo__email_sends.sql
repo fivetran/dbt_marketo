@@ -1,7 +1,7 @@
 with sends as (
 
     select *
-    from {{ var('activity_send_email') }}
+    from {{ ref('marketo__email_sends_deduped') }}
 
 ), opens as (
 
