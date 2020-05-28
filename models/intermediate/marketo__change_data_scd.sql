@@ -1,4 +1,10 @@
-{{ config(materialized='table') }}
+{{
+    config(
+        materialized='incremental',
+        partition_by = {'field': 'valid_to', 'data_type': 'date'},
+        unique_key='lead_day_id'
+        ) 
+}}
 
 {%- set lead_columns = adapter.get_columns_in_relation(ref('marketo__lead_adapter')) -%}
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_pivot')) -%}
@@ -13,17 +19,35 @@
 
 } %}
     
-with unioned as (
+with change_data as (
 
-    {{ dbt_utils.union_relations(relations=[
-        ref('marketo__lead_adapter'),
-        ref('marketo__change_data_pivot')
-    ]) }}
+    select *
+    from {{ ref('marketo__change_data_pivot') }}
+    {% if is_incremental() %}
+    where date_day >= (select max(valid_to) from {{ this }})
+    {% endif %}
+
+), leads as (
+
+    select *
+    from {{ ref('marketo__lead_adapter') }}
 
 ), details as (
 
     select *
     from {{ ref('marketo__change_data_details') }}
+    {% if is_incremental() %}
+    where date_day >= (select max(valid_to) from {{ this }})
+    {% endif %}
+
+), unioned as (
+
+    {{ 
+        union_relations(
+            relations=[ref('marketo__lead_adapter'), ref('marketo__change_data_pivot')],
+            aliases=['leads','change_data']
+            ) 
+    }}
 
 ), today as (
 

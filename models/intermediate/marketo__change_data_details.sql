@@ -1,4 +1,10 @@
-{{ config(materialized='table') }}
+{{ 
+    config(
+        materialized='incremental',
+        partition_by = {'field': 'date_day', 'data_type': 'date'},
+        unique_key='lead_day_id'
+        ) 
+}}
 
 {% if execute -%}
     {% set results = run_query('select restname from ' ~ var('lead_describe')) %}
@@ -9,6 +15,9 @@ with change_data as (
 
     select *
     from {{ var('change_data_value') }}
+    {% if is_incremental() %}
+    where cast({{ dbt_utils.dateadd('day', -1, 'activity_date') }} as date) >= (select max(date_day) from {{ this }})
+    {% endif %}
 
 ), lead_describe as (
 

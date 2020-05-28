@@ -1,3 +1,11 @@
+{{ 
+    config(
+        materialized='incremental',
+        partition_by = {'field': 'date_day', 'data_type': 'date'},
+        unique_key='lead_history_id'
+        ) 
+}}
+
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_scd')) -%}
 
 {% set coalesce_value = {
@@ -12,11 +20,18 @@ with change_data as (
 
     select *
     from {{ ref('marketo__change_data_scd') }}
+    {% if is_incremental() %}
+    where valid_to >= (select max(date_day) from {{ this }})
+    {% endif %}
 
 ), calendar as (
 
     select *
     from {{ ref('marketo__lead_calendar_spine') }}
+    where date_day <= current_date
+    {% if is_incremental() %}
+    and date_day >= (select max(date_day) from {{ this }})
+    {% endif %}
 
 ), joined as (
 
@@ -24,7 +39,7 @@ with change_data as (
         calendar.date_day,
         calendar.lead_id,
         change_data.lead_id is not null as new_values_present,
-        {% for col in change_data_columns if col.name not in ['lead_id','valid_to'] %} 
+        {% for col in change_data_columns if col.name not in ['lead_id','valid_to','lead_day_id'] %} 
         {{ col.name }} {% if not loop.last %},{% endif %}
         {% endfor %}
     from calendar
@@ -37,7 +52,7 @@ with change_data as (
     select
         date_day,
         lead_id,        
-        {% for col in change_data_columns if col.name not in ['lead_id','valid_to'] %} 
+        {% for col in change_data_columns if col.name not in ['lead_id','valid_to','lead_day_id'] %} 
         nullif(
             first_value(case when new_values_present then coalesce({{ col.name }}, {{ coalesce_value[col.data_type] }}) end ignore nulls) over (
                 partition by lead_id 
