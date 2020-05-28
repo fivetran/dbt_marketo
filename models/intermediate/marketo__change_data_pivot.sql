@@ -26,6 +26,8 @@ with change_data as (
 
 ), joined as (
 
+    -- Join the column names from the describe table onto the change data table
+
     select 
         change_data.*,
         lead_describe.restname as primary_attribute_column
@@ -45,11 +47,16 @@ with change_data as (
 
 ), filtered as (
 
+    -- Find the first event that occurs on each day for each lead
+
     select *
     from event_order
     where row_num = 1
 
 ), pivot as (
+
+    -- For each column that is in both the lead_history_columns variable and the restname of the lead_describe table,
+    -- pivot out the value into it's own column. This will feed the daily slowly changing dimension model.
 
     select 
         lead_id,

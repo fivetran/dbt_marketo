@@ -52,6 +52,8 @@ with change_data as (
     select
         date_day,
         lead_id,        
+        -- For each lead on each day, find the state of each column from the next record where a change occurred,
+        -- identified by the presence of a record from the SCD table on that day
         {% for col in change_data_columns if col.name not in ['lead_id','valid_to','lead_day_id'] %} 
         nullif(
             first_value(case when new_values_present then coalesce({{ col.name }}, {{ coalesce_value[col.data_type] }}) end ignore nulls) over (

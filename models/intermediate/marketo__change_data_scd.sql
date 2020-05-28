@@ -42,6 +42,9 @@ with change_data as (
 
 ), unioned as (
 
+    -- unions together the current state of leads and their history changes. 
+    -- we need the current state to work backwards from to backfill the slowly changing dimension model
+
     {{ 
         union_relations(
             relations=[ref('marketo__lead_adapter'), ref('marketo__change_data_pivot')],
@@ -51,15 +54,29 @@ with change_data as (
 
 ), today as (
 
+    -- For each day where a change occurred for each lead, we backfill the values from the subsequent change, 
+    -- going back in time. In order to account for changes that occur to or from null values, we need to do a coalesce
+    -- with dummy values, which we nullif() at the end.
+    -- The 'details' table is joined in for exactly this purpose. It tells us, even if a value is null, whether that null
+    -- value is because no change occurred on that day, or because there was a change and the change involved the null value.
+
     select 
         coalesce(unioned.date_day, current_date) as valid_to, 
         unioned.lead_id,
         {% for col in lead_columns if col.name not in  ['lead_id','_fivetran_synced'] and col.name in var('lead_history_columns') %} 
         {% if col.name not in change_data_columns_xf %}
+
+        {# If the column does not exist in the change data, grab the value from the current state of the record. #}
         last_value(unioned.{{ col.name }}) over (partition by unioned.lead_id order by unioned.date_day asc) as {{ col.name }}
+
         {% else %}
+
         case
+        
+            {# if there was a change on the day, as specified by the details table, use that value #}
             when coalesce(details.{{ col.name }}, True) then unioned.{{ col.name }}
+
+            {# otherwise, grab the most recent value from a day where a change did occur #} 
             else nullif(
 
                 first_value(case when coalesce(details.{{ col.name }}, True) then coalesce(unioned.{{ col.name}}, {{ coalesce_value[col.data_type] }}) end ignore nulls) over (

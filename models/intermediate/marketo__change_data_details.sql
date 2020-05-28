@@ -24,7 +24,9 @@ with change_data as (
     select *
     from {{ var('lead_describe') }}
 
-), joined as (
+), joined as ( 
+
+    -- Join the column names from the describe table onto the change data table
 
     select 
         change_data.*,
@@ -34,6 +36,10 @@ with change_data as (
         on change_data.primary_attribute_value_id = lead_describe.lead_describe_id
 
 ), pivot as (
+
+    -- For each column that is in both the lead_history_columns variable and the restname of the lead_describe table,
+    -- find whether a change occurred for a given column on a given day for a given lead. 
+    -- This will feed the daily slowly changing dimension model.
 
     select 
         lead_id,
