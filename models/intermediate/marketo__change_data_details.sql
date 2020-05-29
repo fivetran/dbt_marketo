@@ -7,7 +7,7 @@
 }}
 
 {% if execute -%}
-    {% set results = run_query('select restname from ' ~ var('lead_describe')) %}
+    {% set results = run_query('select rest_name from ' ~ var('lead_describe')) %}
     {% set results_list = results.columns[0].values() %}
 {% endif -%}
 
@@ -16,7 +16,7 @@ with change_data as (
     select *
     from {{ var('change_data_value') }}
     {% if is_incremental() %}
-    where cast({{ dbt_utils.dateadd('day', -1, 'activity_date') }} as date) >= (select max(date_day) from {{ this }})
+    where cast({{ dbt_utils.dateadd('day', -1, 'activity_timestamp') }} as date) >= (select max(date_day) from {{ this }})
     {% endif %}
 
 ), lead_describe as (
@@ -30,7 +30,7 @@ with change_data as (
 
     select 
         change_data.*,
-        lead_describe.restname as primary_attribute_column
+        lead_describe.rest_name as primary_attribute_column
     from change_data
     left join lead_describe
         on change_data.primary_attribute_value_id = lead_describe.lead_describe_id
@@ -43,7 +43,7 @@ with change_data as (
 
     select 
         lead_id,
-        cast({{ dbt_utils.dateadd('day', -1, 'activity_date') }} as date) as date_day,
+        cast({{ dbt_utils.dateadd('day', -1, 'activity_timestamp') }} as date) as date_day,
 
         {% for col in results_list if col|lower|replace("__c","_c") in var('lead_history_columns') %}
         {% set col_xf = col|lower|replace("__c","_c") %}
@@ -52,7 +52,7 @@ with change_data as (
         {% endfor %}
     
     from joined
-    where cast(activity_date as date) < current_date
+    where cast(activity_timestamp as date) < current_date
     group by 1,2
 
 ), surrogate_key as (

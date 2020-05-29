@@ -26,7 +26,7 @@ with calendar as (
         leads.lead_id
     from calendar
     inner join leads
-        on calendar.date_day >= cast(leads.created_at as date)
+        on calendar.date_day >= cast(leads.created_timestamp as date)
 
 ), surrogate_key as (
 
