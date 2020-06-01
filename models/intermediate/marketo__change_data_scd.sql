@@ -9,15 +9,6 @@
 {%- set lead_columns = adapter.get_columns_in_relation(ref('marketo__lead_adapter')) -%}
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_pivot')) -%}
 {%- set change_data_columns_xf = change_data_columns|map(attribute='name')|list %}
-
-{% set coalesce_value = {
- 'STRING': "'DUMMY_STRING'",
- 'BOOLEAN': 'null',
- 'INT64': 999999999,
- 'FLOAT64': 999999999.99,
- 'TIMESTAMP': 'cast("2099-12-31" as timestamp)',
-
-} %}
     
 with change_data as (
 
@@ -63,7 +54,7 @@ with change_data as (
     select 
         coalesce(unioned.date_day, current_date) as valid_to, 
         unioned.lead_id,
-        {% for col in lead_columns if col.name not in  ['lead_id','_fivetran_synced'] and col.name in var('lead_history_columns') %} 
+        {% for col in lead_columns if col.name|lower not in  ['lead_id','_fivetran_synced'] and col.name|lower in var('lead_history_columns') %} 
         {% if col.name not in change_data_columns_xf %}
 
         {# If the column does not exist in the change data, grab the value from the current state of the record. #}
@@ -79,12 +70,12 @@ with change_data as (
             {# otherwise, grab the most recent value from a day where a change did occur #} 
             else nullif(
 
-                first_value(case when coalesce(details.{{ col.name }}, True) then coalesce(unioned.{{ col.name}}, {{ coalesce_value[col.data_type] }}) end ignore nulls) over (
+                first_value(case when coalesce(details.{{ col.name }}, True) then coalesce(unioned.{{ col.name}}, {{ dummy_coalesce_value(col) }}) end ignore nulls) over (
                     partition by unioned.lead_id 
                     order by coalesce(unioned.date_day, current_date) asc 
                     rows between 1 following and unbounded following), 
                     
-                    {{ coalesce_value[col.data_type] }})
+                    {{ dummy_coalesce_value(col) }})
         end as {{ col.name }}
         {% endif %}
         {% if not loop.last %},{% endif %}
