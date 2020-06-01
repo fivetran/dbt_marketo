@@ -18,15 +18,19 @@
 {% elif column.is_string() %}
 {{ return(coalesce_value['STRING']) }}
 
-{% elif column.datatype|lower == 'boolean' %}
+{% elif column.data_type|lower == 'boolean' %}
 {{ return(coalesce_value['BOOLEAN']) }}
 
-{% elif 'timestamp' in column.datatype|lower %}
+{% elif 'timestamp' in column.data_type|lower %}
 {{ return(coalesce_value['TIMESTAMP']) }}
 
-{% elif 'date' in column.datatype|lower %}
+{% elif 'date' in column.data_type|lower %}
 {{ return(coalesce_value['DATE']) }}
 
+{% elif 'int' in column.data_type|lower %}
+{{ return(coalesce_value['INT']) }}
+
 {% endif %}
+
 
 {% endmacro %}
