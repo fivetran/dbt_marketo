@@ -68,7 +68,7 @@ with change_data as (
         {% if not loop.last %} , {% endif %}
         {% endfor %}
     
-    from joined
+    from filtered
     where cast(activity_timestamp as date) < current_date
     group by 1,2
 
