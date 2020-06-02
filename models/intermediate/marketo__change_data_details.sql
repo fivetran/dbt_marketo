@@ -7,7 +7,7 @@
 }}
 
 {% if execute -%}
-    {% set results = run_query('select rest_name from ' ~ var('lead_describe')) %}
+    {% set results = run_query('select rest_name_xf from ' ~ var('lead_describe')) %}
     {% set results_list = results.columns[0].values() %}
 {% endif -%}
 
@@ -30,7 +30,7 @@ with change_data as (
 
     select 
         change_data.*,
-        lead_describe.rest_name as primary_attribute_column
+        lead_describe.rest_name_xf as primary_attribute_column
     from change_data
     left join lead_describe
         on change_data.primary_attribute_value_id = lead_describe.lead_describe_id

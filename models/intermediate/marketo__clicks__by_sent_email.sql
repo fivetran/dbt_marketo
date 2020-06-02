@@ -1,5 +1,3 @@
-{{ config(materialized='ephemeral') }}
-
 with activity as (
 
     select *
