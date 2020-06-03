@@ -1,5 +1,5 @@
 name: 'marketo'
-version: '1.0.0'
+version: '0.0.1'
 
 require-dbt-version: '>=0.17.0'
 config-version: 2
