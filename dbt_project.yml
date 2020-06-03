@@ -4,21 +4,19 @@ version: '1.0.0'
 require-dbt-version: '>=0.17.0'
 config-version: 2
 
-source-paths: ["models"]
-analysis-paths: ["analysis"]
-test-paths: ["tests"]
-data-paths: ["data"]
-macro-paths: ["macros"]
-snapshot-paths: ["snapshots"]
-
-target-path: "target"  
-clean-targets:         
-    - "target"
-    - "dbt_modules"
+on-run-start: "{{ lead_history_columns_warning() }}"
 
 vars:
     marketo:
-        lead_history_columns: []
+        lead_history_columns: [
+            'lead_status',
+            'urgency',
+            'priority',
+            'relative_score',
+            'relative_urgency', 
+            'demographic_score_marketing',
+            'behavior_score_marketing'
+        ]
 
         activity_email_bounced: "{{ ref('stg_marketo__activity_email_bounced') }}"
         activity_click_email: "{{ ref('stg_marketo__activity_click_email') }}"

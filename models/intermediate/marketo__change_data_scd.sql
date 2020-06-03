@@ -53,8 +53,9 @@ with change_data as (
 
     select 
         coalesce(unioned.date_day, current_date) as valid_to, 
-        unioned.lead_id,
-        {% for col in lead_columns if col.name|lower not in  ['lead_id','_fivetran_synced'] and col.name|lower in var('lead_history_columns') %} 
+        unioned.lead_id
+        {% for col in lead_columns if col.name|lower not in ['lead_id','_fivetran_synced'] and col.name|lower in var('lead_history_columns') %} 
+        ,
         {% if col.name not in change_data_columns_xf %}
 
         {# If the column does not exist in the change data, grab the value from the current state of the record. #}
@@ -78,7 +79,6 @@ with change_data as (
                     {{ dummy_coalesce_value(col) }})
         end as {{ col.name }}
         {% endif %}
-        {% if not loop.last %},{% endif %}
         {% endfor %}
 
     from unioned

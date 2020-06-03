@@ -60,12 +60,11 @@ with change_data as (
 
     select 
         lead_id,
-        cast({{ dbt_utils.dateadd('day', -1, 'activity_timestamp') }} as date) as date_day,
+        cast({{ dbt_utils.dateadd('day', -1, 'activity_timestamp') }} as date) as date_day
 
         {% for col in results_list if col|lower|replace("__c","_c") in var('lead_history_columns') %}
         {% set col_xf = col|lower|replace("__c","_c") %}
-        min(case when lower(primary_attribute_column) = '{{ col|lower }}' then old_value end) as {{ col_xf }}
-        {% if not loop.last %} , {% endif %}
+        , min(case when lower(primary_attribute_column) = '{{ col|lower }}' then old_value end) as {{ col_xf }}
         {% endfor %}
     
     from filtered
