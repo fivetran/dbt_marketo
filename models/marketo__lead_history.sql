@@ -30,9 +30,9 @@ with change_data as (
     select 
         calendar.date_day,
         calendar.lead_id,
-        change_data.lead_id is not null as new_values_present,
+        change_data.lead_id is not null as new_values_present
         {% for col in change_data_columns if col.name|lower not in ['lead_id','valid_to','lead_day_id'] %} 
-        {{ col.name }} {% if not loop.last %},{% endif %}
+        , {{ col.name }}
         {% endfor %}
     from calendar
     left join change_data
@@ -43,18 +43,17 @@ with change_data as (
 
     select
         date_day,
-        lead_id,        
+        lead_id    
         -- For each lead on each day, find the state of each column from the next record where a change occurred,
         -- identified by the presence of a record from the SCD table on that day
         {% for col in change_data_columns if col.name|lower not in ['lead_id','valid_to','lead_day_id'] %} 
-        nullif(
+        , nullif(
             first_value(case when new_values_present then coalesce({{ col.name }}, {{ dummy_coalesce_value(col) }}) end ignore nulls) over (
                 partition by lead_id 
                 order by date_day asc 
                 rows between current row and unbounded following),  
             {{ dummy_coalesce_value(col) }})
         as {{ col.name }}
-        {% if not loop.last %},{% endif %}
         {% endfor %}
     from joined
 
