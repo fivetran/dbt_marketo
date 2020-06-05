@@ -3,4 +3,4 @@ packages:
     version: 0.3.0
 
   - package: fivetran/marketo_source
-    version: 0.0.1
+    version: 0.1.0
