@@ -19,7 +19,7 @@ This package contains transformation models, designed to work simultaneously wit
 
 
 ## Installation Instructions
-Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
+Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 
 ## Configuration
 By default this package will look for your Marketo data in the `marketo` schema of your [target database](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile). If this is not where your Marketo data is , please add the following configuration to your `dbt_project.yml` file:
@@ -38,7 +38,7 @@ vars:
 
 For additional configurations for the source models, please visit the [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
 
-The `marketo__lead_history` model requires you to specify the columns you would like to track over time. We do this because running the model for all columns is incredibly computationally intensive and not required for most use-cases. To set the columns, add the following configuration to your `dbt_project.yml` file:
+The `marketo__lead_history` model generates historical data for the columns specified by the `lead_history_columns` variable. By default, the columns tracked are `lead_status`, `urgency`, `priority`, `relative_score`, `relative_urgency`, `demographic_score_marketing` and `behavior_score_marketing`.  If you would like to change these columns, add the following configuration to your `dbt_project.yml` file.  After adding the columns to your `dbt_project.yml` file, run the `dbt run --full-refresh` command to fully refresh any existing models.
 
 ```yml
 # dbt_project.yml
