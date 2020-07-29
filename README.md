@@ -6,7 +6,7 @@ This package enables you to better understand your Marketo email performance and
 
 ## Models
 
-This package contains transformation models, designed to work simultaneously with our [Marketo source package](https://github.com/fivetran/dbt_marketo_source). A depenedency on the source package is declared in this package's `packages.yml` file, so it will automatically download when you run `dbt deps`. The primary outputs of this package are described below. Intermediate models are used to create these output models.
+This package contains transformation models, designed to work simultaneously with our [Marketo source package](https://github.com/fivetran/dbt_marketo_source). A dependency on the source package is declared in this package's `packages.yml` file, so it will automatically download when you run `dbt deps`. The primary outputs of this package are described below. Intermediate models are used to create these output models.
 
 | **model**                | **description**                                                                                                                                |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
