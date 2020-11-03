@@ -59,7 +59,10 @@ with change_data as (
         {% if col.name not in change_data_columns_xf %}
 
         {# If the column does not exist in the change data, grab the value from the current state of the record. #}
-        last_value(unioned.{{ col.name }}) over (partition by unioned.lead_id order by unioned.date_day asc) as {{ col.name }}
+        last_value(unioned.{{ col.name }}) over (
+            partition by unioned.lead_id 
+            order by unioned.date_day asc 
+            rows between unbounded preceding and current row) as {{ col.name }}
 
         {% else %}
 
