@@ -1,7 +1,7 @@
 with programs as (
 
     select *
-    from {{ ref('stg_marketo__program') }}
+    from {{ var('program') }}
 
 ), email_stats as (
 
