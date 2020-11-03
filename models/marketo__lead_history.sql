@@ -48,11 +48,11 @@ with change_data as (
         -- identified by the presence of a record from the SCD table on that day
         {% for col in change_data_columns if col.name|lower not in ['lead_id','valid_to','lead_day_id'] %} 
         , nullif(
-            first_value(case when new_values_present then coalesce({{ col.name }}, {{ dummy_coalesce_value(col) }}) end ignore nulls) over (
+            first_value(case when new_values_present then coalesce({{ col.name }}, {{ fivetran_utils.dummy_coalesce_value(col) }}) end ignore nulls) over (
                 partition by lead_id 
                 order by date_day asc 
                 rows between current row and unbounded following),  
-            {{ dummy_coalesce_value(col) }})
+            {{ fivetran_utils.dummy_coalesce_value(col) }})
         as {{ col.name }}
         {% endfor %}
     from joined
