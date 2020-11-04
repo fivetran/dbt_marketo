@@ -1,8 +1,7 @@
 name: 'marketo'
-version: '0.1.0'
-
-require-dbt-version: '>=0.17.0'
+version: '0.2.0'
 config-version: 2
+require-dbt-version: [">=0.18.0", "<0.19.0"]
 
 on-run-start: "{{ lead_history_columns_warning() }}"
 
@@ -30,6 +29,7 @@ vars:
         lead_describe: "{{ ref('stg_marketo__lead_describe') }}"
         campaigns: "{{ ref('stg_marketo__campaigns') }}"
         email_tempate_history: "{{ ref('stg_marketo__email_template_history') }}"
+        program: "{{ ref('stg_marketo__program') }}"
 
 models: 
     marketo:

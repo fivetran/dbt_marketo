@@ -37,7 +37,7 @@ with change_data as (
     -- we need the current state to work backwards from to backfill the slowly changing dimension model
 
     {{ 
-        union_relations(
+        fivetran_utils.union_relations(
             relations=[ref('marketo__lead_adapter'), ref('marketo__change_data_pivot')],
             aliases=['leads','change_data']
             ) 
@@ -59,7 +59,10 @@ with change_data as (
         {% if col.name not in change_data_columns_xf %}
 
         {# If the column does not exist in the change data, grab the value from the current state of the record. #}
-        last_value(unioned.{{ col.name }}) over (partition by unioned.lead_id order by unioned.date_day asc) as {{ col.name }}
+        last_value(unioned.{{ col.name }}) over (
+            partition by unioned.lead_id 
+            order by unioned.date_day asc 
+            rows between unbounded preceding and current row) as {{ col.name }}
 
         {% else %}
 
@@ -71,12 +74,12 @@ with change_data as (
             {# otherwise, grab the most recent value from a day where a change did occur #} 
             else nullif(
 
-                first_value(case when coalesce(details.{{ col.name }}, True) then coalesce(unioned.{{ col.name}}, {{ dummy_coalesce_value(col) }}) end ignore nulls) over (
+                first_value(case when coalesce(details.{{ col.name }}, True) then coalesce(unioned.{{ col.name}}, {{ fivetran_utils.dummy_coalesce_value(col) }}) end ignore nulls) over (
                     partition by unioned.lead_id 
                     order by coalesce(unioned.date_day, current_date) asc 
                     rows between 1 following and unbounded following), 
                     
-                    {{ dummy_coalesce_value(col) }})
+                    {{ fivetran_utils.dummy_coalesce_value(col) }})
         end as {{ col.name }}
         {% endif %}
         {% endfor %}

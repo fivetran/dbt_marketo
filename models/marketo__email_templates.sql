@@ -1,7 +1,7 @@
 with email_templates as (
 
     select *
-    from {{ ref('stg_marketo__email_template_history') }}
+    from {{ var('email_tempate_history') }}
     where is_most_recent_version = True
 
 ), email_stats as (

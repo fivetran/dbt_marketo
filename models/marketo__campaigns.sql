@@ -1,7 +1,7 @@
 with campaigns as (
 
     select *
-    from {{ ref('stg_marketo__campaigns') }}
+    from {{ var('campaigns') }}
 
 ), email_stats as (
 
