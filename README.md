@@ -1,8 +1,10 @@
-# Marketo 
+# Marketo ([docs](https://fivetran-dbt-marketo.netlify.app/#!/overview))
 
 This package models Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo). It uses data in the format described by [this ERD](https://docs.google.com/presentation/d/1TauFmnr89QV1KV_Un7kJ-KJWOQt1fbp59a1xJLUdDDY/edit).
 
 This package enables you to better understand your Marketo email performance and how your leads change over time. The output includes models with enriched email metrics for leads, programs, email templates, and campaigns. It also includes a lead history table that shows the state of leads on every day, for a set of columns that you define.
+
+> The Marketo dbt package is compatible with BigQuery, Redshift, and Snowflake.
 
 ## Models
 
