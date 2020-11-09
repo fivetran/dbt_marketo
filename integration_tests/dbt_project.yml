@@ -20,3 +20,13 @@ vars:
         activity_send_email: "{{ ref('marketo_activity_send_email_data') }}"
         activity_delete_lead: "{{ ref('marketo_activity_delete_lead_data') }}"
         activity_merge_leads: "{{ ref('marketo_activity_merge_leads_data') }}"
+
+seeds:
+    marketo_integration_tests:
+        marketo_email_template_history_data:
+            +column_types:
+                created_at: timestamp
+                updated_at: timestamp
+        marketo_activity_change_data_value_data:
+            +column_types:
+                activity_date: timestamp  
