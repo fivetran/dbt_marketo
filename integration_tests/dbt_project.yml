@@ -1,0 +1,22 @@
+name: 'marketo_integration_tests'
+version: '1.0.0'
+profile: 'integration_tests'
+config-version: 2
+
+vars:
+    marketo_source:
+        lead: "{{ ref('marketo_lead_data') }}"
+        lead_describe: "{{ ref('marketo_lead_describe_data') }}"
+        campaign: "{{ ref('marketo_campaign_data') }}"
+        program: "{{ ref('marketo_program_data') }}"
+        email_template_history: "{{ ref('marketo_email_template_history_data') }}"
+        activity_change_data_value: "{{ ref('marketo_activity_change_data_value_data') }}"
+        activity_click_email: "{{ ref('marketo_activity_click_email_data') }}"
+        activity_click_link: "{{ ref('marketo_activity_click_link_data') }}"
+        activity_email_delivered: "{{ ref('marketo_activity_email_delivered_data') }}"
+        activity_email_bounced: "{{ ref('marketo_activity_email_bounced_data') }}"
+        activity_open_email: "{{ ref('marketo_activity_open_email_data') }}"
+        activity_unsubscribe_email: "{{ ref('marketo_activity_unsubscribe_email_data') }}"
+        activity_send_email: "{{ ref('marketo_activity_send_email_data') }}"
+        activity_delete_lead: "{{ ref('marketo_activity_delete_lead_data') }}"
+        activity_merge_leads: "{{ ref('marketo_activity_merge_leads_data') }}"
