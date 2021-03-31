@@ -1,6 +1,7 @@
 packages:
-  - package: fivetran/marketo_source
-    version: [">=0.2.0", "<0.3.0"]
+  # - package: fivetran/marketo_source
+  #   version: [">=0.3.0", "<0.4.0"]
 
-  - git: "https://github.com/fivetran/dbt_fivetran_utils.git"
+  - git: "https://github.com/fivetran/dbt_marketo_source.git"
     warn-unpinned: false
+    revision: package_updates
