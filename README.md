@@ -1,6 +1,6 @@
-# Marketo 
+# Marketo ([docs](https://fivetran-dbt-marketo.netlify.app/#!/overview))
 
-This package models Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo). It uses data in the format described by [this ERD](https://docs.google.com/presentation/d/1TauFmnr89QV1KV_Un7kJ-KJWOQt1fbp59a1xJLUdDDY/edit).
+This package models Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo). It uses data in the format described by [this ERD](https://fivetran.com/docs/applications/marketo#schema).
 
 This package enables you to better understand your Marketo email performance and how your leads change over time. The output includes models with enriched email metrics for leads, programs, email templates, and campaigns. It also includes a lead history table that shows the state of leads on every day, for a set of columns that you define.
 
@@ -10,12 +10,12 @@ This package contains transformation models, designed to work simultaneously wit
 
 | **model**                | **description**                                                                                                                                |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| marketo__campaigns       | Each record represents a Marketo campaign, enriched with metrics about email performance.                                                      |
-| marketo__email_sends     | Each record represents the send of a Marketo email, enriched with metrics about email performance.                                                   |
-| marketo__email_templates | Each record represents a Marketo email template, enriched with metrics about email performance.                                                |
-| marketo__lead_history    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. |
-| marketo__leads           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
-| marketo__program         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
+| [marketo__campaigns](models/marketo__campaigns.sql)       | Each record represents a Marketo campaign, enriched with metrics about email performance.                                                      |
+| [marketo__email_sends](models/marketo__email_sends.sql)     | Each record represents the send of a Marketo email, enriched with metrics about email performance.                                                   |
+| [marketo__email_templates](models/marketo__email_templates.sql) | Each record represents a Marketo email template, enriched with metrics about email performance.                                                |
+| [marketo__lead_history](models/marketo__lead_history.sql)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. |
+| [marketo__leads](models/marketo__leads.sql)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
+| [marketo__program](models/marketo__program.sql)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
 
 
 ## Installation Instructions
@@ -38,6 +38,7 @@ vars:
 
 For additional configurations for the source models, please visit the [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
 
+### Tracking Different Lead History Columns
 The `marketo__lead_history` model generates historical data for the columns specified by the `lead_history_columns` variable. By default, the columns tracked are `lead_status`, `urgency`, `priority`, `relative_score`, `relative_urgency`, `demographic_score_marketing`, and `behavior_score_marketing`.  If you would like to change these columns, add the following configuration to your `dbt_project.yml` file.  After adding the columns to your `dbt_project.yml` file, run the `dbt run --full-refresh` command to fully refresh any existing models.
 
 ```yml
@@ -51,19 +52,38 @@ vars:
     lead_history_columns: ['the','list','of','column','names']
 ```
 
-## Contributions
+### Changing the Build Schema
+By default this package will build the Marketo staging models within a schema titled (<target_schema> + `_stg_marketo`) and Marketo final models within a schema titled (<target_schema> + `marketo`) in your target database. If this is not where you would like your modeled Marketo data to be written to, add the following configuration to your `dbt_project.yml` file:
 
+```yml
+# dbt_project.yml
+
+...
+models:
+    marketo:
+      +schema: my_new_schema_name # leave blank for just the target_schema
+    marketo_source:
+      +schema: my_new_schema_name # leave blank for just the target_schema
+```
+
+## Contributions
 Additional contributions to this package are very welcome! Please create issues
 or open PRs against `master`. Check out 
 [this post](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) 
 on the best workflow for contributing to a package.
 
+## Database Support
+This package has been tested on BigQuery, Snowflake and Redshift.
+
 ## Resources:
+- Provide [feedback](https://www.surveymonkey.com/r/DQ7K7WW) on our existing dbt packages or what you'd like to see next
+- Have questions, feedback, or need help? Book a time during our office hours [using Calendly](https://calendly.com/fivetran-solutions-team/fivetran-solutions-team-office-hours) or email us at solutions@fivetran.com
 - Find all of Fivetran's pre-built dbt packages in our [dbt hub](https://hub.getdbt.com/fivetran/)
-- Learn more about Fivetran [here](https://fivetran.com/docs)
+- Learn how to orchestrate [dbt transformations with Fivetran](https://fivetran.com/docs/transformations/dbt)
+- Learn more about Fivetran overall [in our docs](https://fivetran.com/docs)
 - Check out [Fivetran's blog](https://fivetran.com/blog)
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
+- Learn more about dbt [in the dbt docs](https://docs.getdbt.com/docs/introduction)
 - Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
 - Join the [chat](http://slack.getdbt.com/) on Slack for live discussions and support
 - Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+- Check out [the dbt blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
