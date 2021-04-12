@@ -15,7 +15,7 @@ This package contains transformation models, designed to work simultaneously wit
 | [marketo__email_templates](models/marketo__email_templates.sql) | Each record represents a Marketo email template, enriched with metrics about email performance.                                                |
 | [marketo__lead_history](models/marketo__lead_history.sql)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. |
 | [marketo__leads](models/marketo__leads.sql)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
-| [marketo__program](models/marketo__programs.sql)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
+| [marketo__programs](models/marketo__programs.sql)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
 
 
 ## Installation Instructions
