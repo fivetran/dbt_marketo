@@ -1,3 +1,5 @@
+{{ config(enabled=var('marketo__enable_campaigns')) }}
+
 with email_sends as (
 
     select *

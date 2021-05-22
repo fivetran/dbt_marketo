@@ -1,3 +1,5 @@
+{{ config(enabled=var('marketo__enable_campaigns')) }}
+
 with campaigns as (
 
     select *
