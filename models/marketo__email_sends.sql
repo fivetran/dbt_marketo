@@ -28,10 +28,14 @@ with sends as (
     select *
     from {{ ref('marketo__unsubscribes__by_sent_email') }}
 
+{% if var('marketo__enable_campaigns') %}
+
 ), campaigns as (
 
     select *
     from {{ var('campaigns') }}
+
+{% endif %}
 
 ), email_templates as (
 
@@ -69,11 +73,15 @@ with sends as (
 
     select 
         booleans.*,
+        {% if var('marketo__enable_campaigns') %}
         campaigns.campaign_type,
         campaigns.program_id,
+        {% endif %}
         email_templates.is_operational
     from booleans
+    {% if var('marketo__enable_campaigns') %}
     left join campaigns using (campaign_id)
+    {% endif %}
     left join email_templates
         on booleans.email_template_id = email_templates.email_template_id
         and booleans.activity_timestamp 

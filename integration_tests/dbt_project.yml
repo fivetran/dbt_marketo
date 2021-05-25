@@ -4,6 +4,10 @@ profile: 'integration_tests'
 config-version: 2
 
 vars:
+
+    marketo__enable_programs: True
+    marketo__enable_campaigns: True
+
     marketo_source:
         lead: "{{ ref('marketo_lead_data') }}"
         lead_describe: "{{ ref('marketo_lead_describe_data') }}"

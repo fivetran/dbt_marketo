@@ -6,6 +6,10 @@ require-dbt-version: [">=0.18.0", "<0.20.0"]
 on-run-start: "{{ lead_history_columns_warning() }}"
 
 vars:
+
+    marketo__enable_programs: False
+    marketo__enable_campaigns: False
+    
     marketo:
         lead_history_columns: [
             'lead_status',
