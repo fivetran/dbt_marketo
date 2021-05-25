@@ -66,6 +66,17 @@ models:
       +schema: my_new_schema_name # leave blank for just the target_schema
 ```
 
+### Enabling Models
+This package takes into consideration tables that may not be synced due to slowness caused by the Marketo API.  By default the `campaign` and `program` related-models are disabled.  If you sync these tables, enable the modeling done by adding the following to your `dbt_project.yml` file:
+```yml
+# dbt_project.yml
+
+...
+vars:
+    marketo__enable_campaigns:  True         #Enable if Fivetran is syncing the campaign table
+    marketo__enable_programs:   True         #Enable if Fivetran is syncing the program table
+```
+
 ## Contributions
 Additional contributions to this package are very welcome! Please create issues
 or open PRs against `master`. Check out 
