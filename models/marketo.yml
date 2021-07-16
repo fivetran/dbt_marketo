@@ -37,9 +37,6 @@ models:
       - name: workspace_name
         description: Name of the parent workspace, if applicable.
 
-      - name: count_sends
-        description: '{{ doc("count_sends") }}'
-
       - name: count_opens
         description: '{{ doc("count_opens") }}'
 
@@ -102,9 +99,6 @@ models:
             
       - name: step_id
         description: The Id of the current step in the flow.
-
-      - name: count_sends
-        description: '{{ doc("count_sends") }}'
 
       - name: count_opens
         description: '{{ doc("count_opens") }}'
@@ -238,9 +232,6 @@ models:
       - name: workspace_name
         description: Name of the workspace.
 
-      - name: count_sends
-        description: '{{ doc("count_sends") }}'
-
       - name: count_opens
         description: '{{ doc("count_opens") }}'
 
@@ -343,9 +334,6 @@ models:
             
       - name: workspace
         description: Name of the workspace.
-
-      - name: count_sends
-        description: '{{ doc("count_sends") }}'
 
       - name: count_opens
         description: '{{ doc("count_opens") }}'
