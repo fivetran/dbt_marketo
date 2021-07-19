@@ -1,7 +1,7 @@
 name: 'marketo'
-version: '0.3.0'
+version: '0.5.0'
 config-version: 2
-require-dbt-version: [">=0.18.0", "<0.20.0"]
+require-dbt-version: ">=0.20.0"
 
 on-run-start: "{{ lead_history_columns_warning() }}"
 
