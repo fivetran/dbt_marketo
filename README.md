@@ -20,8 +20,6 @@ This package contains transformation models, designed to work simultaneously wit
 
 
 ## Installation Instructions
-`dbt_marketo` currently supports `dbt 0.20.x`.
-
 Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 
 Include in your `packages.yml`
