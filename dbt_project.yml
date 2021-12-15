@@ -1,43 +1,35 @@
 name: 'marketo'
-version: '0.5.0'
+version: '0.6.0'
 config-version: 2
-require-dbt-version: ">=0.20.0"
+require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 on-run-start: "{{ lead_history_columns_warning() }}"
 
 vars:
 
-    marketo__enable_programs: False
-    marketo__enable_campaigns: False
-    
-    marketo:
-        lead_history_columns: [
-            'lead_status',
-            'urgency',
-            'priority',
-            'relative_score',
-            'relative_urgency', 
-            'demographic_score_marketing',
-            'behavior_score_marketing'
-        ]
+  marketo__enable_programs: false
+  marketo__enable_campaigns: false
 
-        activity_email_bounced: "{{ ref('stg_marketo__activity_email_bounced') }}"
-        activity_click_email: "{{ ref('stg_marketo__activity_click_email') }}"
-        activity_email_delivered: "{{ ref('stg_marketo__activity_email_delivered') }}"
-        activity_open_email: "{{ ref('stg_marketo__activity_open_email') }}"
-        activity_unsubscribe_email: "{{ ref('stg_marketo__activity_unsubscribe_email') }}"
-        activity_send_email: "{{ ref('stg_marketo__activity_send_email') }}"
+  marketo:
+    lead_history_columns: ['lead_status', 'urgency', 'priority', 'relative_score', 'relative_urgency', 'demographic_score_marketing', 'behavior_score_marketing']
 
-        change_data_value: "{{ ref('stg_marketo__activity_change_data_value') }}"
-        lead: "{{ ref('stg_marketo__lead') }}"
-        lead_describe: "{{ ref('stg_marketo__lead_describe') }}"
-        campaigns: "{{ ref('stg_marketo__campaigns') }}"
-        email_tempate_history: "{{ ref('stg_marketo__email_template_history') }}"
-        program: "{{ ref('stg_marketo__program') }}"
+    activity_email_bounced: "{{ ref('stg_marketo__activity_email_bounced') }}"
+    activity_click_email: "{{ ref('stg_marketo__activity_click_email') }}"
+    activity_email_delivered: "{{ ref('stg_marketo__activity_email_delivered') }}"
+    activity_open_email: "{{ ref('stg_marketo__activity_open_email') }}"
+    activity_unsubscribe_email: "{{ ref('stg_marketo__activity_unsubscribe_email') }}"
+    activity_send_email: "{{ ref('stg_marketo__activity_send_email') }}"
 
-models: 
-    marketo:
-        +materialized: table
-        +schema: marketo
-        intermediate:
-            +materialized: ephemeral
+    change_data_value: "{{ ref('stg_marketo__activity_change_data_value') }}"
+    lead: "{{ ref('stg_marketo__lead') }}"
+    lead_describe: "{{ ref('stg_marketo__lead_describe') }}"
+    campaigns: "{{ ref('stg_marketo__campaigns') }}"
+    email_tempate_history: "{{ ref('stg_marketo__email_template_history') }}"
+    program: "{{ ref('stg_marketo__program') }}"
+
+models:
+  marketo:
+    +materialized: table
+    +schema: marketo
+    intermediate:
+      +materialized: ephemeral
