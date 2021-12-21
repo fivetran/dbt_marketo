@@ -8,7 +8,7 @@
   - Please note, if you are installing a version of `dbt_utils` in your `packages.yml` that is not in the range above then you will encounter a package dependency error.
 
 ## Under the Hood 
-- Redshift recently included pivot as a reserved word within the warehouse. As such, the pivot CTE within the `marketo__change_data_pivot` model has been changed to `pivots` to avoid the Redshift error.
+- Redshift recently included pivot as a reserved word within the warehouse. As such, the `pivot` CTE within the `marketo__change_data_pivot` and `marketo__change_data_details` models have been changed to `pivots` to avoid the Redshift error.
 
 # dbt_marketo_source v0.1.0 -> v0.5.0
 Refer to the relevant release notes on the Github repository for specific details for the previous releases. Thank you!
