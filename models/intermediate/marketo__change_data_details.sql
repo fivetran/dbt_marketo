@@ -35,7 +35,7 @@ with change_data as (
     left join lead_describe
         on change_data.primary_attribute_value_id = lead_describe.lead_describe_id
 
-), pivot as (
+), pivots as (
 
     -- For each column that is in both the lead_history_columns variable and the restname of the lead_describe table,
     -- find whether a change occurred for a given column on a given day for a given lead. 
@@ -59,7 +59,7 @@ with change_data as (
     select 
         *,
         {{ dbt_utils.surrogate_key(['lead_id','date_day'])}} as lead_day_id
-    from pivot
+    from pivots
 
 )
 

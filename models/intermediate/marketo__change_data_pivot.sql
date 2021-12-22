@@ -53,7 +53,7 @@ with change_data as (
     from event_order
     where row_num = 1
 
-), pivot as (
+), pivots as (
 
     -- For each column that is in both the lead_history_columns variable and the restname of the lead_describe table,
     -- pivot out the value into it's own column. This will feed the daily slowly changing dimension model.
@@ -76,7 +76,7 @@ with change_data as (
     select 
         *,
         {{ dbt_utils.surrogate_key(['lead_id','date_day'])}} as lead_day_id
-    from pivot
+    from pivots
 
 )
 
