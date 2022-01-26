@@ -1,3 +1,10 @@
+# dbt_marketo_source v0.7.0
+
+## Bug Fixes
+- Previously, `merged_into_lead_id` and `lead_id` were erroneously switched in `stg_marketo__lead`. This release switches them back, appropriately casting `merged_into_lead_id` as a string (it can have multiple comma-separated values) and `lead_id` as an integer (https://github.com/fivetran/dbt_marketo/issues/17). 
+
+This is a **BREAKING CHANGE** as you will need to run a full refresh due to the columns' differing data types. 
+
 # dbt_marketo v0.6.0
 🎉 dbt v1.0.0 Compatibility 🎉
 ## 🚨 Breaking Changes 🚨
