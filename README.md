@@ -11,12 +11,12 @@ This package contains transformation models, designed to work simultaneously wit
 
 | **model**                | **description**                                                                                                                                |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| [marketo__campaigns](models/marketo__campaigns.sql)       | Each record represents a Marketo campaign, enriched with metrics about email performance.                                                      |
-| [marketo__email_sends](models/marketo__email_sends.sql)     | Each record represents the send of a Marketo email, enriched with metrics about email performance.                                                   |
-| [marketo__email_templates](models/marketo__email_templates.sql) | Each record represents a Marketo email template, enriched with metrics about email performance.                                                |
-| [marketo__lead_history](models/marketo__lead_history.sql)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. |
-| [marketo__leads](models/marketo__leads.sql)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
-| [marketo__programs](models/marketo__programs.sql)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
+| [marketo__campaigns](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__campaigns.sql)       | Each record represents a Marketo campaign, enriched with metrics about email performance.                                                      |
+| [marketo__email_sends](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__email_sends.sql)     | Each record represents the send of a Marketo email, enriched with metrics about email performance.                                                   |
+| [marketo__email_templates](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__email_templates.sql) | Each record represents a Marketo email template, enriched with metrics about email performance.                                                |
+| [marketo__lead_history](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__lead_history.sql)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. |
+| [marketo__leads](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__leads.sql)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
+| [marketo__programs](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__programs.sql)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
 
 
 ## Installation Instructions
