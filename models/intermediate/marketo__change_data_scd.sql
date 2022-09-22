@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        partition_by = {'field': 'valid_to', 'data_type': 'date'},
+        partition_by = {{ ['date_day'] if target.type = 'databricks' else {'field': 'date_day', 'data_type': 'date'} }},
         unique_key='lead_day_id'
         ) 
 }}
