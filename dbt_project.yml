@@ -26,6 +26,8 @@ vars:
     campaigns: "{{ ref('stg_marketo__campaigns') }}"
     email_tempate_history: "{{ ref('stg_marketo__email_template_history') }}"
     program: "{{ ref('stg_marketo__program') }}"
+  
+  dbt_utils_dispatch_list: ['spark_utils']
 
 models:
   marketo:
