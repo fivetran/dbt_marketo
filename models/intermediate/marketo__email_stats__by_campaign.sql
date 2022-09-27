@@ -1,4 +1,4 @@
-{{ config(enabled=var('marketo__enable_campaigns')) }}
+{{ config(enabled=var('marketo__enable_campaigns', False)) }}
 
 with email_sends as (
 

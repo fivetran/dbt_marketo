@@ -7,9 +7,6 @@ on-run-start: "{{ lead_history_columns_warning() }}"
 
 vars:
 
-  marketo__enable_programs: false
-  marketo__enable_campaigns: false
-
   marketo:
     lead_history_columns: ['lead_status', 'urgency', 'priority', 'relative_score', 'relative_urgency', 'demographic_score_marketing', 'behavior_score_marketing']
 
