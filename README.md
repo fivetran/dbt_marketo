@@ -84,7 +84,7 @@ vars:
     marketo__enable_programs:    true      # Enable if Fivetran is syncing the program table
 ```
 
-Alternatively, you may need to disable certain models. the below models can be disabled by adding them to your `dbt_project.yml` file:
+Alternatively, you may need to disable certain models. The below models can be disabled by adding them to your `dbt_project.yml` file:
 ```yml
 vars:
     marketo__activity_delete_lead_enabled:  false     # Disable if you do not have the activity_delete_lead table 
