@@ -17,7 +17,7 @@ vars:
     activity_unsubscribe_email: "{{ ref('stg_marketo__activity_unsubscribe_email') }}"
     activity_send_email: "{{ ref('stg_marketo__activity_send_email') }}"
     activity_delete_lead: "{{ ref('stg_marketo__activity_delete_lead') }}"
-    activity_merge_lead: "{{ ref('stg_marketo__activity_merge_lead') }}"
+    activity_merge_leads: "{{ ref('stg_marketo__activity_merge_leads') }}"
 
     change_data_value: "{{ ref('stg_marketo__activity_change_data_value') }}"
     lead: "{{ ref('stg_marketo__lead') }}"

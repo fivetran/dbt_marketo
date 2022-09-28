@@ -1,18 +1,10 @@
 with leads as(
     select * 
-    from {{ ref('int_marketo__lead') }} --check the name
+    from {{ var('lead') }} --check the name
 
 ), activity_merge_leads as (
     select * 
-    from {{ var('activity_merge_lead') }} --check the name
-
---If you use activity_delete_lead tags this will be included, if not it will be ignored.
-{% if var('marketo__activity_delete_lead_enabled', True) %}
-), deleted_leads as (
-
-    select *
-    from {{ var('activity_delete_lead') }}
-{% endif %}
+    from {{ var('activity_merge_leads') }}
 
 ), unique_merges as (
 
@@ -22,6 +14,15 @@ with leads as(
 
     from activity_merge_leads
     group by lead_id 
+
+--If you use activity_delete_lead tags this will be included, if not it will be ignored.
+{% if var('marketo__activity_delete_lead_enabled', True) %}
+), deleted_leads as (
+
+    select *
+    from {{ var('activity_delete_lead') }}
+    
+{% endif %}
 
 ), joined as (
 
