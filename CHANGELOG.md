@@ -1,3 +1,10 @@
+# dbt_marketo v0.7.1
+PR [##](link) incorporates the following updates:
+## Features
+- 🎉 Databricks compatibility 🎉
+- Ability to disable `activity_delete_lead` model if necessary (see [README](link) for instructions). 
+- Updated structure of config default variables for enabling `campaigns` and `program` models to avoid conflicting with a user's settings. 
+
 # dbt_marketo v0.7.0
 
 ## Bug Fixes
