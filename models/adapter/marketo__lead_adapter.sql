@@ -1,3 +1,3 @@
 {{ config(materialized='view')}}
 
-select * from {{ var('lead') }}
+select * from {{ ref('int_marketo__lead') }}

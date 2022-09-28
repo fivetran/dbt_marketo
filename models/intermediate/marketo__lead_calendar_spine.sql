@@ -19,7 +19,7 @@ with calendar as (
 ), leads as (
 
     select *
-    from {{ var('lead') }}
+    from {{ ref('int_marketo__lead') }}
     
 ), joined as (
 
