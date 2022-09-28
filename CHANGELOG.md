@@ -1,5 +1,5 @@
 # dbt_marketo v0.7.1
-PR [##](link) incorporates the following updates:
+PR [22](https://github.com/fivetran/dbt_marketo/pull/22) incorporates the following updates:
 ## Features
 - 🎉 Databricks compatibility 🎉
 - Ability to disable `activity_delete_lead` model if necessary (see [README](link) for instructions). 

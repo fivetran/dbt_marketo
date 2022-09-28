@@ -34,11 +34,6 @@ packages:
 By default, this package will look for your Marketo data in the `marketo` schema of your [target database](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile). If this is not where your Marketo data is , please add the following configuration to your `dbt_project.yml` file:
 
 ```yml
-# dbt_project.yml
-
-...
-config-version: 2
-
 vars:
   marketo_source:
     marketo_database: your_database_name
@@ -51,11 +46,6 @@ For additional configurations for the source models, please visit the [Marketo s
 The `marketo__lead_history` model generates historical data for the columns specified by the `lead_history_columns` variable. By default, the columns tracked are `lead_status`, `urgency`, `priority`, `relative_score`, `relative_urgency`, `demographic_score_marketing`, and `behavior_score_marketing`.  If you would like to change these columns, add the following configuration to your `dbt_project.yml` file.  After adding the columns to your `dbt_project.yml` file, run the `dbt run --full-refresh` command to fully refresh any existing models.
 
 ```yml
-# dbt_project.yml
-
-...
-config-version: 2
-
 vars:
   marketo:
     lead_history_columns: ['the','list','of','column','names']
@@ -65,9 +55,6 @@ vars:
 By default this package will build the Marketo staging models within a schema titled (<target_schema> + `_stg_marketo`) and Marketo final models within a schema titled (<target_schema> + `marketo`) in your target database. If this is not where you would like your modeled Marketo data to be written to, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
-# dbt_project.yml
-
-...
 models:
     marketo:
       +schema: my_new_schema_name # leave blank for just the target_schema
