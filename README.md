@@ -10,7 +10,7 @@
         <img src="https://img.shields.io/badge/Contributions-welcome-blueviolet" /></a>
 </p>
 
-# Marketo Transformation dbt Package ([docs](https://fivetran-dbt-marketo.netlify.app/#!/overview))
+# Marketo Transformation dbt Package ([docs](https://fivetran.github.io/dbt_marketo/))
 # 📣 What does this dbt package do?
 - Produces modled tables that leverage Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo) in the format described by [this ERD](https://fivetran.com/docs/applications/marketo#schema) and builds off the output of our [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
 - Enables you to better understand your Marketo email performance and how your leads change over time. The output includes models with enriched email metrics for leads, programs, email templates, and campaigns. It also includes a lead history table that shows the state of leads on every day, for a set of columns that you define.
