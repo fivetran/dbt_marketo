@@ -12,7 +12,7 @@
 
 # Marketo Transformation dbt Package ([docs](https://fivetran.github.io/dbt_marketo/))
 # 📣 What does this dbt package do?
-- Produces modled tables that leverage Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo) in the format described by [this ERD](https://fivetran.com/docs/applications/marketo#schema) and builds off the output of our [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
+- Produces modeled tables that leverage Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo) in the format described by [this ERD](https://fivetran.com/docs/applications/marketo#schema) and builds off the output of our [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
 - Enables you to better understand your Marketo email performance and how your leads change over time. The output includes models with enriched email metrics for leads, programs, email templates, and campaigns. It also includes a lead history table that shows the state of leads on every day, for a set of columns that you define.
 - Generates a comprehensive data dictionary of your source and modeled Marketo data through the [dbt docs site](https://fivetran.github.io/dbt_marketo/).
 
@@ -38,7 +38,6 @@ To use this dbt package, you must have the following:
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 
 ## Step 2: Install the package
-## Installation Instructions
 Include the following Marketo package version in your `packages.yml` file.
 
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
