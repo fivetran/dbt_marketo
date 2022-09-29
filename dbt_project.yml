@@ -1,5 +1,5 @@
 name: 'marketo'
-version: '0.7.1'
+version: '0.8.0'
 config-version: 2
 require-dbt-version: [">=1.0.0", "<2.0.0"]
 
@@ -16,6 +16,8 @@ vars:
     activity_open_email: "{{ ref('stg_marketo__activity_open_email') }}"
     activity_unsubscribe_email: "{{ ref('stg_marketo__activity_unsubscribe_email') }}"
     activity_send_email: "{{ ref('stg_marketo__activity_send_email') }}"
+    activity_delete_lead: "{{ ref('stg_marketo__activity_delete_lead') }}"
+    activity_merge_leads: "{{ ref('stg_marketo__activity_merge_leads') }}"
 
     change_data_value: "{{ ref('stg_marketo__activity_change_data_value') }}"
     lead: "{{ ref('stg_marketo__lead') }}"

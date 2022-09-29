@@ -1,7 +1,7 @@
 with leads as (
 
     select *
-    from {{ var('lead') }}
+    from {{ ref('int_marketo__lead') }}
 
 ), email_stats as (
 
@@ -23,7 +23,6 @@ with leads as (
     from leads
     left join email_stats
         using (lead_id)
-
 )
 
 select *
