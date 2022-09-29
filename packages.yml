@@ -4,4 +4,4 @@ packages:
 
 # Update before merging
   - git: https://github.com/fivetran/dbt_marketo_source.git
-    revision: feature/create-intermediates
+    revision: feature/databricks-compatibility
