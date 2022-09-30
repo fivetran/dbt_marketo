@@ -69,7 +69,13 @@ models:
         tests:
           - unique
           - not_null
-            
+      
+      - name: activity_id
+        description: The ID of the activity. 
+
+      - name: activity_rank
+        description: Assigned rank for a given email_send_id, determined by ascending order of activity_timestamp. Earliest activity_timestamp gets rank 1.
+
       - name: activity_timestamp
         description: The timestamp the email was sent.
             
@@ -219,7 +225,10 @@ models:
             
       - name: reply_email
         description: Reply-To address of the Email.
-            
+
+      - name: total_count_of_versions
+        description: Count of records for a given email_template_id.
+
       - name: updated_timestamp
         description: Timestamp the email template was last updated.
             
@@ -263,6 +272,7 @@ models:
     description: Each record is what a Marketo lead looked like on each day.
     columns:
       - name: lead_history_id
+        description: Surrogate key combining date_day and lead_id.
         tests:
           - unique
           - not_null
@@ -283,12 +293,12 @@ models:
         tests:
           - unique
           - not_null
-            
-      - name: updated_at
-        description: The timestamp each lead object was last updated at.
-            
-      - name: created_at
-        description: The timestamp each lead object was created at.
+
+      - name: created_timestamp
+        description: Timestamp for when each lead was created.
+
+      - name: updated_timestamp
+        description: Timestamp for when each lead was updated.
 
   - name: marketo__programs
     description: Each record is a Marketo program.
