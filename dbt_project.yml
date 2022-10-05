@@ -26,6 +26,7 @@ vars:
     email_tempate_history: "{{ ref('stg_marketo__email_template_history') }}"
     program: "{{ ref('stg_marketo__program') }}"
   
+
 models:
   marketo:
     +materialized: table

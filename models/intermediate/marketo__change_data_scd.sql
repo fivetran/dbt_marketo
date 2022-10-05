@@ -8,7 +8,7 @@
         ) 
 }}
 
-{%- set lead_columns = adapter.get_columns_in_relation(ref('marketo__lead_adapter')) -%}
+{%- set lead_columns = adapter.get_columns_in_relation(ref('int_marketo__lead')) -%}
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_pivot')) -%}
 {%- set change_data_columns_xf = change_data_columns|map(attribute='name')|list %}
     
@@ -23,7 +23,7 @@ with change_data as (
 ), leads as (
 
     select *
-    from {{ ref('marketo__lead_adapter') }}
+    from {{ ref('int_marketo__lead') }}
 
 ), details as (
 
@@ -40,7 +40,7 @@ with change_data as (
 
     {{ 
         fivetran_utils.union_relations(
-            relations=[ref('marketo__lead_adapter'), ref('marketo__change_data_pivot')],
+            relations=[ref('int_marketo__lead'), ref('marketo__change_data_pivot')],
             aliases=['leads','change_data']
             ) 
     }}

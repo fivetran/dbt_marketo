@@ -1,3 +1,5 @@
+{{ config(materialized='view') }}
+
 with leads as(
     select * 
     from {{ var('lead') }}
