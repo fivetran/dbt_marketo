@@ -1,6 +1,6 @@
 with leads as(
     select * 
-    from {{ var('lead') }} --check the name
+    from {{ var('lead') }}
 
 ), activity_merge_leads as (
     select * 
@@ -15,7 +15,8 @@ with leads as(
     from activity_merge_leads
     group by lead_id 
 
---If you use activity_delete_lead tags this will be included, if not it will be ignored.
+/*If you do not use the activity_delete_lead table, set var marketo__activity_delete_lead_enabled 
+to False. Default is True*/
 {% if var('marketo__activity_delete_lead_enabled', True) %}
 ), deleted_leads as (
 
@@ -29,7 +30,8 @@ with leads as(
     select 
         leads.*,
 
-        --If you use activity_delete_lead tags this will be included, if not it will be ignored.
+        /*If you do not use the activity_delete_lead table, set var marketo__activity_delete_lead_enabled 
+        to False. Default is True*/
         {% if var('marketo__activity_delete_lead_enabled', True) %}
         case when deleted_leads.lead_id is not null then True else False end as is_deleted,
         {% endif %}
@@ -38,7 +40,8 @@ with leads as(
         case when unique_merges.merged_into_lead_id is not null then True else False end as is_merged
     from leads
 
-    --If you use activity_delete_lead tags this will be included, if not it will be ignored.
+    /*If you do not use the activity_delete_lead table, set var marketo__activity_delete_lead_enabled 
+    to False. Default is True*/
     {% if var('marketo__activity_delete_lead_enabled', True) %}
     left join deleted_leads on leads.lead_id = deleted_leads.lead_id
     {% endif %}

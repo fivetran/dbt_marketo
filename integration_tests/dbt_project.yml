@@ -4,25 +4,24 @@ profile: 'integration_tests'
 config-version: 2
 
 vars:
-    # marketo__activity_delete_lead_enabled:  false     # Un-comment line to disable testing the activity_delete_lead table 
-    marketo__enable_campaigns:   true      # Un-comment line to enable testing the campaigns table
-    marketo__enable_programs:    true      # Un-comment line to enable testing the programs table
+    marketo_schema: marketo_source_integration_tests
     marketo_source:
-        lead: "{{ ref('marketo_lead_data') }}"
-        lead_describe: "{{ ref('marketo_lead_describe_data') }}"
-        campaign: "{{ ref('marketo_campaign_data') }}"
-        program: "{{ ref('marketo_program_data') }}"
-        email_template_history: "{{ ref('marketo_email_template_history_data') }}"
-        activity_change_data_value: "{{ ref('marketo_activity_change_data_value_data') }}"
-        activity_click_email: "{{ ref('marketo_activity_click_email_data') }}"
-        activity_click_link: "{{ ref('marketo_activity_click_link_data') }}"
-        activity_email_delivered: "{{ ref('marketo_activity_email_delivered_data') }}"
-        activity_email_bounced: "{{ ref('marketo_activity_email_bounced_data') }}"
-        activity_open_email: "{{ ref('marketo_activity_open_email_data') }}"
-        activity_unsubscribe_email: "{{ ref('marketo_activity_unsubscribe_email_data') }}"
-        activity_send_email: "{{ ref('marketo_activity_send_email_data') }}"
-        activity_delete_lead: "{{ ref('marketo_activity_delete_lead_data') }}"
-        activity_merge_leads: "{{ ref('marketo_activity_merge_leads_data') }}"
+        marketo__enable_campaigns:   true      # Un-comment line to enable testing the campaigns table
+        marketo__enable_programs:    true      # Un-comment line to enable testing the programs table
+        marketo_lead_identifier: "marketo_lead_data"
+        marketo_lead_describe_identifier: "marketo_lead_describe_data"
+        marketo_activity_change_data_value_identifier: "marketo_activity_change_data_value_data"
+        marketo_campaign_identifier: "marketo_campaign_data"
+        marketo_program_identifier: "marketo_program_data"
+        marketo_email_template_history_identifier: "marketo_email_template_history_data"
+        marketo_activity_click_email_identifier: "marketo_activity_click_email_data"
+        marketo_activity_email_delivered_identifier: "marketo_activity_email_delivered_data"
+        marketo_activity_email_bounced_identifier: "marketo_activity_email_bounced_data"
+        marketo_activity_open_email_identifier: "marketo_activity_open_email_data"
+        marketo_activity_unsubscribe_email_identifier: "marketo_activity_unsubscribe_email_data"
+        marketo_activity_send_email_identifier: "marketo_activity_send_email_data"
+        marketo_activity_delete_lead_identifier: "marketo_activity_delete_lead_data"
+        marketo_activity_merge_leads_identifier: "marketo_activity_merge_leads_data"
 
 dispatch:
   - macro_namespace: dbt_utils
@@ -42,4 +41,4 @@ seeds:
                 activity_date: timestamp  
         marketo_lead_data:
             +column_types:
-                created_at: timestamp  
+                created_at: timestamp

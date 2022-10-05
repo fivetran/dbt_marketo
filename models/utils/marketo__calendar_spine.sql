@@ -1,10 +1,33 @@
+-- depends_on: {{ ref('stg_marketo__lead') }}
+
 with spine as (
 
+    {% if execute %}
+    {% set first_date_query %}
+        select  min( created_timestamp ) as min_date from {{ ref('stg_marketo__lead') }}
+        -- by default take all the data 
+        where cast(created_timestamp as date) >= {{ dbt_utils.dateadd('year', - var('ticket_field_history_timeframe_years', 50), dbt_utils.current_timestamp() ) }}
+    {% endset %}
+
+    {% set first_date = run_query(first_date_query).columns[0][0]|string %}
+    
+        {% if target.type == 'postgres' %}
+            {% set first_date_adjust = "cast('" ~ first_date[0:10] ~ "' as date)" %}
+
+        {% else %}
+            {% set first_date_adjust = "'" ~ first_date[0:10] ~ "'" %}
+
+        {% endif %}
+
+    {% else %} {% set first_date_adjust = "2016-01-01" %}
+    {% endif %}
+
+    
 {{
     dbt_utils.date_spine(
-        "day",
-        "'2016-01-01'",
-        dbt_utils.dateadd("week", 1, "current_date")
+        datepart = "day", 
+        start_date = first_date_adjust,
+        end_date = dbt_utils.dateadd("week", 1, "current_date")
     )   
 }}
 
