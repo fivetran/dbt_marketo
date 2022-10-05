@@ -97,6 +97,18 @@ models:
     marketo_source:
       +schema: my_new_schema_name # leave blank for just the target_schema
 ```
+
+### Changing the Lead Date Range
+Because of the typical volume of lead data, you may want to limit this package's models to work with a recent date range of your Marketo data (however, note that all final models are materialized as incremental tables).
+
+By default, the package looks at all events since the earliest lead record, so do not include this variable unless you want to limit your data. To change this start date, add the following variable to your `dbt_project.yml` file:
+
+```yml
+models:
+    marketo:
+      marketo__first_date: "yyyy-mm-dd" 
+```
+
 </details>
 
 ## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
