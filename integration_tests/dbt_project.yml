@@ -4,10 +4,10 @@ profile: 'integration_tests'
 config-version: 2
 
 vars:
+    marketo__enable_campaigns:   true      # Un-comment line to enable testing the campaigns table
+    marketo__enable_programs:    true      # Un-comment line to enable testing the programs table
     marketo_schema: marketo_source_integration_tests_5
     marketo_source:
-        marketo__enable_campaigns:   true      # Un-comment line to enable testing the campaigns table
-        marketo__enable_programs:    true      # Un-comment line to enable testing the programs table
         marketo_lead_identifier: "marketo_lead_data"
         marketo_lead_describe_identifier: "marketo_lead_describe_data"
         marketo_activity_change_data_value_identifier: "marketo_activity_change_data_value_data"
