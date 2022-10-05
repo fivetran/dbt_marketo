@@ -15,7 +15,7 @@ with leads as(
         {{ fivetran_utils.string_agg('distinct merged_lead_id', "', '") }} as merged_into_lead_id
 
     from activity_merge_leads
-    group by lead_id 
+    group by 1 
 
 /*If you do not use the activity_delete_lead table, set var marketo__activity_delete_lead_enabled 
 to False. Default is True*/

@@ -22,13 +22,14 @@ The following table provides a detailed list of all models materialized within t
 
 | **Model**                | **Description**                                                                                                                                |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| [marketo__campaigns](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__campaigns.sql)       | Each record represents a Marketo campaign, enriched with metrics about email performance.                                                      |
-| [marketo__email_sends](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__email_sends.sql)     | Each record represents the send of a Marketo email, enriched with metrics about email performance.                                                   |
-| [marketo__email_templates](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__email_templates.sql) | Each record represents a Marketo email template, enriched with metrics about email performance.                                                |
-| [marketo__lead_history](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__lead_history.sql)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. |
-| [marketo__leads](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__leads.sql)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
-| [marketo__programs](https://github.com/fivetran/dbt_marketo/blob/main/models/marketo__programs.sql)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
+| [marketo__campaigns](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__campaigns)       | Each record represents a Marketo campaign, enriched with metrics about email performance.                                                      |
+| [marketo__email_sends](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__email_sends)     | Each record represents the send of a Marketo email, enriched with metrics about email performance.                                                   |
+| [marketo__email_templates](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__email_templates) | Each record represents a Marketo email template, enriched with metrics about email performance.                                                |
+| [marketo__lead_history](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__lead_history)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. |
+| [marketo__leads](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__leads)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
+| [marketo__programs](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__programs)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
 
+https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.stg_marketo__activity_change_data_value
 # 🎯 How do I use the dbt package?
 
 ## Step 1: Prerequisites
@@ -53,9 +54,8 @@ By default, this package runs using your destination and the `marketo` schema of
 
 ```yml
 vars:
-  marketo_source:
-    marketo_database: your_database_name
-    marketo_schema: your_schema_name 
+  marketo_database: your_database_name
+  marketo_schema: your_schema_name 
 ```
 
 For additional configurations for the source models, please visit the [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
@@ -75,8 +75,6 @@ vars:
     marketo__activity_delete_lead_enabled:  false     # Disable if you do not have the activity_delete_lead table 
 ```
 ## (Optional) Step 5: Additional configurations
-<details><summary>Expand for details</summary>
-<br>
 
 ### Tracking Different Lead History Columns
 The `marketo__lead_history` model generates historical data for the columns specified by the `lead_history_columns` variable. By default, the columns tracked are `lead_status`, `urgency`, `priority`, `relative_score`, `relative_urgency`, `demographic_score_marketing`, and `behavior_score_marketing`.  If you would like to change these columns, add the following configuration to your `dbt_project.yml` file.  After adding the columns to your `dbt_project.yml` file, run the `dbt run --full-refresh` command to fully refresh any existing models.
@@ -88,7 +86,7 @@ vars:
 ```
 
 ### Changing the Build Schema
-By default this package will build the Marketo staging models within a schema titled (<target_schema> + `_stg_marketo`) and Marketo final models within a schema titled (<target_schema> + `marketo`) in your target database. If this is not where you would like your modeled Marketo data to be written to, add the following configuration to your `dbt_project.yml` file:
+By default this package will build the Marketo staging models within a schema titled (<target_schema> + `marketo_source`) and Marketo final models within a schema titled (<target_schema> + `marketo`) in your target database. If this is not where you would like your modeled Marketo data to be written to, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 models:
@@ -108,8 +106,6 @@ models:
     marketo:
       marketo__first_date: "yyyy-mm-dd" 
 ```
-
-</details>
 
 ## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand for details</summary>
@@ -132,6 +128,9 @@ packages:
 
     - package: dbt-labs/dbt_utils
       version: [">=0.8.0", "<0.9.0"]
+
+    - package: dbt-labs/spark_utils
+      version: [">=0.3.0", "<0.4.0"]
 ```
 
 # 🙌 How is this package maintained and can I contribute?
