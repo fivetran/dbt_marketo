@@ -36,6 +36,8 @@ to False. Default is True*/
         to False. Default is True*/
         {% if var('marketo__activity_delete_lead_enabled', True) %}
         case when deleted_leads.lead_id is not null then True else False end as is_deleted,
+        {% else %}
+        null as is_deleted,
         {% endif %}
 
         unique_merges.merged_into_lead_id,
