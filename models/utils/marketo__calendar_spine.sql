@@ -1,11 +1,8 @@
--- depends_on: {{ ref('stg_marketo__lead') }}
--- above comment must be kept for dbt to run
-
 with spine as (
 
     {% if execute %}
     {% set first_date_query %}
-        select  min( created_timestamp ) as min_date from {{ ref('stg_marketo__lead') }}
+        select  min( created_at ) as min_date from {{ source('marketo','lead') }}
     {% endset %}
 
     -- can set first date with var marketo__first_date; 
