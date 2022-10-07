@@ -29,7 +29,6 @@ The following table provides a detailed list of all models materialized within t
 | [marketo__leads](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__leads)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
 | [marketo__programs](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__programs)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
 
-https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.stg_marketo__activity_change_data_value
 # 🎯 How do I use the dbt package?
 
 ## Step 1: Prerequisites
@@ -75,6 +74,8 @@ vars:
     marketo__activity_delete_lead_enabled:  false     # Disable if you do not have the activity_delete_lead table 
 ```
 ## (Optional) Step 5: Additional configurations
+<details><summary>Expand for details</summary>
+<br>
 
 ### Tracking Different Lead History Columns
 The `marketo__lead_history` model generates historical data for the columns specified by the `lead_history_columns` variable. By default, the columns tracked are `lead_status`, `urgency`, `priority`, `relative_score`, `relative_urgency`, `demographic_score_marketing`, and `behavior_score_marketing`.  If you would like to change these columns, add the following configuration to your `dbt_project.yml` file.  After adding the columns to your `dbt_project.yml` file, run the `dbt run --full-refresh` command to fully refresh any existing models.
@@ -86,7 +87,7 @@ vars:
 ```
 
 ### Changing the Build Schema
-By default this package will build the Marketo staging models within a schema titled (<target_schema> + `marketo_source`) and Marketo final models within a schema titled (<target_schema> + `marketo`) in your target database. If this is not where you would like your modeled Marketo data to be written to, add the following configuration to your `dbt_project.yml` file:
+By default this package will build the Marketo staging models within a schema titled (<target_schema> + `_marketo_source`) and Marketo final models within a schema titled (<target_schema> + `marketo`) in your target database. If this is not where you would like your modeled Marketo data to be written to, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 models:
@@ -106,6 +107,7 @@ models:
     marketo:
       marketo__first_date: "yyyy-mm-dd" 
 ```
+</details>
 
 ## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand for details</summary>
