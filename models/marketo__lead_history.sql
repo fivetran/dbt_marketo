@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type != 'spark' else ['date_day'],
+        partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['spark', 'databricks'] else ['date_day'],
         unique_key='lead_history_id',
         incremental_strategy='merge',
         file_format='delta'
