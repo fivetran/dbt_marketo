@@ -4,7 +4,7 @@ profile: 'integration_tests'
 config-version: 2
 
 vars:
-    marketo_schema: marketo_source_integration_tests
+    marketo_schema: marketo_source_integration_tests_7
     marketo_source:
         marketo_lead_identifier: "marketo_lead_data"
         marketo_lead_describe_identifier: "marketo_lead_describe_data"
