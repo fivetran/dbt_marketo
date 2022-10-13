@@ -23,6 +23,18 @@ jobs:
             mkdir -p ~/.dbt
             cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
       - run:
+          name: "Run Tests - Redshift"
+          command: |
+            . venv/bin/activate
+            echo `pwd`
+            cd integration_tests
+            dbt deps
+            dbt seed --target redshift --full-refresh
+            dbt run --target redshift --full-refresh
+            dbt test --target redshift
+            dbt run --vars '{marketo__enable_campaigns: true, marketo__enable_programs: true, marketo__activity_delete_lead_enabled: false}' --target redshift
+            dbt test --target redshift
+      - run:
           name: "Run Tests - Postgres"
           command: |
             . venv/bin/activate
@@ -73,15 +85,3 @@ jobs:
             dbt test --target bigquery
             dbt run --vars '{marketo__enable_campaigns: true, marketo__enable_programs: true, marketo__activity_delete_lead_enabled: false}' --target bigquery
             dbt test --target bigquery
-      - run:
-          name: "Run Tests - Redshift"
-          command: |
-            . venv/bin/activate
-            echo `pwd`
-            cd integration_tests
-            dbt deps
-            dbt seed --target redshift --full-refresh
-            dbt run --target redshift --full-refresh
-            dbt test --target redshift
-            dbt run --vars '{marketo__enable_campaigns: true, marketo__enable_programs: true, marketo__activity_delete_lead_enabled: false}' --target redshift
-            dbt test --target redshift
