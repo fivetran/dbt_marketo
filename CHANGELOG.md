@@ -9,7 +9,9 @@ Some of the more complex transformation logic has been moved from the Marketo so
 - 🎉 Databricks and Postgres compatibility 🎉
 - The starting date of the date range for the leads data can now be adjusted (see [README](https://github.com/fivetran/dbt_marketo/blob/main/README.md#changing-the-lead-date-range) for instructions).
 - Ability to disable `activity_delete_lead` model if necessary (see [README](https://github.com/fivetran/dbt_marketo/blob/main/README.md#step-4-enablingdisabling-models) for instructions). 
-- Updated structure of config default variables for enabling `campaigns` and `program` models to avoid conflicting with a user's settings. 
+## Under the Hood
+- Updates structure of config default variables for enabling `campaigns` and `program` models to avoid conflicting with a user's settings. 
+- Updates the incremental strategy used by Postgres and Redshift adapters to `delete+insert`.
 
 # dbt_marketo v0.7.0
 
