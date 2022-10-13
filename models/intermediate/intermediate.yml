@@ -1,6 +1,8 @@
 version: 2
 
 models:
+  - name: int_marketo__lead
+  
   - name: marketo__bounces__by_sent_email
     columns:
       - name: email_send_id

@@ -1,9 +1,11 @@
 {{
     config(
         materialized='incremental',
-        partition_by = {'field': 'date_day', 'data_type': 'date'},
-        unique_key='lead_day_id'
-    )
+        partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['spark', 'databricks'] else ['date_day'],
+        unique_key='lead_day_id',
+        incremental_strategy='merge' if target.type not in ['postgres', 'redshift'] else 'delete+insert',
+        file_format='delta'
+        ) 
 }}
 
 with calendar as (
@@ -17,7 +19,7 @@ with calendar as (
 ), leads as (
 
     select *
-    from {{ var('lead') }}
+    from {{ ref('int_marketo__lead') }}
     
 ), joined as (
 
