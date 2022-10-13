@@ -1,7 +1,7 @@
 # dbt_marketo v0.8.0
 PR [#22](https://github.com/fivetran/dbt_marketo/pull/22) incorporates the following updates:
 ## 🚨 Breaking Changes 🚨
-Some of the more complex transformation logic has been moved from the Marketo source package to the transform package. This was done so the delineation between staging and intermediate models is in line with Fivetran's other packages. This does not affect the final tables created by the transform package, but this will affect the staging tables as outlined below. 
+Some of the more complex transformation logic has been moved from the Marketo source package to the transform package. This was done so the delineation between staging and intermediate models is in line with Fivetran's other packages. This does not affect the final tables created by the transform package, but this will affect the staging tables as outlined below.
 - Model `stg_marketo__lead_base` from `dbt_marketo_source` has been rolled into [`stg_marketo__lead`](https://github.com/fivetran/dbt_marketo_source/blob/main/models/stg_marketo__lead.sql).
 - Parts from model `stg_marketo__lead` from `dbt_marketo_source` have been moved to a new model [`int_marketo__lead`](https://github.com/fivetran/dbt_marketo/blob/feature/create-intermediates/models/intermediate/int_marketo__lead.sql) in `dbt_marketo`.
 - Because of the above changes, model `marketo__lead_adapter` is now redundant and has been removed. 
