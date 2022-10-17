@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['spark', 'databricks'] else ['date_day'],
+        partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['!!!!!!! REPLACE 'spark' WITH 'spark','databricks' OR EQUIV !!!!!!!', 'databricks'] else ['date_day'],
         unique_key='lead_day_id',
         incremental_strategy='merge' if target.type not in ['postgres', 'redshift'] else 'delete+insert',
         file_format='delta'
@@ -18,7 +18,7 @@ with change_data as (
     select *
     from {{ var('change_data_value') }}
     {% if is_incremental() %}
-    where cast({{ dbt_utils.dateadd('day', -1, 'activity_timestamp') }} as date) >= (select max(date_day) from {{ this }})
+    where cast({{ dbt.dateadd('day', -1, 'activity_timestamp') }} as date) >= (select max(date_day) from {{ this }})
     {% endif %}
 
 ), lead_describe as (
@@ -62,7 +62,7 @@ with change_data as (
 
     select 
         lead_id,
-        cast({{ dbt_utils.dateadd('day', -1, 'activity_timestamp') }} as date) as date_day
+        cast({{ dbt.dateadd('day', -1, 'activity_timestamp') }} as date) as date_day
 
         {% for col in results_list if col|lower|replace("__c","_c") in var('lead_history_columns') %}
         {% set col_xf = col|lower|replace("__c","_c") %}
@@ -77,7 +77,7 @@ with change_data as (
 
     select 
         *,
-        {{ dbt_utils.surrogate_key(['lead_id','date_day'])}} as lead_day_id
+        {{ dbt_utils.generate_surrogate_key(['lead_id','date_day'])}} as lead_day_id
     from pivots
 
 )

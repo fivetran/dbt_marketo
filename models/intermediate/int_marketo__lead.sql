@@ -11,7 +11,7 @@ with leads as(
 ), unique_merges as (
 
     select 
-        cast(lead_id as {{ dbt_utils.type_int() }}) as lead_id,
+        cast(lead_id as {{ dbt.type_int() }}) as lead_id,
         {{ fivetran_utils.string_agg('distinct merged_lead_id', "', '") }} as merged_into_lead_id
 
     from activity_merge_leads
