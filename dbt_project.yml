@@ -1,15 +1,12 @@
 name: 'marketo'
-version: '0.8.0'
+version: '0.9.0'
 config-version: 2
-require-dbt-version: [">=1.0.0", "<2.0.0"]
-
+require-dbt-version: [">=1.3.0", "<2.0.0"]
 on-run-start: "{{ lead_history_columns_warning() }}"
-
 vars:
 
   marketo:
     lead_history_columns: ['lead_status', 'urgency', 'priority', 'relative_score', 'relative_urgency', 'demographic_score_marketing', 'behavior_score_marketing']
-
     activity_email_bounced: "{{ ref('stg_marketo__activity_email_bounced') }}"
     activity_click_email: "{{ ref('stg_marketo__activity_click_email') }}"
     activity_email_delivered: "{{ ref('stg_marketo__activity_email_delivered') }}"
@@ -18,15 +15,12 @@ vars:
     activity_send_email: "{{ ref('stg_marketo__activity_send_email') }}"
     activity_delete_lead: "{{ ref('stg_marketo__activity_delete_lead') }}"
     activity_merge_leads: "{{ ref('stg_marketo__activity_merge_leads') }}"
-
     change_data_value: "{{ ref('stg_marketo__activity_change_data_value') }}"
     lead: "{{ ref('stg_marketo__lead') }}"
     lead_describe: "{{ ref('stg_marketo__lead_describe') }}"
     campaigns: "{{ ref('stg_marketo__campaigns') }}"
     email_tempate_history: "{{ ref('stg_marketo__email_template_history') }}"
     program: "{{ ref('stg_marketo__program') }}"
-  
-
 models:
   marketo:
     +materialized: table
