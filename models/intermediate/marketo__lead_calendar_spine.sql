@@ -1,7 +1,7 @@
 {{
     config(
         materialized='incremental',
-        partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['spark', 'databricks'] else ['date_day'],
+        partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['spark','databricks'] else ['date_day'],
         unique_key='lead_day_id',
         incremental_strategy='merge' if target.type not in ['postgres', 'redshift'] else 'delete+insert',
         file_format='delta'
@@ -34,7 +34,7 @@ with calendar as (
 
     select
         *,
-        {{ dbt_utils.surrogate_key(['date_day','lead_id']) }} as lead_day_id
+        {{ dbt_utils.generate_surrogate_key(['date_day','lead_id']) }} as lead_day_id
     from joined
 
 )
