@@ -24,6 +24,6 @@ vars:
 models:
   marketo:
     +materialized: table
-    +schema: marketo_mf
+    +schema: marketo
     intermediate:
       +materialized: ephemeral
