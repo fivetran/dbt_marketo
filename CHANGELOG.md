@@ -4,6 +4,9 @@
 [PR #26](https://github.com/fivetran/dbt_marketo/pull/26) includes the following non-breaking change:
 - Due to a "system glitch" within Marketo, the same `lead_id` can be deleted more than once. This may introduce multiple records for the same `lead_id` in the `int_marketo__lead` which can cause the downstream test `marketo__leads.lead_id.unique` to fail.  The bug fix adds a `distinct lead_id` to the `deleted_leads` CTE in the `int_marketo__lead` model (https://github.com/fivetran/dbt_marketo/issues/25). 
 
+## Contributors
+ - [@m-feeser](https://github.com/m-feeser) ([#26](https://github.com/fivetran/dbt_marketo/pull/26))
+
 # dbt_marketo v0.9.0
 
 ## 🚨 Breaking Changes 🚨:
