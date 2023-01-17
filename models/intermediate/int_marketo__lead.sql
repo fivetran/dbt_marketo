@@ -22,7 +22,7 @@ to False. Default is True*/
 {% if var('marketo__activity_delete_lead_enabled', True) %}
 ), deleted_leads as (
 
-    select *
+    select distinct lead_id
     from {{ var('activity_delete_lead') }}
     
 {% endif %}
