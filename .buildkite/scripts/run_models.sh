@@ -23,3 +23,4 @@ dbt test --target "$db"
 dbt run --vars '{marketo__enable_campaigns: true, marketo__enable_programs: true, marketo__activity_delete_lead_enabled: false}' --target "$db" --full-refresh
 dbt test --target "$db"
 ### END VARS CHUNK, REMOVE IF NOT USING
+dbt run-operation fivetran_utils.drop_schemas_automation --target "$db"
