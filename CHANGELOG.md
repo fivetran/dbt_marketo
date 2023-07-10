@@ -8,9 +8,11 @@
   - marketo__programs
   - marketo__leads
 - See the [source package changelog](https://github.com/fivetran/dbt_marketo_source/blob/main/CHANGELOG.md) for more details. 
+ ## 🚘 Under the Hood:
+ [PR #28](https://github.com/fivetran/dbt_marketo/pull/28) includes the following updates:
+- Update documentation and testing seed data
 
 [PR #27](https://github.com/fivetran/dbt_marketo/pull/27) includes the following updates:
- ## 🚘 Under the Hood:
 - Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
 - Updated the pull request [templates](/.github).
 
