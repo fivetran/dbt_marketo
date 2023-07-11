@@ -97,7 +97,6 @@ vars:
       - name: "a_second_field"
         transform_sql:  "cast(a_second_field as string)"
     # a similar pattern can be applied to the rest of the following variables.
-    marketo__lead_passthrough_columns:
     marketo__program_passthrough_columns:
 ```
 
