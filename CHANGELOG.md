@@ -1,7 +1,7 @@
 # dbt_marketo v0.10.0
-[PR #28](https://github.com/fivetran/dbt_marketo/pull/28) includes the following updates:
+
 ## 🚨 Breaking Changes 🚨:
-- We recommend using `dbt run --full-refresh` the next time you run your project since columns have changed.
+[PR #28](https://github.com/fivetran/dbt_marketo/pull/28) includes the following updates:
 - The source package was updated in connection with the Fivetran Marketo connector's [June 2023](https://fivetran.com/docs/applications/marketo/changelog#june2023) and [May 2023](https://fivetran.com/docs/applications/marketo/changelog#may2023) releases. This affects the columns created for the following tables:
   - marketo__campaigns
   - marketo__email_sends
