@@ -1,9 +1,22 @@
-# dbt_marketo v0.UPDATE.UPDATE
+# dbt_marketo v0.10.0
 
- ## Under the Hood:
+## 🚨 Breaking Changes 🚨  (recommend --full-refresh):
+[PR #28](https://github.com/fivetran/dbt_marketo/pull/28) includes the following updates:
+- The source package was updated in connection with the Fivetran Marketo connector's [June 2023](https://fivetran.com/docs/applications/marketo/changelog#june2023) and [May 2023](https://fivetran.com/docs/applications/marketo/changelog#may2023) releases. This affects the columns created for the following tables:
+  - marketo__campaigns
+  - marketo__email_sends
+  - marketo__programs
+  - marketo__leads
+- See the [source package changelog](https://github.com/fivetran/dbt_marketo_source/blob/main/CHANGELOG.md) for more details. 
+- We recommend using `dbt run --full-refresh` the next time you run your project due to changes affecting incremental models.
+ ## 🚘 Under the Hood:
+ [PR #28](https://github.com/fivetran/dbt_marketo/pull/28) includes the following updates:
+- Update documentation and testing seed data
 
+[PR #27](https://github.com/fivetran/dbt_marketo/pull/27) includes the following updates:
 - Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
 - Updated the pull request [templates](/.github).
+
 # dbt_marketo v0.9.1
 
 ## Bug Fix

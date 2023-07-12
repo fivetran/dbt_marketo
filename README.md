@@ -53,7 +53,7 @@ Include the following Marketo package version in your `packages.yml` file.
 ```yml
 packages:
   - package: fivetran/marketo
-    version: [">=0.9.0", "<0.10.0"]
+    version: [">=0.10.0", "<0.11.0"]
 ```
 Do **NOT** include the `marketo_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well. 
 
@@ -85,6 +85,20 @@ vars:
 ## (Optional) Step 5: Additional configurations
 <details><summary>Expand for details</summary>
 <br>
+
+### Passing Through Additional Columns
+This package includes all source columns defined in the source package's [macros folder](https://github.com/fivetran/dbt_marketo_source/tree/main/macros). If you would like to pass through additional columns to the staging models, add the following configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-though fields will be casted accordingly. Use the below format for declaring the respective pass-through variables in your root `dbt_project.yml`.
+```yml
+vars:
+    marketo__activity_send_email_passthrough_columns: 
+      - name: "new_custom_field"
+        alias: "custom_field_name"
+        transform_sql:  "cast(custom_field_name as int64)"
+      - name: "a_second_field"
+        transform_sql:  "cast(a_second_field as string)"
+    # a similar pattern can be applied to the rest of the following variables.
+    marketo__program_passthrough_columns:
+```
 
 ### Tracking Different Lead History Columns
 The `marketo__lead_history` model generates historical data for the columns specified by the `lead_history_columns` variable. By default, the columns tracked are `lead_status`, `urgency`, `priority`, `relative_score`, `relative_urgency`, `demographic_score_marketing`, and `behavior_score_marketing`.  If you would like to change these columns, add the following configuration to your `dbt_project.yml` file.  After adding the columns to your `dbt_project.yml` file, run the `dbt run --full-refresh` command to fully refresh any existing models.
@@ -132,7 +146,7 @@ This dbt package is dependent on the following dbt packages. Please be aware tha
 ```yml
 packages:
     - package: fivetran/marketo_source
-      version: [">=0.9.0", "<0.10.0"]
+      version: [">=0.10.0", "<0.11.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]

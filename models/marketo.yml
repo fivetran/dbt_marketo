@@ -299,6 +299,15 @@ models:
 
       - name: updated_timestamp
         description: Timestamp for when each lead was updated.
+      
+      - name: email
+        description: The email address of the lead.
+
+      - name: first_name
+        description: The first name of the lead.
+        
+      - name: last_name
+        description: The last name of the lead.
 
   - name: marketo__programs
     description: Each record is a Marketo program.
