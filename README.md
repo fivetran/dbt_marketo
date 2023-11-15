@@ -19,6 +19,7 @@
 - Enables you to better understand your Marketo email performance and how your leads change over time. The output includes models with enriched email metrics for leads, programs, email templates, and campaigns. It also includes a lead history table that shows the state of leads on every day, for a set of columns that you define.
 - Generates a comprehensive data dictionary of your source and modeled Marketo data through the [dbt docs site](https://fivetran.github.io/dbt_marketo/).
 
+<!--section="marketo_transformation_model-->
 The following table provides a detailed list of all models materialized within this package by default.
 
 > TIP: See more details about these models in the package's [dbt docs site](https://fivetran.github.io/dbt_marketo/).
@@ -31,6 +32,8 @@ The following table provides a detailed list of all models materialized within t
 | [marketo__lead_history](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__lead_history)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. |
 | [marketo__leads](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__leads)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
 | [marketo__programs](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__programs)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
+
+<!--section-end-->
 
 # 🎯 How do I use the dbt package?
 
