@@ -1,4 +1,7 @@
 packages:
 # - package: fivetran/marketo_source
 #   version: [">=0.11.0", "<0.12.0"]
-- local: ../../Marketing/Marketo/dbt_marketo_source
+# - local: ../../Marketing/Marketo/dbt_marketo_source
+- git: https://github.com/fivetran/dbt_marketo_source.git
+  revision: update/customer360
+  warn-unpinned: false
