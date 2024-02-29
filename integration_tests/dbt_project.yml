@@ -4,6 +4,7 @@ profile: 'integration_tests'
 config-version: 2
 
 vars:
+    lead_history_columns: ['first_name']
     marketo_schema: marketo_integration_tests_6
     marketo_source:
         marketo_lead_identifier: "marketo_lead_data"
