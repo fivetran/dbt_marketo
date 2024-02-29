@@ -4,7 +4,7 @@ config-version: 2
 require-dbt-version: [">=1.3.0", "<2.0.0"]
 on-run-start: "{{ lead_history_columns_warning() }}"
 vars:
-
+  lead_history_columns: ['first_name']
   marketo:
     lead_history_columns: ['lead_status', 'urgency', 'priority', 'relative_score', 'relative_urgency', 'demographic_score_marketing', 'behavior_score_marketing']
     activity_email_bounced: "{{ ref('stg_marketo__activity_email_bounced') }}"
