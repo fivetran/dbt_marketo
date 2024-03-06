@@ -1,8 +1,8 @@
 # dbt_marketo v0.11.0
 [PR #32](https://github.com/fivetran/dbt_marketo/pull/32) and Marketo Source [PR #35](https://github.com/fivetran/dbt_marketo_source/pull/35) include the following updates:
 
-## Feature Updates (includes potentially 🚨 breaking changes 🚨)
-- Ensures that `stg_marketo__lead` (and therefore `marketo__leads`) has and documents the below columns, all [standard](https://developers.marketo.com/rest-api/lead-database/fields/list-of-standard-fields/) fields from Marketo. Previously, peristed all fields found in your `LEAD` source table but only _ensured_ that the `id`, `created_at`, `updated_at`, `email`, `first_name`, `last_name`, and `_fivetran_synced` fields were included. If your `LEAD` table contains the following fields, nothing will change for you. If any of the following default columns are missing from your `LEAD` table, `stg_marketo__lead` will create a NULL version with the proper data type:
+## Feature Updates (includes 🚨 breaking changes 🚨)
+- Ensures that `stg_marketo__lead` (and therefore `marketo__leads`) has and documents the below columns, all [standard](https://developers.marketo.com/rest-api/lead-database/fields/list-of-standard-fields/) fields from Marketo. Previously, peristed all fields found in your `LEAD` source table but only _ensured_ that the `id`, `created_at`, `updated_at`, `email`, `first_name`, `last_name`, and `_fivetran_synced` fields were included. If any of the following default columns are missing from your `LEAD` table, `stg_marketo__lead` will create a NULL version with the proper data type:
   - `phone`
   - `main_phone`
   - `mobile_phone`
