@@ -9,6 +9,11 @@
 }}
 
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_scd')) -%}
+{% set filtered_change_data_columns = [] %}
+{% for col in change_data_columns if col.name|lower not in ['lead_id','valid_to','lead_day_id'] %}
+    {% set filtered_change_data_columns = filtered_change_data_columns.append(col) %}
+{% endfor %}
+
 
 with change_data as (
 
@@ -33,7 +38,7 @@ with change_data as (
         calendar.date_day,
         calendar.lead_id,
         change_data.lead_id is not null as new_values_present
-        {% for col in change_data_columns if col.name|lower not in ['lead_id','valid_to','lead_day_id'] %} 
+        {% for col in filtered_change_data_columns %} 
         , {{ col.name }}
         {% endfor %}
     from calendar
@@ -48,16 +53,16 @@ with change_data as (
         lead_id    
         -- For each lead on each day, find the state of each column from the next record where a change occurred,
         -- identified by the presence of a record from the SCD table on that day
-        {% for col in change_data_columns if col.name|lower not in ['lead_id','valid_to','lead_day_id'] %} 
+        {% for col in filtered_change_data_columns %} 
         , nullif(
-            first_value(case when new_values_present then coalesce({{ col.name }}, {{ fivetran_utils.dummy_coalesce_value(col) }}) end ignore nulls) over (
+            first_value(case when new_values_present then coalesce({{ col.name }}, {{ marketo.dummy_coalesce_value(col) }}) end ignore nulls) over (
                 partition by lead_id 
                 order by date_day asc 
                 rows between current row and unbounded following),  
-            {{ fivetran_utils.dummy_coalesce_value(col) }})
+            {{ marketo.dummy_coalesce_value(col) }})
         as {{ col.name }}
         {% endfor %}
-    from joined
+    from filter_nulls
 
 ), surrogate_key as (
 

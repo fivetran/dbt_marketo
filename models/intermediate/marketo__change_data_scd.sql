@@ -76,12 +76,12 @@ with change_data as (
             {# otherwise, grab the most recent value from a day where a change did occur #} 
             else nullif(
 
-                first_value(case when coalesce(details.{{ col.name }}, True) then coalesce(unioned.{{ col.name}}, {{ fivetran_utils.dummy_coalesce_value(col) }}) end ignore nulls) over (
+                first_value(case when coalesce(details.{{ col.name }}, True) then coalesce(unioned.{{ col.name}}, {{ marketo.dummy_coalesce_value(col) }}) end ignore nulls) over (
                     partition by unioned.lead_id 
                     order by coalesce(unioned.date_day, current_date) asc 
                     rows between 1 following and unbounded following), 
                     
-                    {{ fivetran_utils.dummy_coalesce_value(col) }})
+                    {{ marketo.dummy_coalesce_value(col) }})
         end as {{ col.name }}
         {% endif %}
         {% endfor %}

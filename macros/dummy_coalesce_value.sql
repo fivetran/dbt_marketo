@@ -15,7 +15,7 @@
 {% elif column.is_numeric() %}
 {{ return(coalesce_value['INT']) }}
 
-{% elif column.is_string() %}
+{% elif column.is_string() or column.data_type|lower == 'string' %}
 {{ return(coalesce_value['STRING']) }}
 
 {% elif column.data_type|lower == 'boolean' %}
