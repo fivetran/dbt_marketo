@@ -62,7 +62,7 @@ with change_data as (
             {{ marketo.dummy_coalesce_value(col) }})
         as {{ col.name }}
         {% endfor %}
-    from filter_nulls
+    from joined
 
 ), surrogate_key as (
 
