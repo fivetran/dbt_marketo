@@ -309,6 +309,93 @@ models:
       - name: last_name
         description: The last name of the lead.
 
+      - name: phone
+        description: Lead’s Phone Number.
+
+      - name: main_phone
+        description: Primary phone number of the lead’s company
+
+      - name: mobile_phone
+        description: Lead’s mobile phone number
+
+      - name: company
+        description: Lead’s company name
+
+      - name: inferred_company
+        description: Company name inferred by reverse IP lookup of the lead’s first recorded web visit
+
+      - name: address_lead
+        description: Second address associated with the lead.
+
+      - name: address
+        description: Lead’s address. 
+
+      - name: city
+        description: Lead’s city
+
+      - name: state
+        description: Lead’s state
+
+      - name: state_code
+        description: Alpha-2 code of the Lead’s state
+
+      - name: country
+        description: Lead’s country
+
+      - name: country_code
+        description: Alpha-2 code of the Lead’s country
+
+      - name: postal_code
+        description: Lead’s postal code
+
+      - name: billing_street
+        description: Billing street address of the lead’s company
+
+      - name: billing_city
+        description: City of the lead’s billing address
+
+      - name: billing_state
+        description: State or province of the lead’s billing address
+
+      - name: billing_state_code
+        description: Alpha-2 code of the state or province of the lead’s billing address
+
+      - name: billing_country
+        description: Country of the lead’s billing address
+
+      - name: billing_country_code
+        description: Alpha-2 code of the country of the lead’s billing address
+
+      - name: billing_postal_code
+        description: Postal code of the lead’s billing address
+
+      - name: inferred_city
+        description: Lead’s city inferred by reverse IP lookup of lead’s first recorded web visit.
+
+      - name: inferred_state_region
+        description: Lead’s state region inferred by reverse IP lookup of lead’s first recorded web visit.
+
+      - name: inferred_country
+        description: Country inferred by reverse IP lookup of the lead’s first recorded web visit
+
+      - name: inferred_postal_code
+        description: Lead’s postal code inferred by reverse IP lookup of lead’s first recorded web visit.
+
+      - name: inferred_phone_area_code
+        description: Lead’s phone area code inferred by reverse IP lookup of lead’s first recorded web visit.
+
+      - name: anonymous_ip
+        description: IP address of the lead’s first recorded web visit
+
+      - name: is_unsubscribed
+        description: Lead’s email-unsubscribed status (boolean). Partially system managed. Will prevent receipt of non-operational emails if set to true.
+
+      - name: is_email_invalid
+        description: Email invalid status (boolean). All emails to the address will be blocked if set to true. Bounces indicating that the email is invalid will automatically set this field to true.
+
+      - name: do_not_call
+        description: Lead’s do-not-call preference (boolean)
+
   - name: marketo__programs
     description: Each record is a Marketo program.
     columns:
