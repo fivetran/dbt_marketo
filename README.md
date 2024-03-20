@@ -59,7 +59,7 @@ Include the following Marketo package version in your `packages.yml` file.
 ```yml
 packages:
   - package: fivetran/marketo
-    version: [">=0.10.0", "<0.11.0"]
+    version: [">=0.11.0", "<0.12.0"]
 ```
 Do **NOT** include the `marketo_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well. 
 
@@ -89,7 +89,7 @@ vars:
     marketo__activity_delete_lead_enabled:  false     # Disable if you do not have the activity_delete_lead table 
 ```
 ## (Optional) Step 5: Additional configurations
-<details><summary>Expand for details</summary>
+<details open><summary>Expand/Collapse details</summary>
 <br>
 
 ### Passing Through Additional Columns
@@ -152,7 +152,7 @@ This dbt package is dependent on the following dbt packages. Please be aware tha
 ```yml
 packages:
     - package: fivetran/marketo_source
-      version: [">=0.10.0", "<0.11.0"]
+      version: [">=0.11.0", "<0.12.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]
