@@ -1,4 +1,16 @@
 # dbt_marketo v0.11.0
+
+[PR #33](https://github.com/fivetran/dbt_marketo/pull/33) includes the following updates:
+## Bug Fix
+- Removed the use of `ignore nulls` statements in `marketo__lead_history` and `marketo__change_data_scd`, which was incompatible with PostgreSQL and Databricks Runtime. The logic has been updated with a new approach but produces the same results as before.
+- Updated model `marketo__change_data_pivot` to use the `activity_id` as a tie-breaker to remove randomness when ordering events having the same `activity_timestamp`. 
+  - Previously if two events happened at the same timestamp, results would be inconsistent, which propagated to downstream models. Now, this model will produce consistent results.
+
+## Under the hood
+- Added additional variable configurations to integration tests to account for a wider range of situations.
+
+---
+
 [PR #32](https://github.com/fivetran/dbt_marketo/pull/32) and Marketo Source [PR #35](https://github.com/fivetran/dbt_marketo_source/pull/35) include the following updates:
 
 ## Feature Updates (includes 🚨 breaking changes 🚨)

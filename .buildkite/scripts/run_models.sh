@@ -20,7 +20,7 @@ dbt seed --target "$db" --full-refresh
 dbt run --target "$db" --full-refresh
 dbt test --target "$db"
 ## UPDATE FOR VARS HERE, IF NO VARS, PLEASE REMOVE
-dbt run --vars '{marketo__enable_campaigns: true, marketo__enable_programs: true, marketo__activity_delete_lead_enabled: false}' --target "$db" --full-refresh
-dbt test --target "$db"
+dbt run --vars '{lead_history_columns: ['first_name', 'lead_status', 'urgency', 'priority', 'relative_score', 'relative_urgency', 'demographic_score_marketing', 'behavior_score_marketing'], marketo__enable_campaigns: true, marketo__enable_programs: true, marketo__activity_delete_lead_enabled: false}' --target "$db" --full-refresh
+dbt test --target "$db" --vars '{lead_history_columns: ['first_name', 'lead_status', 'urgency', 'priority', 'relative_score', 'relative_urgency', 'demographic_score_marketing', 'behavior_score_marketing'], marketo__enable_campaigns: true, marketo__enable_programs: true, marketo__activity_delete_lead_enabled: false}' --target "$db"
 ### END VARS CHUNK, REMOVE IF NOT USING
 dbt run-operation fivetran_utils.drop_schemas_automation --target "$db"
