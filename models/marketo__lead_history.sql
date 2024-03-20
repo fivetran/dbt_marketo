@@ -78,7 +78,6 @@ with change_data as (
                 order by date_day desc 
                 rows between unbounded preceding and current row)
         as {{ col.name }}
-        , {{ col.name }}_partition
         {% endfor %}
     from field_partitions
 
