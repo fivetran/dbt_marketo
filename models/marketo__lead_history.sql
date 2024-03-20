@@ -46,6 +46,25 @@ with change_data as (
         on calendar.lead_id = change_data.lead_id
         and calendar.date_day = change_data.valid_to
 
+), field_partitions as (
+
+    select
+        date_day,
+        lead_id,
+        new_values_present
+        
+        {% for col in filtered_change_data_columns %} 
+        , joined.{{ col.name }}
+        -- create a batch/partition once a new value is provided
+        , sum(case when new_values_present then 1
+            else 0 end) over (
+                partition by lead_id
+                order by coalesce(date_day, current_date) desc
+                rows between unbounded preceding and current row)
+            as {{ col.name }}_partition
+        {% endfor %}
+    from joined
+
 ), backfill as (
 
     select
@@ -54,15 +73,14 @@ with change_data as (
         -- For each lead on each day, find the state of each column from the next record where a change occurred,
         -- identified by the presence of a record from the SCD table on that day
         {% for col in filtered_change_data_columns %} 
-        , nullif(
-            first_value(case when new_values_present then coalesce({{ col.name }}, {{ marketo.dummy_coalesce_value(col) }}) end ignore nulls) over (
-                partition by lead_id 
-                order by date_day asc 
-                rows between current row and unbounded following),  
-            {{ marketo.dummy_coalesce_value(col) }})
+        , first_value({{ col.name }}) over (
+                partition by lead_id, {{ col.name }}_partition
+                order by date_day desc 
+                rows between unbounded preceding and current row)
         as {{ col.name }}
+        , {{ col.name }}_partition
         {% endfor %}
-    from joined
+    from field_partitions
 
 ), surrogate_key as (
 

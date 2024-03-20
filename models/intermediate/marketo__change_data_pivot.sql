@@ -43,7 +43,7 @@ with change_data as (
         *,
         row_number() over (
             partition by cast(activity_timestamp as date), lead_id, primary_attribute_value_id
-            order by activity_timestamp asc
+            order by activity_timestamp asc, activity_id desc -- In the case that events come in the exact same time, we will rely on the activity_id to prove the order
             ) as row_num
     from joined
 
