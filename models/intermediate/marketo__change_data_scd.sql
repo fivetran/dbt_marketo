@@ -9,9 +9,14 @@
 }}
 
 {%- set lead_columns = adapter.get_columns_in_relation(ref('int_marketo__lead')) -%}
+{% set filtered_lead_columns = [] %}
+{% for col in lead_columns if col.name|lower not in ['lead_id','_fivetran_synced'] and col.name|lower in var('lead_history_columns') %}
+    {% set filtered_lead_columns = filtered_lead_columns.append(col) %}
+{% endfor %}
+
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_pivot')) -%}
 {%- set change_data_columns_xf = change_data_columns|map(attribute='name')|list %}
-    
+
 with change_data as (
 
     select *
@@ -45,44 +50,27 @@ with change_data as (
             ) 
     }}
 
-), today as (
+), field_partitions as (
 
-    -- For each day where a change occurred for each lead, we backfill the values from the subsequent change, 
-    -- going back in time. In order to account for changes that occur to or from null values, we need to do a coalesce
-    -- with dummy values, which we nullif() at the end.
-    -- The 'details' table is joined in for exactly this purpose. It tells us, even if a value is null, whether that null
-    -- value is because no change occurred on that day, or because there was a change and the change involved the null value.
-
-    select 
-        coalesce(unioned.date_day, current_date) as valid_to, 
+    select
+        coalesce(unioned.date_day, current_date) as valid_to,
+        unioned.date_day,
         unioned.lead_id
-        {% for col in lead_columns if col.name|lower not in ['lead_id','_fivetran_synced'] and col.name|lower in var('lead_history_columns') %} 
-        ,
+        
+        {% for col in filtered_lead_columns %}
         {% if col.name not in change_data_columns_xf %}
-
-        {# If the column does not exist in the change data, grab the value from the current state of the record. #}
-        last_value(unioned.{{ col.name }}) over (
-            partition by unioned.lead_id 
-            order by unioned.date_day asc 
-            rows between unbounded preceding and current row) as {{ col.name }}
+        , unioned.{{ col.name }}
+        , null as {{ col.name }}_partition
 
         {% else %}
-
-        case
+        , unioned.{{ col.name }}
+        , sum(case when unioned.{{ col.name }} is null and not coalesce(details.{{ col.name }}, true) then 0
+            else 1 end) over (
+                partition by unioned.lead_id
+                order by coalesce(unioned.date_day, current_date) desc 
+                rows between unbounded preceding and current row)
+            as {{ col.name }}_partition
         
-            {# if there was a change on the day, as specified by the details table, use that value #}
-            when coalesce(details.{{ col.name }}, True) then unioned.{{ col.name }}
-
-            {# otherwise, grab the most recent value from a day where a change did occur #} 
-            else nullif(
-
-                first_value(case when coalesce(details.{{ col.name }}, True) then coalesce(unioned.{{ col.name}}, {{ fivetran_utils.dummy_coalesce_value(col) }}) end ignore nulls) over (
-                    partition by unioned.lead_id 
-                    order by coalesce(unioned.date_day, current_date) asc 
-                    rows between 1 following and unbounded following), 
-                    
-                    {{ fivetran_utils.dummy_coalesce_value(col) }})
-        end as {{ col.name }}
         {% endif %}
         {% endfor %}
 
@@ -90,6 +78,35 @@ with change_data as (
     left join details
         on unioned.date_day = details.date_day
         and unioned.lead_id = details.lead_id
+
+), today as (
+
+    -- For each day where a change occurred for each lead, we backfill the values from the subsequent change, going back in time.
+    -- The 'details' table is joined in for exactly this purpose. It tells us, even if a value is null, whether that null
+    -- value is because no change occurred on that day, or because there was a change and the change involved the null value.
+
+    select 
+        field_partitions.valid_to, 
+        field_partitions.lead_id
+
+        {% for col in filtered_lead_columns %} 
+        {% if col.name not in change_data_columns_xf %}
+        {# If the column does not exist in the change data, grab the value from the current state of the record. #}
+        , last_value(field_partitions.{{ col.name }}) over (
+            partition by field_partitions.lead_id 
+            order by field_partitions.date_day asc 
+            rows between unbounded preceding and current row) as {{ col.name }}
+
+        {% else %}
+        , first_value(field_partitions.{{ col.name }}) over (
+            partition by field_partitions.lead_id, field_partitions.{{ col.name }}_partition 
+            order by field_partitions.valid_to desc
+            rows between unbounded preceding and current row)
+            as {{ col.name }}
+        {% endif %}
+        {% endfor %}
+
+    from field_partitions
 
 ), surrogate_key as (
 
