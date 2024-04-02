@@ -1,3 +1,54 @@
+# dbt_marketo v0.11.0
+
+[PR #33](https://github.com/fivetran/dbt_marketo/pull/33) includes the following updates:
+## Bug Fix
+- Removed the use of `ignore nulls` statements in `marketo__lead_history` and `marketo__change_data_scd`, which was incompatible with PostgreSQL and Databricks Runtime. The logic has been updated with a new approach but produces the same results as before.
+- Updated model `marketo__change_data_pivot` to use the `activity_id` as a tie-breaker to remove randomness when ordering events having the same `activity_timestamp`. 
+  - Previously if two events happened at the same timestamp, results would be inconsistent, which propagated to downstream models. Now, this model will produce consistent results.
+
+## Under the hood
+- Added additional variable configurations to integration tests to account for a wider range of situations.
+
+---
+
+[PR #32](https://github.com/fivetran/dbt_marketo/pull/32) and Marketo Source [PR #35](https://github.com/fivetran/dbt_marketo_source/pull/35) include the following updates:
+
+## Feature Updates (includes 🚨 breaking changes 🚨)
+- Ensures that `stg_marketo__lead` (and therefore `marketo__leads`) has and documents the below columns, all [standard](https://developers.marketo.com/rest-api/lead-database/fields/list-of-standard-fields/) fields from Marketo. Previously, peristed all fields found in your `LEAD` source table but only _ensured_ that the `id`, `created_at`, `updated_at`, `email`, `first_name`, `last_name`, and `_fivetran_synced` fields were included. If any of the following default columns are missing from your `LEAD` table, `stg_marketo__lead` will create a NULL version with the proper data type:
+  - `phone`
+  - `main_phone`
+  - `mobile_phone`
+  - `company`
+  - `inferred_company`
+  - `address_lead`
+  - `address`
+  - `city`
+  - `state`
+  - `state_code`
+  - `country`
+  - `country_code`
+  - `postal_code`
+  - `billing_street`
+  - `billing_city`
+  - `billing_state`
+  - `billing_state_code`
+  - `billing_country`
+  - `billing_country_code`
+  - `billing_postal_code`
+  - `inferred_city`
+  - `inferred_state_region`
+  - `inferred_country`
+  - `inferred_postal_code`
+  - `inferred_phone_area_code`
+  - `anonymous_ip`
+  - `unsubscribed` -> aliased as `is_unsubscribed` (🚨 breaking change 🚨)
+  - `email_invalid` -> aliased as `is_email_invalid` (🚨 breaking change 🚨)
+  - `do_not_call`
+
+## Under the Hood
+- Updated the maintainer PR template to resemble the most up to date format.
+- Included auto-releaser GitHub Actions workflow to automate future releases.
+
 # dbt_marketo v0.10.0
 
 ## 🚨 Breaking Changes 🚨  (recommend --full-refresh):
