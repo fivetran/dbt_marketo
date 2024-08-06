@@ -1,5 +1,6 @@
 {{
     config(
+        enabled=var('customer360__using_marketo', true),
         materialized='incremental',
         partition_by = {'field': 'date_day', 'data_type': 'date'} if target.type not in ['spark','databricks'] else ['date_day'],
         unique_key='lead_history_id',

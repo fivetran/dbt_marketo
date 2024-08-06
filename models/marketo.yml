@@ -421,7 +421,7 @@ models:
         description: Name of the program.
             
       - name: program_status
-        description:  |
+        description: |
               Status of the program. Only valid for Email and engagement program types.
               Allowed values: locked, unlocked, on, off
             
@@ -430,7 +430,7 @@ models:
               Type of the program. Allowed values: program, event, webinar, nurture
             
       - name: sfdc_id
-        description:  SFDC id of the program if linked to an SFDC campaign.
+        description: SFDC id of the program if linked to an SFDC campaign.
             
       - name: sfdc_name
         description: Name of the linked SFDC campaign if applicable.

@@ -1,4 +1,4 @@
-{{ config(materialized='view') }}
+{{ config(materialized='view', enabled=var('customer360__using_marketo', true)) }}
 
 with leads as(
     select * 

@@ -1,3 +1,5 @@
+{{ config(enabled=var('customer360__using_marketo', true)) }}
+
 with base as (
 
     select *
