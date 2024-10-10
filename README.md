@@ -29,7 +29,7 @@ The following table provides a detailed list of all tables materialized within t
 | [marketo__campaigns](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__campaigns)       | Each record represents a Marketo campaign, enriched with metrics about email performance.                                                      |
 | [marketo__email_sends](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__email_sends)     | Each record represents the send of a Marketo email, enriched with metrics about email performance.                                                   |
 | [marketo__email_templates](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__email_templates) | Each record represents a Marketo email template, enriched with metrics about email performance.                                                |
-| [marketo__lead_history](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__lead_history)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. |
+| [marketo__lead_history](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__lead_history)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. The start date is configured by the `marketo__first_date` variable, which by default, for dbt Core™ users, is the date of the earliest lead record, and for Fivetran Quickstart Data Model users, is 18 months in the past. |
 | [marketo__leads](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__leads)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
 | [marketo__programs](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__programs)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
 
@@ -129,13 +129,16 @@ models:
 #### Changing the Lead Date Range
 Because of the typical volume of lead data, you may want to limit this package's models to work with a recent date range of your Marketo data (however, note that all final models are materialized as incremental tables).
 
-By default, the package looks at all events since the earliest lead record, so do not include this variable unless you want to limit your data. To change this start date, add the following variable to your `dbt_project.yml` file:
+By default, for dbt Core™ users, the package looks at all events since the earliest lead record, so do not include this variable unless you want to limit your `marketo__lead_history` data. To change this start date, add the following variable to your `dbt_project.yml` file:
 
 ```yml
 models:
     marketo:
       marketo__first_date: "yyyy-mm-dd" 
 ```
+
+> For Fivetran Quickstart Data Model users, the package will look 18 months in the past. There is currently no way to adjust this within the Quickstart environment, though incremental runs will slowly look further and further in the past. A full refresh will reset the clock and limit data to 18 months prior. 
+
 </details>
 
 ### (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
