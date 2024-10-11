@@ -269,7 +269,12 @@ models:
         description: '{{ doc("count_unique_clicks") }}'
 
   - name: marketo__lead_history
-    description: Each record is what a Marketo lead looked like on each day.
+    description: >
+      Each record is what a Marketo lead looked like on each day. The columns in this model are specified with the `lead_history_columns` variable. 
+      
+      The start date is configured by the `marketo__first_date` variable, which by default, for dbt Core™ users, is the date of the earliest lead record.
+      For Fivetran Quickstart Data Model users, `marketo__first_date` is 18 months in the past. There is currently no way to adjust this within the Quickstart environment, 
+      though incremental model runs will slowly look further and further in the past. However, please be aware that a full refresh will reset the clock and limit data to 18 months prior.
     columns:
       - name: lead_history_id
         description: Surrogate key combining date_day and lead_id.
@@ -283,7 +288,10 @@ models:
           - not_null
       
       - name: date_day
-        description: The date of the lead was observed in this state.
+        description: >
+          The date of the lead was observed in this state. For dbt Core™ users, the default earliest `date_day` will be the date of the earliest lead record. This can be adjusted via the `marketo__first_date` variable.
+          For Fivetran Quickstart Data Model users, `marketo__first_date` is 18 months in the past. There is currently no way to adjust this within the Quickstart environment,
+          though incremental model runs will slowly look further and further in the past. However, please be aware that a full refresh will reset the clock and limit data to 18 months prior.
 
   - name: marketo__leads
     description: Each record is a Marketo lead.
