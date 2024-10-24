@@ -1,4 +1,10 @@
 # dbt_marketo v0.11.0
+[PR #39](https://github.com/fivetran/dbt_marketo/pull/39) includes the following updates:
+
+## Bug Fix
+- Added filter
+
+# dbt_marketo v0.11.0
 
 [PR #33](https://github.com/fivetran/dbt_marketo/pull/33) includes the following updates:
 ## Bug Fix
