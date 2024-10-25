@@ -1,8 +1,17 @@
-# dbt_marketo v0.11.0
+# dbt_marketo v0.12.0-a1
 [PR #39](https://github.com/fivetran/dbt_marketo/pull/39) includes the following updates:
 
+## Feature
+- Added the `action_result` field to the `stg_marketo__activity_send_email` model in the upstream `dbt_marketo_source`.
+
 ## Bug Fix
-- Added filter
+- Added filter for `action_result = 'succeeded'` in the `marketo__email_sends` model to exclude 'skipped' results, aligning with how Marketo counts email sends. This will update results in the following models:
+  - `marketo__email_sends`
+  - `marketo__email_templates`
+  - `marketo__leads`
+
+## Under the hood
+- Add consistency integration tests for the affected end models.
 
 # dbt_marketo v0.11.0
 
