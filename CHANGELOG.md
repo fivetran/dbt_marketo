@@ -2,7 +2,7 @@
 [PR #39](https://github.com/fivetran/dbt_marketo/pull/39) includes the following updates:
 
 ## Breaking Changes:
-- The `action_result` field is now included in the following models, allowing users to filter records based on the `action_result` value:
+- The `action_result` field is now included in the following models, allowing users to filter records based on the `action_result` value.
   - No grain change:
     - `stg_marketo__activity_send_email`
     - `marketo__email_sends_deduped`
@@ -20,7 +20,6 @@
 - Added consistency integration tests for the models listed above.
 - Removed unnecessary tests from intermediate models to optimize resource usage.
 - Updated seed data with `action_result`
-- Updated macro `marketo_activity_send_email_data` with `action_result`
 
 # dbt_marketo v0.11.0
 [PR #33](https://github.com/fivetran/dbt_marketo/pull/33) includes the following updates:
