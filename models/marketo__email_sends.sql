@@ -2,7 +2,6 @@ with sends as (
 
     select *
     from {{ ref('marketo__email_sends_deduped') }}
-    where action_result = 'succeeded' -- Marketo does not count 'skipped' action_results, so we will not either.
 
 ), opens as (
 

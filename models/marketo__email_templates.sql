@@ -13,6 +13,7 @@ with email_templates as (
 
     select
         email_templates.*,
+        email_stats.action_result,
         coalesce(email_stats.count_sends, 0) as count_sends,
         coalesce(email_stats.count_opens, 0) as count_opens,
         coalesce(email_stats.count_bounces, 0) as count_bounces,

@@ -1,20 +1,26 @@
-# dbt_marketo v0.12.0-a1
+# dbt_marketo v0.12.0
 [PR #39](https://github.com/fivetran/dbt_marketo/pull/39) includes the following updates:
 
-## Feature
-- Added the `action_result` field to the `stg_marketo__activity_send_email` model in the upstream `dbt_marketo_source`.
+## Breaking Changes:
+- The `action_result` field is now included in the following models, allowing users to filter records based on the `action_result` value:
+  - No grain change:
+    - `stg_marketo__activity_send_email`
+    - `marketo__email_sends_deduped`
+    - `marketo__email_sends`
+  - Grain change (now includes `action_result`):
+    - `marketo__email_stats__by_email_template`
+    - `marketo__email_stats__by_lead`
+    - `marketo__email_templates`
+    - `marketo__leads`
 
-## Bug Fix
-- Added filter for `action_result = 'succeeded'` in the `marketo__email_sends` model to exclude 'skipped' results, aligning with how Marketo counts email sends. This will update results in the following models:
-  - `marketo__email_sends`
-  - `marketo__email_templates`
-  - `marketo__leads`
+## Documentation updates:
+- Add missing definitions to dbt documents.
 
-## Under the hood
-- Add consistency integration tests for the affected end models.
+## Under the Hood:
+- Added consistency integration tests for the models listed above.
+- Removed unnecessary tests from intermediate models to optimize resource usage.
 
 # dbt_marketo v0.11.0
-
 [PR #33](https://github.com/fivetran/dbt_marketo/pull/33) includes the following updates:
 ## Bug Fix
 - Removed the use of `ignore nulls` statements in `marketo__lead_history` and `marketo__change_data_scd`, which was incompatible with PostgreSQL and Databricks Runtime. The logic has been updated with a new approach but produces the same results as before.
