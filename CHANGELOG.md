@@ -19,6 +19,8 @@
 ## Under the Hood:
 - Added consistency integration tests for the models listed above.
 - Removed unnecessary tests from intermediate models to optimize resource usage.
+- Updated seed data with `action_result`
+- Updated macro `marketo_activity_send_email_data` with `action_result`
 
 # dbt_marketo v0.11.0
 [PR #33](https://github.com/fivetran/dbt_marketo/pull/33) includes the following updates:
