@@ -4,12 +4,16 @@
 ) }}
 
 with prod as (
-    select {{ dbt_utils.star(from=ref('marketo__email_sends'), except=var('consistency_test_exclude_metrics', [])) }}
+    select {{ dbt_utils.star(
+        from=ref('marketo__email_sends'), 
+        except=['activity_id'] + var('consistency_test_exclude_metrics', [])) }} -- marketo__email_sends_deduped does not create a consistent activity_id
     from {{ target.schema }}_marketo_prod.marketo__email_sends
 ),
 
 dev as (
-    select {{ dbt_utils.star(from=ref('marketo__email_sends'), except=var('consistency_test_exclude_metrics', [])) }}
+    select {{ dbt_utils.star(
+        from=ref('marketo__email_sends'),
+        except=['activity_id'] + var('consistency_test_exclude_metrics', [])) }}
     from {{ target.schema }}_marketo_dev.marketo__email_sends
 ), 
 
