@@ -14,7 +14,7 @@
     - `marketo__leads`
 
 ## Documentation updates:
-- Add missing definitions to dbt documents.
+- Added missing definitions to dbt documents.
 
 ## Under the Hood:
 - Added consistency integration tests for the models listed above.
