@@ -3,23 +3,19 @@
 
 ## Breaking Changes:
 - The `action_result` field is now included in the following models, allowing users to filter records based on the `action_result` value.
-  - No grain change:
     - `stg_marketo__activity_send_email`
     - `marketo__email_sends_deduped`
     - `marketo__email_sends`
-  - Grain change (now includes `action_result`):
-    - `marketo__email_stats__by_email_template`
-    - `marketo__email_stats__by_lead`
-    - `marketo__email_templates`
-    - `marketo__leads`
+  - *Note:* If you have previously added this field via the `marketo__activity_send_email_passthrough_columns` variable, remove or alias it there to prevent duplicate column errors.
+- To minimize customer impact, we limited adding `action_result` to models where it does not alter the grain. Users needing `action_result` in aggregate models can derive it from the `marketo__email_sends` model using custom aggregation logic. For more details, refer to the [DECISIONLOG entry](https://github.com/fivetran/dbt_marketo/blob/main/CHANGELOG.md#action-result-field-introduction).
 
 ## Documentation updates:
-- Added missing definitions to dbt documents.
+- Added missing definitions to dbt documentation.
 
 ## Under the Hood:
 - Added consistency integration tests for the models listed above.
 - Removed unnecessary tests from intermediate models to optimize resource usage.
-- Updated seed data with `action_result`
+- Updated seed data to include `action_result`.
 
 # dbt_marketo v0.11.0
 [PR #33](https://github.com/fivetran/dbt_marketo/pull/33) includes the following updates:

@@ -109,18 +109,12 @@ models:
 
   - name: marketo__email_templates
     description: Each record is the most recent version of an email template.
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - email_template_id 
-            - action_result
     columns:
       - name: email_template_id
         description: ID of the email template.
         tests:
+          - unique
           - not_null
-      - name: action_result
-        description: The outcome of a specific action performed within the Marketo platform.
       - name: created_timestamp
         description: Timestamp the email template was created.
       - name: description
@@ -221,18 +215,12 @@ models:
 
   - name: marketo__leads
     description: Each record is a Marketo lead.
-    tests:
-      - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - lead_id 
-            - action_result
     columns:
       - name: lead_id
         description: ID of the lead.
         tests:
+          - unique
           - not_null
-      - name: action_result
-        description: The outcome of a specific action performed within the Marketo platform.
       - name: created_timestamp
         description: Timestamp for when each lead was created.
       - name: updated_timestamp

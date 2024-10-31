@@ -7,7 +7,6 @@ with email_sends as (
 
     select
         lead_id,
-        action_result,
         count(*) as count_sends,
         sum(count_opens) as count_opens,
         sum(count_bounces) as count_bounces,
@@ -18,7 +17,7 @@ with email_sends as (
         count(distinct case when was_clicked = True then email_send_id end) as count_unique_clicks
     from email_sends
     where lead_id is not null
-    group by 1,2
+    group by 1
 
 )
 
