@@ -14,7 +14,7 @@
 
 ## Under the Hood:
 - Added consistency integration tests for the models listed above.
-- Removed unnecessary tests from intermediate models to optimize resource usage.
+- Removed all tests from intermediate models as they were unnecessary and to optimize resource usage.
 - Updated seed data to include `action_result`.
 
 # dbt_marketo v0.11.0
