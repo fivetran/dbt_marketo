@@ -4,6 +4,10 @@ profile: 'integration_tests'
 config-version: 2
 
 vars:
+    # enable when regenerating docs
+    marketo__enable_campaigns: true
+    marketo__enable_programs: true
+
     marketo_schema: marketo_integration_tests_6
     marketo_source:
         marketo_lead_identifier: "marketo_lead_data"

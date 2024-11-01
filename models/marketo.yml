@@ -21,8 +21,6 @@ models:
         description: Whether the campaign is active. Only applicable to trigger campaigns.
       - name: program_id
         description: ID of the parent program, if applicable.
-      - name: program_name
-        description: Name of the parent program, if applicable.
       - name: updated_timestamp
         description: Timestamp when the campaign was most recently updated.
       - name: workspace_name
@@ -43,6 +41,48 @@ models:
         description: '{{ doc("count_unique_opens") }}'
       - name: count_unique_clicks
         description: '{{ doc("count_unique_clicks") }}'
+      - name: computed_url
+        description: The URL computed for the campaign, used for tracking or reference.
+      - name: flow_id
+        description: The ID of the flow associated with the campaign, defining the actions taken.
+      - name: folder_id
+        description: ID of the folder where the campaign is stored in Marketo.
+      - name: folder_type
+        description: Type of folder (e.g., program, campaign) that stores the campaign.
+      - name: is_communication_limit_enabled
+        description: Whether the communication limit is enabled for the campaign.
+      - name: is_requestable
+        description: Indicates if the campaign can be requested externally.
+      - name: is_system
+        description: Whether the campaign is a system-level campaign.
+      - name: max_members
+        description: Maximum number of members that can be part of the campaign.
+      - name: qualification_rule_type
+        description: Type of qualification rule governing campaign entry.
+      - name: qualification_rule_interval
+        description: Interval for the qualification rule, specifying campaign entry frequency.
+      - name: qualification_rule_unit
+        description: Unit for the qualification interval (e.g., hours, days).
+      - name: recurrence_start_at
+        description: Timestamp when the recurrence of the campaign starts.
+      - name: recurrence_end_at
+        description: Timestamp when the recurrence of the campaign ends.
+      - name: recurrence_interval_type
+        description: Type of interval for the recurrence (e.g., daily, weekly).
+      - name: recurrence_interval
+        description: Frequency of recurrence (e.g., every 1 day).
+      - name: recurrence_weekday_only
+        description: Whether recurrence occurs only on weekdays.
+      - name: recurrence_day_of_month
+        description: Day of the month when the campaign recurs.
+      - name: recurrence_day_of_week
+        description: Day of the week when the campaign recurs.
+      - name: recurrence_week_of_month
+        description: Week of the month when the campaign recurs (e.g., first week).
+      - name: smart_list_id
+        description: ID of the smart list associated with the campaign, used for targeting.
+      - name: status
+        description: Current status of the campaign (e.g., active, paused).
 
   - name: marketo__email_sends
     description: Each record is a sent email in Marketo to a user.
@@ -296,21 +336,21 @@ models:
       - name: is_merged
         description: Flag indicating whether the lead has been merged into another lead.
       - name: count_sends
-        description: Total number of emails sent to the lead.
+        description: '{{ doc("count_sends") }}'
       - name: count_opens
-        description: Total number of email opens by the lead.
+        description: '{{ doc("count_opens") }}'
       - name: count_bounces
-        description: Total number of bounced emails for the lead.
+        description: '{{ doc("count_bounces") }}'
       - name: count_clicks
-        description: Total number of email link clicks by the lead.
+        description: '{{ doc("count_clicks") }}'
       - name: count_deliveries
-        description: Total number of successfully delivered emails to the lead.
+        description: '{{ doc("count_deliveries") }}'
       - name: count_unsubscribes
-        description: Total number of times the lead has unsubscribed from emails.
+        description: '{{ doc("count_unsubscribes") }}'
       - name: count_unique_opens
-        description: Total number of unique email opens by the lead.
+        description: '{{ doc("count_unique_opens") }}'
       - name: count_unique_clicks
-        description: Total number of unique email link clicks by the lead.
+        description: '{{ doc("count_unique_clicks") }}'
 
   - name: marketo__programs
     description: Each record is a Marketo program.
