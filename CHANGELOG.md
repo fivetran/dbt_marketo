@@ -7,7 +7,7 @@
     - `marketo__email_sends_deduped`
     - `marketo__email_sends`
   - *Note:* If you have previously added this field via the `marketo__activity_send_email_passthrough_columns` variable, remove or alias it there to prevent duplicate column errors.
-- To minimize customer impact, we limited adding `action_result` to models where it does not alter the grain. Users needing `action_result` in aggregate models can derive it from the `marketo__email_sends` model using custom aggregation logic. For more details, refer to the [DECISIONLOG entry](https://github.com/fivetran/dbt_marketo/blob/main/CHANGELOG.md#action-result-field-introduction).
+- To minimize customer impact, we limited adding `action_result` to models where it does not alter the grain. Users needing `action_result` in aggregate models can derive it from the `marketo__email_sends` model using custom aggregation logic. For more details, refer to the [DECISIONLOG entry](https://github.com/fivetran/dbt_marketo/blob/main/DECISIONLOG.md#action-result-field-introduction).
 
 ## Documentation updates:
 - Added missing definitions to dbt documentation.
