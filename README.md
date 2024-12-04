@@ -1,4 +1,6 @@
-<p align="center">
+# Marketo Transformation dbt Package ([docs](https://fivetran.github.io/dbt_marketo/))
+
+<p align="left">
     <a alt="License"
         href="https://github.com/fivetran/dbt_marketo/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a>
@@ -13,7 +15,6 @@
         <img src="https://img.shields.io/badge/Fivetran_Quickstart_Compatible%3F-yes-green.svg" /></a>
 </p>
 
-# Marketo Transformation dbt Package ([docs](https://fivetran.github.io/dbt_marketo/))
 ## What does this dbt package do?
 - Produces modeled tables that leverage Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo) in the format described by [this ERD](https://fivetran.com/docs/applications/marketo#schema) and builds off the output of our [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
 - Enables you to better understand your Marketo email performance and how your leads change over time. The output includes models with enriched email metrics for leads, programs, email templates, and campaigns. It also includes a lead history table that shows the state of leads on every day, for a set of columns that you define.
