@@ -1,3 +1,12 @@
+# dbt_marketo v0.12.1
+[PR #42](https://github.com/fivetran/dbt_marketo/pull/42) includes the following updates:
+
+## Documentation
+- Updated README formatting.
+
+## Internal Updates (Maintainers Only)
+- Removed `marketo__campaigns` and `marketo__programs` from the public models list in `quickstart.yml` since they are disabled by default. This serves as a temporary measure until the models and the upstream sources are updated to be enabled by default.
+
 # dbt_marketo v0.12.0
 [PR #39](https://github.com/fivetran/dbt_marketo/pull/39) includes the following updates:
 
