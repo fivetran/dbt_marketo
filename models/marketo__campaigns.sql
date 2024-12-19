@@ -1,4 +1,4 @@
-{{ config(enabled=var('marketo__enable_campaigns', False)) }}
+{{ config(enabled=var('marketo__enable_campaigns', True)) }}
 
 with campaigns as (
 
