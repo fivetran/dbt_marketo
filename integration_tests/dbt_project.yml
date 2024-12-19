@@ -1,5 +1,5 @@
 name: 'marketo_integration_tests'
-version: '0.12.1'
+version: '0.13.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -7,10 +7,6 @@ models:
     +schema: "marketo_{{ var('directed_schema','dev') }}"  
 
 vars:
-    # enable when regenerating docs
-    # marketo__enable_campaigns: true
-    # marketo__enable_programs: true
-
     marketo_schema: marketo_integration_tests_6
     marketo_source:
         marketo_lead_identifier: "marketo_lead_data"

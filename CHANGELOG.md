@@ -1,3 +1,5 @@
+# dbt_marketo v0.13.0
+
 # dbt_marketo v0.12.1
 [PR #42](https://github.com/fivetran/dbt_marketo/pull/42) includes the following updates:
 

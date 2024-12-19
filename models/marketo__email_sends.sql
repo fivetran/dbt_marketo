@@ -28,7 +28,7 @@ with sends as (
     select *
     from {{ ref('marketo__unsubscribes__by_sent_email') }}
 
-{% if var('marketo__enable_campaigns', False) %}
+{% if var('marketo__enable_campaigns', True) %}
 
 ), campaigns as (
 
@@ -73,13 +73,13 @@ with sends as (
 
     select 
         booleans.*,
-        {% if var('marketo__enable_campaigns', False) %}
+        {% if var('marketo__enable_campaigns', True) %}
         campaigns.campaign_type,
         campaigns.program_id,
         {% endif %}
         email_templates.is_operational
     from booleans
-    {% if var('marketo__enable_campaigns', False) %}
+    {% if var('marketo__enable_campaigns', True) %}
     left join campaigns using (campaign_id)
     {% endif %}
     left join email_templates
