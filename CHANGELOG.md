@@ -1,4 +1,16 @@
 # dbt_marketo v0.13.0
+[PR #43](https://github.com/fivetran/dbt_marketo/pull/43) includes the following updates:
+
+## Breaking Change
+- Changes the default enable/disable config from `disable` to `enable` for the `marketo__enable_campaigns` and `marketo__enable_programs` variables since the Quickstart product can dynamically enable/disable such components. If you are not a Quickstart user nor are syncing the respective `campaign` or `program` tables, you must configure the variables accordingly. Disable the related models or fields by adding the following to your `dbt_project.yml` file:
+
+```yml
+vars:
+    marketo__enable_campaigns:   False      # Disable if Fivetran is not syncing the campaign table. This will disable the marketo__campaigns, marketo__programs, marketo__email_stats__by_campaign, marketo__email_stats__by_program models.
+    marketo__enable_programs:    False      # Disable if Fivetran is not syncing the program table. This will disable the marketo__programs and marketo__email_stats__by_program models.
+```
+
+Refer to the [README](https://github.com/fivetran/dbt_marketo?tab=readme-ov-file#step-4-enablingdisabling-models) for more details. 
 
 # dbt_marketo v0.12.1
 [PR #42](https://github.com/fivetran/dbt_marketo/pull/42) includes the following updates:
