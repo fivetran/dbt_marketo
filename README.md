@@ -60,7 +60,7 @@ Include the following Marketo package version in your `packages.yml` file.
 ```yml
 packages:
   - package: fivetran/marketo
-    version: [">=0.12.0", "<0.13.0"]
+    version: [">=0.13.0", "<0.14.0"]
 ```
 Do **NOT** include the `marketo_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
 
@@ -151,7 +151,7 @@ This dbt package is dependent on the following dbt packages. These dependencies 
 ```yml
 packages:
     - package: fivetran/marketo_source
-      version: [">=0.12.0", "<0.13.0"]
+      version: [">=0.13.0", "<0.14.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]
