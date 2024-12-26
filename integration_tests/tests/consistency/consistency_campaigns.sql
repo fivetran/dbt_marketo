@@ -1,7 +1,8 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=var('fivetran_validation_tests_enabled', false)
+    enabled=var('fivetran_validation_tests_enabled', false) and var('marketo__enable_campaigns', true)
 ) }}
+
 
 with prod as (
     select count(*) as prod_row_count

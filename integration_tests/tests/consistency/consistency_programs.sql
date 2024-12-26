@@ -1,6 +1,6 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=var('fivetran_validation_tests_enabled', false)
+    enabled=var('fivetran_validation_tests_enabled', false) and var('marketo__enable_campaigns', true) and var('marketo__enable_programs', true)
 ) }}
 
 with prod as (
