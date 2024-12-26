@@ -2,13 +2,21 @@
 [PR #43](https://github.com/fivetran/dbt_marketo/pull/43) includes the following updates:
 
 ## Breaking Change
-- Updates the default configuration for the `marketo__enable_campaigns` and `marketo__enable_programs` variables from disabled to enabled.
+- Updated the default configuration for the `marketo__enable_campaigns` and `marketo__enable_programs` variables from disabled to enabled.
 
 - Each variable will enable the following models by default:
-  - `marketo__enable_campaigns` : `marketo__campaigns, marketo__programs, marketo__email_stats__by_campaign, marketo__email_stats__by_program`.
-  - `marketo__enable_programs` : `marketo__programs` and `marketo__email_stats__by_program`.
+  - `marketo__enable_campaigns` : `marketo__campaigns`, `marketo__email_stats__by_campaign`, the upstream `stg_marketo__campaigns`, in addition to `marketo__programs`, `marketo__email_stats__by_program`, and the upstream `stg_marketo__program` (these last 3 also require the `marketo__enable_programs` variable).
+  - `marketo__enable_programs` : `marketo__programs` and `marketo__email_stats__by_program`, in combination with the `marketo__enable_campaigns` variable.
+
+- Additionally, the `marketo__email_sends` model will now output the following fields which were previously skipped by default now that `marketo__enable_campaigns` is enabled at onset:
+  - `campaign_type`
+  - `program_id`
 
 - Quickstart dynamically manages these settings, but non-Quickstart users or those not syncing `campaign` or `program` tables should adjust the variables accordingly. Refer to the [README](https://github.com/fivetran/dbt_marketo?tab=readme-ov-file#step-4-enablingdisabling-models) for details.
+
+## Under the Hood
+- Updated the `run_models.sh` script to now test for when `marketo__enable_campaigns` and `marketo__enable_programs` is disabled.
+- Added validity tests for `marketo__campaigns` (`consistency_campaigns`) and `marketo__programs` (`consistency_campaigns`) now that they are enabled by default.
 
 # dbt_marketo v0.12.1
 [PR #42](https://github.com/fivetran/dbt_marketo/pull/42) includes the following updates:
