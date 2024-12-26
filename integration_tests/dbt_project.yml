@@ -7,8 +7,8 @@ models:
     +schema: "marketo_{{ var('directed_schema','dev') }}"  
 
 vars:
-    marketo_schema: marketo_integration_tests_7
-    # marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
+    marketo_schema: marketo_integration_tests_8
+    marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
     # marketo__enable_programs: false ## Uncomment for testing to disable programs
     marketo_source:
         marketo_lead_identifier: "marketo_lead_data"
@@ -29,7 +29,7 @@ vars:
 dispatch:
     - macro_namespace: dbt_utils
       search_order: ['spark_utils', 'dbt_utils']
-    
+
 seeds:
     marketo_integration_tests:
         marketo_email_template_history_data:
