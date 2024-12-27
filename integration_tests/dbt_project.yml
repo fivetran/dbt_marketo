@@ -8,7 +8,7 @@ models:
 
 vars:
     marketo_schema: marketo_integration_tests_8
-    marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
+    # marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
     # marketo__enable_programs: false ## Uncomment for testing to disable programs
     marketo_source:
         marketo_lead_identifier: "marketo_lead_data"
