@@ -4,11 +4,15 @@
 ## Breaking Change
 - Updated the default configuration for the `marketo__enable_campaigns` and `marketo__enable_programs` variables from disabled to enabled.
 
-- Each variable will enable the following models by default:
-  - `marketo__enable_campaigns` : `marketo__campaigns`, `marketo__email_stats__by_campaign`, the upstream `stg_marketo__campaigns`, in addition to `marketo__programs`, `marketo__email_stats__by_program`, and the upstream `stg_marketo__program` (these last 3 also require the `marketo__enable_programs` variable).
-  - `marketo__enable_programs` : `marketo__programs` and `marketo__email_stats__by_program`, in combination with the `marketo__enable_campaigns` variable.
+- Each following variable will enable the listed models by default:
+  - `marketo__enable_campaigns`:
+    - the end models `marketo__campaigns` and `marketo__email_stats__by_campaign`
+    - the upstream staging model `stg_marketo__campaigns`
+  - `marketo__enable_campaigns` and `marketo__enable_programs`:
+    - the end models `marketo__programs` and `marketo__email_stats__by_program`
+    - the upstream staging model `stg_marketo__program`
 
-- Additionally, the `marketo__email_sends` model will now output the following fields which were previously skipped by default now that `marketo__enable_campaigns` is enabled at onset:
+- Additionally, the [`marketo__email_sends`](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__email_sends) model will now output the following fields which were previously skipped by default now that `marketo__enable_campaigns` is enabled at onset:
   - `campaign_type`
   - `program_id`
 
@@ -16,7 +20,7 @@
 
 ## Under the Hood
 - Updated the `run_models.sh` script to now test for when `marketo__enable_campaigns` and `marketo__enable_programs` is disabled.
-- Added validity tests for `marketo__campaigns` (`consistency_campaigns`) and `marketo__programs` (`consistency_campaigns`) now that they are enabled by default.
+- Added validation tests for `marketo__campaigns` (`consistency_campaigns`) and `marketo__programs` (`consistency_campaigns`) now that they are enabled by default.
 
 # dbt_marketo v0.12.1
 [PR #42](https://github.com/fivetran/dbt_marketo/pull/42) includes the following updates:
