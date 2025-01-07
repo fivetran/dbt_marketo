@@ -60,7 +60,7 @@ Include the following Marketo package version in your `packages.yml` file.
 ```yml
 packages:
   - package: fivetran/marketo
-    version: [">=0.12.0", "<0.13.0"]
+    version: [">=0.13.0", "<0.14.0"]
 ```
 Do **NOT** include the `marketo_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
 
@@ -76,19 +76,14 @@ vars:
 For additional configurations for the source models, please visit the [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
 
 ### Step 4: Enabling/Disabling Models
-This package takes into consideration tables that may not be synced due to slowness caused by the Marketo API.  By default the `campaign` and `program` related-models are disabled.  If you sync these tables, enable the modeling done by adding the following to your `dbt_project.yml` file:
-
+This package takes into consideration tables that may not be synced due to slowness caused by the Marketo API. By default the `campaign`, `program`, and `activity_delete_lead` tables are enabled. If you do not sync these tables, disable the related models or fields by adding the following to your `dbt_project.yml` file:
 ```yml
 vars:
-    marketo__enable_campaigns:   true      # Enable if Fivetran is syncing the campaign table
-    marketo__enable_programs:    true      # Enable if Fivetran is syncing the program table
+    marketo__enable_campaigns:   False      # Disable if Fivetran is not syncing the campaign table. This will disable the marketo__campaigns, marketo__programs, marketo__email_stats__by_campaign, marketo__email_stats__by_program models.
+    marketo__enable_programs:    False      # Disable if Fivetran is not syncing the program table. This will disable the marketo__programs and marketo__email_stats__by_program models.
+    marketo__activity_delete_lead_enabled:  false     # Disable if Fivetran is not syncing the activity_delete_lead table
 ```
 
-Alternatively, you may need to disable certain models. The below models can be disabled by adding them to your `dbt_project.yml` file:
-```yml
-vars:
-    marketo__activity_delete_lead_enabled:  false     # Disable if you do not have the activity_delete_lead table 
-```
 ### (Optional) Step 5: Additional configurations
 <details open><summary>Expand/Collapse details</summary>
 <br>
@@ -156,7 +151,7 @@ This dbt package is dependent on the following dbt packages. These dependencies 
 ```yml
 packages:
     - package: fivetran/marketo_source
-      version: [">=0.12.0", "<0.13.0"]
+      version: [">=0.13.0", "<0.14.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]

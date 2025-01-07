@@ -1,5 +1,5 @@
 name: 'marketo_integration_tests'
-version: '0.12.1'
+version: '0.13.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -7,11 +7,9 @@ models:
     +schema: "marketo_{{ var('directed_schema','dev') }}"  
 
 vars:
-    # enable when regenerating docs
-    # marketo__enable_campaigns: true
-    # marketo__enable_programs: true
-
-    marketo_schema: marketo_integration_tests_6
+    marketo_schema: marketo_integration_tests_8
+    # marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
+    # marketo__enable_programs: false ## Uncomment for testing to disable programs
     marketo_source:
         marketo_lead_identifier: "marketo_lead_data"
         marketo_lead_describe_identifier: "marketo_lead_describe_data"
@@ -31,7 +29,7 @@ vars:
 dispatch:
     - macro_namespace: dbt_utils
       search_order: ['spark_utils', 'dbt_utils']
-    
+
 seeds:
     marketo_integration_tests:
         marketo_email_template_history_data:

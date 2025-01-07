@@ -3,17 +3,25 @@
     enabled=var('fivetran_validation_tests_enabled', false)
 ) }}
 
+{% set columns_to_exclude = ['activity_id'] %}
+
+{% if not var('marketo__enable_campaigns', True) %}
+    {% do columns_to_exclude.extend(['campaign_type', 'program_id']) %}
+{% endif %}
+
+{% set columns_to_exclude = columns_to_exclude + var('consistency_test_exclude_metrics', []) %}
+
 with prod as (
     select {{ dbt_utils.star(
         from=ref('marketo__email_sends'), 
-        except=['activity_id'] + var('consistency_test_exclude_metrics', [])) }} -- marketo__email_sends_deduped does not create a consistent activity_id
+        except=columns_to_exclude) }}
     from {{ target.schema }}_marketo_prod.marketo__email_sends
 ),
 
 dev as (
     select {{ dbt_utils.star(
         from=ref('marketo__email_sends'),
-        except=['activity_id'] + var('consistency_test_exclude_metrics', [])) }}
+        except=columns_to_exclude) }}
     from {{ target.schema }}_marketo_dev.marketo__email_sends
 ), 
 
