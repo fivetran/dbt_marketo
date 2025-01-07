@@ -60,7 +60,7 @@ Include the following Marketo package version in your `packages.yml` file.
 ```yml
 packages:
   - package: fivetran/marketo
-    version: [">=0.13.0", "<0.14.0"]
+    version: [">=0.14.0", "<0.15.0"]
 ```
 Do **NOT** include the `marketo_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
 
