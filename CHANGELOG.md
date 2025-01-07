@@ -1,4 +1,4 @@
-# dbt_marketo v0.14.0
+# dbt_marketo v0.13.1
 [PR #44](https://github.com/fivetran/dbt_marketo/pull/44) includes the following updates:
 
 ## Breaking Change
