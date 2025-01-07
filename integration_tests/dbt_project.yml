@@ -7,7 +7,7 @@ models:
     +schema: "marketo_{{ var('directed_schema','dev') }}"  
 
 vars:
-    marketo_schema: marketo_integration_tests_8
+    marketo_schema: marketo_integration_tests_9
     # marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
     # marketo__enable_programs: false ## Uncomment for testing to disable programs
     marketo_source:
