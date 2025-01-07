@@ -1,7 +1,7 @@
 # dbt_marketo v0.13.1
 [PR #44](https://github.com/fivetran/dbt_marketo/pull/44) includes the following updates:
 
-## Breaking Change
+## Quickstart Fix
 - For Quickstart users, the recently updated `marketo__campaigns` and `marketo__programs` models have been added to the public_models to ensure these models are captured by default.
 
 # dbt_marketo v0.13.0
