@@ -4,6 +4,12 @@
 - Added Quickstart model counts to README. ([#45](https://github.com/fivetran/dbt_marketo/pull/45))
 - Corrected references to connectors and connections in the README. ([#45](https://github.com/fivetran/dbt_marketo/pull/45))
 
+# dbt_marketo v0.13.1
+[PR #44](https://github.com/fivetran/dbt_marketo/pull/44) includes the following updates:
+
+## Quickstart Fix
+- For Quickstart users, the recently updated `marketo__campaigns` and `marketo__programs` models have been added to the `public_models` list in `quickstart.yml` to ensure these models are captured by default.
+
 # dbt_marketo v0.13.0
 [PR #43](https://github.com/fivetran/dbt_marketo/pull/43) includes the following updates:
 

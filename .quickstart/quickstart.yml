@@ -22,5 +22,7 @@ public_models: [
   "marketo__email_templates",
   "marketo__lead_history",
   "marketo__email_sends",
-  "marketo__leads"
+  "marketo__leads",
+  "marketo__campaigns",
+  "marketo__programs"
 ]
