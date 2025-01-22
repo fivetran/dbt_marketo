@@ -1,3 +1,9 @@
+# dbt_marketo version.version
+
+## Documentation
+- Added Quickstart model counts to README. ([#45](https://github.com/fivetran/dbt_marketo/pull/45))
+- Corrected references to connectors and connections in the README. ([#45](https://github.com/fivetran/dbt_marketo/pull/45))
+
 # dbt_marketo v0.13.1
 [PR #44](https://github.com/fivetran/dbt_marketo/pull/44) includes the following updates:
 
