@@ -1,4 +1,4 @@
-# Marketo Transformation dbt Package ([docs](https://fivetran.github.io/dbt_marketo/))
+# Marketo dbt Package ([docs](https://fivetran.github.io/dbt_marketo/))
 
 <p align="left">
     <a alt="License"

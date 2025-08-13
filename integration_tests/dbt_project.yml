@@ -13,7 +13,7 @@ vars:
     # marketo__enable_campaigns: false # @docs-include
     # marketo__enable_programs: false # @docs-include
 
-    marketo_source:
+    marketo:
         marketo_lead_identifier: "marketo_lead_data"
         marketo_lead_describe_identifier: "marketo_lead_describe_data"
         marketo_activity_change_data_value_identifier: "marketo_activity_change_data_value_data"
