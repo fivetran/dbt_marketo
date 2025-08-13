@@ -1,7 +1,7 @@
 with base as (
 
     select *
-    from {{ var('activity_send_email') }}
+    from {{ ref('stg_marketo__activity_send_email') }}
 
 ), windowed as (
 

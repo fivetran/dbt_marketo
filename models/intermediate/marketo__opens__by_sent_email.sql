@@ -1,7 +1,7 @@
 with activity as (
 
     select *
-    from {{ var('activity_open_email') }}
+    from {{ ref('stg_marketo__activity_open_email') }}
 
 ), aggregate as (
 

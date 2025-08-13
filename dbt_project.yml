@@ -1,5 +1,5 @@
 name: 'marketo'
-version: '0.13.1'
+version: '1.0.0'
 config-version: 2
 require-dbt-version: [">=1.3.0", "<2.0.0"]
 on-run-start: "{{ lead_history_columns_warning() }}"
@@ -7,23 +7,26 @@ vars:
 
   marketo:
     lead_history_columns: ['lead_status', 'urgency', 'priority', 'relative_score', 'relative_urgency', 'demographic_score_marketing', 'behavior_score_marketing']
-    activity_email_bounced: "{{ ref('stg_marketo__activity_email_bounced') }}"
-    activity_click_email: "{{ ref('stg_marketo__activity_click_email') }}"
-    activity_email_delivered: "{{ ref('stg_marketo__activity_email_delivered') }}"
-    activity_open_email: "{{ ref('stg_marketo__activity_open_email') }}"
-    activity_unsubscribe_email: "{{ ref('stg_marketo__activity_unsubscribe_email') }}"
-    activity_send_email: "{{ ref('stg_marketo__activity_send_email') }}"
-    activity_delete_lead: "{{ ref('stg_marketo__activity_delete_lead') }}"
-    activity_merge_leads: "{{ ref('stg_marketo__activity_merge_leads') }}"
-    change_data_value: "{{ ref('stg_marketo__activity_change_data_value') }}"
-    lead: "{{ ref('stg_marketo__lead') }}"
-    lead_describe: "{{ ref('stg_marketo__lead_describe') }}"
-    campaigns: "{{ ref('stg_marketo__campaigns') }}"
-    email_tempate_history: "{{ ref('stg_marketo__email_template_history') }}"
-    program: "{{ ref('stg_marketo__program') }}"
+    activity_email_bounced: "{{ source('marketo', 'activity_email_bounced') }}"
+    activity_click_email: "{{ source('marketo', 'activity_click_email') }}"
+    activity_email_delivered: "{{ source('marketo', 'activity_email_delivered') }}"
+    activity_open_email: "{{ source('marketo', 'activity_open_email') }}"
+    activity_unsubscribe_email: "{{ source('marketo', 'activity_unsubscribe_email') }}"
+    activity_send_email: "{{ source('marketo', 'activity_send_email') }}"
+    activity_delete_lead: "{{ source('marketo', 'activity_delete_lead') }}"
+    activity_merge_leads: "{{ source('marketo', 'activity_merge_leads') }}"
+    change_data_value: "{{ source('marketo', 'activity_change_data_value') }}"
+    lead: "{{ source('marketo', 'lead') }}"
+    lead_describe: "{{ source('marketo', 'lead_describe') }}"
+    campaigns: "{{ source('marketo', 'campaigns') }}"
+    email_tempate_history: "{{ source('marketo', 'email_template_history') }}"
+    program: "{{ source('marketo', 'program') }}"
 models:
   marketo:
     +materialized: table
     +schema: marketo
     intermediate:
       +materialized: ephemeral
+    staging:
+      +schema: marketo_source
+      +materialized: view
