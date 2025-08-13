@@ -75,8 +75,6 @@ vars:
   marketo_schema: your_schema_name 
 ```
 
-For additional configurations for the source models, please visit the [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
-
 ### Step 4: Enabling/Disabling Models
 This package takes into consideration tables that may not be synced due to slowness caused by the Marketo API. By default the `campaign`, `program`, and `activity_delete_lead` tables are enabled. If you do not sync these tables, disable the related models or fields by adding the following to your `dbt_project.yml` file:
 ```yml
@@ -91,7 +89,7 @@ vars:
 <br>
 
 #### Passing Through Additional Columns
-This package includes all source columns defined in the source package's [macros folder](https://github.com/fivetran/dbt_marketo_source/tree/main/macros). If you would like to pass through additional columns to the staging models, add the following configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-though fields will be casted accordingly. Use the below format for declaring the respective pass-through variables in your root `dbt_project.yml`.
+This package includes all source columns defined in this package's [staging macros folder](https://github.com/fivetran/dbt_marketo/tree/main/macros/staging). If you would like to pass through additional columns to the staging models, add the following configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-though fields will be casted accordingly. Use the below format for declaring the respective pass-through variables in your root `dbt_project.yml`.
 ```yml
 vars:
     marketo__activity_send_email_passthrough_columns: 
@@ -124,6 +122,15 @@ models:
         +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
 ```
 
+#### Change the source table references
+If an individual source table has a different name than what the package expects, add the table name as it appears in your destination to the respective variable:
+> IMPORTANT: See this project's [`dbt_project.yml`](https://github.com/fivetran/dbt_marketo/blob/main/dbt_project.yml) variable declarations to see the expected names.
+    
+```yml
+vars:
+    marketo_<default_source_table_name>_identifier: "your_table_name"
+```
+
 #### Changing the Lead Date Range
 Because of the typical volume of lead data, you may want to limit this package's models to work with a recent date range of your Marketo data (however, note that all final models are materialized as incremental tables).
 
@@ -132,9 +139,7 @@ By default, for dbt Core™ users, the package looks at all events since the ear
 ```yml
 models:
     marketo:
-      +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
-      staging:
-        +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
+      marketo__first_date: "yyyy-mm-dd" 
 ```
 
 > For Fivetran Quickstart Data Model users, the package will look 18 months in the past. There is currently no way to adjust this within the Quickstart environment, though incremental runs will slowly look further and further in the past. However, please be aware that a full refresh will reset the clock and limit data to 18 months prior.

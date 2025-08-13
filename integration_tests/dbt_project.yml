@@ -8,8 +8,11 @@ models:
 
 vars:
     marketo_schema: marketo_integration_tests_10
-    # marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
-    # marketo__enable_programs: false ## Uncomment for testing to disable programs
+
+    # Enable for docs generation
+    # marketo__enable_campaigns: false # @docs-include
+    # marketo__enable_programs: false # @docs-include
+
     marketo_source:
         marketo_lead_identifier: "marketo_lead_data"
         marketo_lead_describe_identifier: "marketo_lead_describe_data"
@@ -31,8 +34,8 @@ dispatch:
       search_order: ['spark_utils', 'dbt_utils']
 
 seeds:
-  +docs:
-    show: False
+    +docs:
+        show: False
     marketo_integration_tests:
         marketo_email_template_history_data:
             +column_types:
@@ -49,5 +52,5 @@ seeds:
                 created_at: timestamp
 
 flags:
-  send_anonymous_usage_stats: False
-  use_colors: True
+    send_anonymous_usage_stats: False
+    use_colors: True
