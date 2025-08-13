@@ -31,6 +31,8 @@ dispatch:
       search_order: ['spark_utils', 'dbt_utils']
 
 seeds:
+  +docs:
+    show: False
     marketo_integration_tests:
         marketo_email_template_history_data:
             +column_types:
@@ -45,3 +47,7 @@ seeds:
         marketo_lead_data:
             +column_types:
                 created_at: timestamp
+
+flags:
+  send_anonymous_usage_stats: False
+  use_colors: True
