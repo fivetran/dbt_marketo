@@ -9,7 +9,7 @@
 }}
 
 {% if execute -%}
-    {% set results = run_query('select rest_name_xf from ' ~ var('lead_describe')) %}
+    {% set results = run_query('select rest_name_xf from ' ~ ref('stg_marketo__lead_describe')) %}
     {% set results_list = results.columns[0].values() %}
 {% endif -%}
 

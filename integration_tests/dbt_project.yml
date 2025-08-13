@@ -7,12 +7,9 @@ models:
     +schema: "marketo_{{ var('directed_schema','dev') }}"  
 
 vars:
-    marketo_schema: marketo_integration_tests_10
-
-    # Enable for docs generation
-    # marketo__enable_campaigns: false # @docs-include
-    # marketo__enable_programs: false # @docs-include
-
+    marketo_schema: zz_marketo #marketo_integration_tests_10
+    # marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
+    # marketo__enable_programs: false ## Uncomment for testing to disable programs
     marketo:
         marketo_lead_identifier: "marketo_lead_data"
         marketo_lead_describe_identifier: "marketo_lead_describe_data"
