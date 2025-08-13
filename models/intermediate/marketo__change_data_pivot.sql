@@ -16,7 +16,7 @@
 with change_data as (
 
     select *
-    from {{ var('change_data_value') }}
+    from {{ ref('stg_marketo__activity_change_data_value') }}
     {% if is_incremental() %}
     where cast({{ dbt.dateadd('day', -1, 'activity_timestamp') }} as date) >= (select max(date_day) from {{ this }})
     {% endif %}
@@ -24,7 +24,7 @@ with change_data as (
 ), lead_describe as (
 
     select *
-    from {{ var('lead_describe') }}
+    from {{ ref('stg_marketo__lead_describe') }}
 
 ), joined as (
 

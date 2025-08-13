@@ -3,7 +3,7 @@
 with programs as (
 
     select *
-    from {{ var('program') }}
+    from {{ ref('stg_marketo__program') }}
 
 ), email_stats as (
 

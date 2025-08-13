@@ -3,7 +3,7 @@
 with campaigns as (
 
     select *
-    from {{ var('campaigns') }}
+    from {{ ref('stg_marketo__campaigns') }}
 
 ), email_stats as (
 
