@@ -33,14 +33,14 @@ with sends as (
 ), campaigns as (
 
     select *
-    from {{ var('campaigns') }}
+    from {{ ref('stg_marketo__campaigns') }}
 
 {% endif %}
 
 ), email_templates as (
 
     select *
-    from {{ var('email_tempate_history') }}
+    from {{ ref('stg_marketo__email_template_history') }}
 
 ), metrics as (
 

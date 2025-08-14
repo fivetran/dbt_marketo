@@ -2,11 +2,11 @@
 
 with leads as(
     select * 
-    from {{ var('lead') }}
+    from {{ ref('stg_marketo__lead') }}
 
 ), activity_merge_leads as (
     select * 
-    from {{ var('activity_merge_leads') }}
+    from {{ ref('stg_marketo__activity_merge_leads') }}
 
 ), unique_merges as (
 
@@ -23,7 +23,7 @@ to False. Default is True*/
 ), deleted_leads as (
 
     select distinct lead_id
-    from {{ var('activity_delete_lead') }}
+    from {{ ref('stg_marketo__activity_delete_lead') }}
     
 {% endif %}
 

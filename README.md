@@ -1,4 +1,4 @@
-# Marketo Transformation dbt Package ([docs](https://fivetran.github.io/dbt_marketo/))
+# Marketo dbt Package ([docs](https://fivetran.github.io/dbt_marketo/))
 
 <p align="left">
     <a alt="License"
@@ -16,7 +16,7 @@
 </p>
 
 ## What does this dbt package do?
-- Produces modeled tables that leverage Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo) in the format described by [this ERD](https://fivetran.com/docs/applications/marketo#schema) and builds off the output of our [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
+- Produces modeled tables that leverage Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo) in the format described by [this ERD](https://fivetran.com/docs/applications/marketo#schema).
 - Enables you to better understand your Marketo email performance and how your leads change over time. The output includes models with enriched email metrics for leads, programs, email templates, and campaigns. It also includes a lead history table that shows the state of leads on every day, for a set of columns that you define.
 - Generates a comprehensive data dictionary of your source and modeled Marketo data through the [dbt docs site](https://fivetran.github.io/dbt_marketo/).
 
@@ -62,9 +62,9 @@ Include the following Marketo package version in your `packages.yml` file.
 ```yml
 packages:
   - package: fivetran/marketo
-    version: [">=0.13.0", "<0.14.0"]
+    version: [">=1.0.0", "<1.1.0"]
 ```
-Do **NOT** include the `marketo_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
+> All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/marketo_source` in your `packages.yml` since this package has been deprecated.
 
 ### Step 3: Define database and schema variables
 By default, this package runs using your destination and the `marketo` schema of your [target database](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile). If this is not where your Marketo data is (for example, if your Marketo schema is named `marketo_fivetran`), add the following configuration to your root `dbt_project.yml` file:
@@ -74,8 +74,6 @@ vars:
   marketo_database: your_database_name
   marketo_schema: your_schema_name 
 ```
-
-For additional configurations for the source models, please visit the [Marketo source package](https://github.com/fivetran/dbt_marketo_source).
 
 ### Step 4: Enabling/Disabling Models
 This package takes into consideration tables that may not be synced due to slowness caused by the Marketo API. By default the `campaign`, `program`, and `activity_delete_lead` tables are enabled. If you do not sync these tables, disable the related models or fields by adding the following to your `dbt_project.yml` file:
@@ -91,7 +89,7 @@ vars:
 <br>
 
 #### Passing Through Additional Columns
-This package includes all source columns defined in the source package's [macros folder](https://github.com/fivetran/dbt_marketo_source/tree/main/macros). If you would like to pass through additional columns to the staging models, add the following configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-though fields will be casted accordingly. Use the below format for declaring the respective pass-through variables in your root `dbt_project.yml`.
+This package includes all source columns defined in this package's [staging macros folder](https://github.com/fivetran/dbt_marketo/tree/main/macros/staging). If you would like to pass through additional columns to the staging models, add the following configurations to your `dbt_project.yml` file. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-though fields will be casted accordingly. Use the below format for declaring the respective pass-through variables in your root `dbt_project.yml`.
 ```yml
 vars:
     marketo__activity_send_email_passthrough_columns: 
@@ -119,9 +117,18 @@ By default this package will build the Marketo staging models within a schema ti
 ```yml
 models:
     marketo:
-      +schema: my_new_schema_name # leave blank for just the target_schema
-    marketo_source:
-      +schema: my_new_schema_name # leave blank for just the target_schema
+      +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
+      staging:
+        +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
+```
+
+#### Change the source table references
+If an individual source table has a different name than what the package expects, add the table name as it appears in your destination to the respective variable:
+> IMPORTANT: See this project's [`dbt_project.yml`](https://github.com/fivetran/dbt_marketo/blob/main/dbt_project.yml) variable declarations to see the expected names.
+    
+```yml
+vars:
+    marketo_<default_source_table_name>_identifier: "your_table_name"
 ```
 
 #### Changing the Lead Date Range
@@ -142,19 +149,16 @@ models:
 ### (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand for details</summary>
 <br>
-    
+
 Fivetran offers the ability for you to orchestrate your dbt project through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt). Learn how to set up your project for orchestration through Fivetran in our [Transformations for dbt Core setup guides](https://fivetran.com/docs/transformations/dbt#setupguide).
 </details>
 
 ## Does this package have dependencies?
 This dbt package is dependent on the following dbt packages. These dependencies are installed by default within this package. For more information on the following packages, refer to the [dbt hub](https://hub.getdbt.com/) site.
 > IMPORTANT: If you have any of these dependent packages in your own `packages.yml` file, we highly recommend that you remove them from your root `packages.yml` to avoid package version conflicts.
-    
+
 ```yml
 packages:
-    - package: fivetran/marketo_source
-      version: [">=0.13.0", "<0.14.0"]
-
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]
 

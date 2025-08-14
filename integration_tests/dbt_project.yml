@@ -1,5 +1,5 @@
 name: 'marketo_integration_tests'
-version: '0.13.1'
+version: '1.0.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -10,7 +10,7 @@ vars:
     marketo_schema: marketo_integration_tests_10
     # marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
     # marketo__enable_programs: false ## Uncomment for testing to disable programs
-    marketo_source:
+    marketo:
         marketo_lead_identifier: "marketo_lead_data"
         marketo_lead_describe_identifier: "marketo_lead_describe_data"
         marketo_activity_change_data_value_identifier: "marketo_activity_change_data_value_data"
@@ -31,6 +31,8 @@ dispatch:
       search_order: ['spark_utils', 'dbt_utils']
 
 seeds:
+    +docs:
+        show: False
     marketo_integration_tests:
         marketo_email_template_history_data:
             +column_types:
@@ -45,3 +47,7 @@ seeds:
         marketo_lead_data:
             +column_types:
                 created_at: timestamp
+
+flags:
+    send_anonymous_usage_stats: False
+    use_colors: True
