@@ -11,7 +11,7 @@
 {%- set lead_columns = adapter.get_columns_in_relation(ref('int_marketo__lead')) -%}
 {% set filtered_lead_columns = [] %}
 {% for col in lead_columns if col.name|lower not in ['lead_id','_fivetran_synced'] and col.name|lower in var('lead_history_columns') %}
-    {% set filtered_lead_columns = filtered_lead_columns.append(col) %}
+    {% do filtered_lead_columns.append(col) %}
 {% endfor %}
 
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('marketo__change_data_pivot')) -%}
