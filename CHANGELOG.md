@@ -1,3 +1,10 @@
+# dbt_marketo v1.0.1
+
+[PR #51](https://github.com/fivetran/dbt_marketo/pull/51) includes the following updates:
+
+## Under the Hood
+- Resolved a dbt Fusion error around `{% set abc = abc.append(...) %}` in [marketo__change_data_scd](https://github.com/fivetran/dbt_marketo/blob/main/models/intermediate/marketo__change_data_scd.sql), as this syntax is valid only in dbt Core. We have opted for `do` instead of `set`.
+
 # dbt_marketo v1.0.0
 
 [PR #47](https://github.com/fivetran/dbt_marketo/pull/47) includes the following updates:

@@ -1,5 +1,5 @@
 name: 'marketo_integration_tests'
-version: '1.0.0'
+version: '1.0.1'
 profile: 'integration_tests'
 config-version: 2
 
@@ -7,7 +7,7 @@ models:
     +schema: "marketo_{{ var('directed_schema','dev') }}"  
 
 vars:
-    marketo_schema: marketo_integration_tests_10
+    marketo_schema: marketo_integration_tests
     # marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
     # marketo__enable_programs: false ## Uncomment for testing to disable programs
     marketo:
