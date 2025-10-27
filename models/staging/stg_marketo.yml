@@ -3,6 +3,8 @@ version: 2
 models:
   - name: stg_marketo__activity_change_data_value
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
@@ -37,6 +39,8 @@ models:
 
   - name: stg_marketo__activity_click_email
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         tests:
           - unique
@@ -78,6 +82,8 @@ models:
 
   - name: stg_marketo__activity_email_bounced
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
@@ -116,6 +122,8 @@ models:
 
   - name: stg_marketo__activity_email_delivered
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
@@ -146,6 +154,8 @@ models:
 
   - name: stg_marketo__activity_open_email
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
@@ -184,6 +194,8 @@ models:
 
   - name: stg_marketo__activity_send_email
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: action_result
         description: The outcome of a specific action performed within the Marketo platform.
       - name: activity_id
@@ -216,6 +228,8 @@ models:
 
   - name: stg_marketo__activity_unsubscribe_email
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
@@ -256,6 +270,8 @@ models:
 
   - name: stg_marketo__campaigns
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: campaign_id
         description: ID of the campaign.
         tests:
@@ -322,6 +338,8 @@ models:
 
   - name: stg_marketo__email_template_history
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: email_template_history_id
         description: ID of the email template.
         tests:
@@ -388,6 +406,8 @@ models:
 
   - name: stg_marketo__lead_describe
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: lead_describe_id
         description: ID of the description.
         tests:
@@ -412,6 +432,8 @@ models:
 
   - name: stg_marketo__lead
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: lead_id
         description: ID of the lead.
         tests:
@@ -488,6 +510,8 @@ models:
 
   - name: stg_marketo__program
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: program_id
         description: ID of the program.
         tests:
@@ -526,6 +550,8 @@ models:
   - name: stg_marketo__activity_delete_lead
     description: Table with deleted lead activities
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_timestamp
         description: The timestamp the lead was deleted.
       - name: activity_type_id
@@ -546,6 +572,8 @@ models:
   - name: stg_marketo__activity_merge_leads
     description: Table with merged lead activities
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_timestamp
         description: The timestamp the lead was deleted.
       - name: activity_type_id

@@ -12,11 +12,13 @@ with base as (
                 staging_columns=get_activity_change_data_value_columns()
             )
         }}
+        {{ marketo.apply_source_relation() }}
     from base
 
 ), fields as (
 
-    select 
+    select
+        source_relation,
         cast(activity_date as {{ dbt.type_timestamp() }}) as activity_timestamp,
         activity_type_id,
         api_method_name,

@@ -1,19 +1,19 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=var('fivetran_validation_tests_enabled', false) and var('marketo__enable_campaigns', true) and var('marketo__enable_programs', true)
+    enabled=var('fivetran_validation_tests_enabled', false)
 ) }}
 
 {% set exclude_cols = ['source_relation'] %}
 
--- this test ensures the marketo__programs end model matches the prior version
+-- this test ensures the marketo__lead_history end model matches the prior version
 with prod as (
-    select {{ dbt_utils.star(from=ref('marketo__programs'), except=exclude_cols) }}
-    from {{ target.schema }}_marketo_prod.marketo__programs
+    select {{ dbt_utils.star(from=ref('marketo__lead_history'), except=exclude_cols) }}
+    from {{ target.schema }}_marketo_prod.marketo__lead_history
 ),
 
 dev as (
-    select {{ dbt_utils.star(from=ref('marketo__programs'), except=exclude_cols) }}
-    from {{ target.schema }}_marketo_dev.marketo__programs
+    select {{ dbt_utils.star(from=ref('marketo__lead_history'), except=exclude_cols) }}
+    from {{ target.schema }}_marketo_dev.marketo__lead_history
 ),
 
 prod_not_in_dev as (

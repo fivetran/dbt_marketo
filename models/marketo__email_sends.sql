@@ -52,11 +52,21 @@ with sends as (
         coalesce(deliveries.count_deliveries, 0) as count_deliveries,
         coalesce(unsubscribes.count_unsubscribes, 0) as count_unsubscribes
     from sends
-    left join opens using (email_send_id)
-    left join bounces using (email_send_id)
-    left join clicks using (email_send_id)
-    left join deliveries using (email_send_id)
-    left join unsubscribes using (email_send_id)
+    left join opens
+        on sends.source_relation = opens.source_relation
+        and sends.email_send_id = opens.email_send_id
+    left join bounces
+        on sends.source_relation = bounces.source_relation
+        and sends.email_send_id = bounces.email_send_id
+    left join clicks
+        on sends.source_relation = clicks.source_relation
+        and sends.email_send_id = clicks.email_send_id
+    left join deliveries
+        on sends.source_relation = deliveries.source_relation
+        and sends.email_send_id = deliveries.email_send_id
+    left join unsubscribes
+        on sends.source_relation = unsubscribes.source_relation
+        and sends.email_send_id = unsubscribes.email_send_id
 
 ), booleans as (
 
@@ -80,11 +90,14 @@ with sends as (
         email_templates.is_operational
     from booleans
     {% if var('marketo__enable_campaigns', True) %}
-    left join campaigns using (campaign_id)
+    left join campaigns
+        on booleans.source_relation = campaigns.source_relation
+        and booleans.campaign_id = campaigns.campaign_id
     {% endif %}
     left join email_templates
-        on booleans.email_template_id = email_templates.email_template_id
-        and booleans.activity_timestamp 
+        on booleans.source_relation = email_templates.source_relation
+        and booleans.email_template_id = email_templates.email_template_id
+        and booleans.activity_timestamp
             between email_templates.valid_from
             and coalesce(email_templates.valid_to, cast('2099-01-01' as timestamp))
 

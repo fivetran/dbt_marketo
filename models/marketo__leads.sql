@@ -22,7 +22,8 @@ with leads as (
         coalesce(email_stats.count_unique_clicks, 0) as count_unique_clicks
     from leads
     left join email_stats
-        using (lead_id)
+        on leads.source_relation = email_stats.source_relation 
+        and leads.lead_id = email_stats.lead_id
 )
 
 select *

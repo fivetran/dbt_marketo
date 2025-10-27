@@ -7,7 +7,7 @@ with base as (
 
     select 
         *,
-        row_number() over (partition by email_send_id order by activity_timestamp asc) as activity_rank
+        row_number() over (partition by source_relation, email_send_id order by activity_timestamp asc) as activity_rank
     from base
 
 ), filtered as (

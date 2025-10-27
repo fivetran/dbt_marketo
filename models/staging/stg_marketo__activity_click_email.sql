@@ -12,11 +12,13 @@ with base as (
                 staging_columns=get_activity_click_email_columns()
             )
         }}
+        {{ marketo.apply_source_relation() }}
     from base
 
 ), fields as (
 
-    select 
+    select
+        source_relation,
         cast(activity_date as {{ dbt.type_timestamp() }}) as activity_timestamp,
         activity_type_id,
         campaign_id,
@@ -39,7 +41,7 @@ with base as (
 
     select 
         *,
-        {{ dbt_utils.generate_surrogate_key(['primary_attribute_value_id','campaign_id','campaign_run_id','lead_id']) }} as email_send_id
+        {{ dbt_utils.generate_surrogate_key(['source_relation','primary_attribute_value_id','campaign_id','campaign_run_id','lead_id']) }} as email_send_id
     from fields
 
 )

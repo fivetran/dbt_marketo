@@ -12,11 +12,13 @@ with base as (
                 staging_columns=get_activity_merge_leads_columns()
             )
         }}
+        {{ marketo.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         id as activity_id,
         _fivetran_synced,
         cast(activity_date as {{ dbt.type_timestamp() }}) as activity_timestamp,

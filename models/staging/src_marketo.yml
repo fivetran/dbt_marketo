@@ -4,6 +4,8 @@ sources:
   - name: marketo
     schema: "{{ var('marketo_schema', 'marketo') }}"
     database: "{% if target.type != 'spark'%}{{ var('marketo_database', target.database) }}{% endif %}"
+    config:
+      enabled: "{{ var('marketo_sources', []) == [] }}"
 
     tables:
       - name: lead

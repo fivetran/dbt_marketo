@@ -9,7 +9,7 @@
 }}
 
 {% if execute -%}
-    {% set results = run_query('select rest_name_xf from ' ~ ref('stg_marketo__lead_describe')) %}
+    {% set results = run_query('select distinct rest_name_xf from ' ~ ref('stg_marketo__lead_describe')) %}
     {% set results_list = results.columns[0].values() %}
 {% endif -%}
 
@@ -35,7 +35,8 @@ with change_data as (
         lead_describe.rest_name_xf as primary_attribute_column
     from change_data
     left join lead_describe
-        on change_data.primary_attribute_value_id = lead_describe.lead_describe_id
+        on change_data.source_relation = lead_describe.source_relation
+        and change_data.primary_attribute_value_id = lead_describe.lead_describe_id
 
 ), pivots as (
 
@@ -44,6 +45,7 @@ with change_data as (
     -- This will feed the daily slowly changing dimension model.
 
     select 
+        source_relation,
         lead_id,
         cast({{ dbt.dateadd('day', -1, 'activity_timestamp') }} as date) as date_day
 
@@ -54,13 +56,13 @@ with change_data as (
     
     from joined
     where cast(activity_timestamp as date) < current_date
-    group by 1,2
+    group by 1,2,3
 
 ), surrogate_key as (
 
     select 
         *,
-        {{ dbt_utils.generate_surrogate_key(['lead_id','date_day'])}} as lead_day_id
+        {{ dbt_utils.generate_surrogate_key(['source_relation','lead_id','date_day'])}} as lead_day_id
     from pivots
 
 )

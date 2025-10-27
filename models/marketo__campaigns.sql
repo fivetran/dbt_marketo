@@ -24,7 +24,8 @@ with campaigns as (
         coalesce(email_stats.count_unique_clicks, 0) as count_unique_clicks
     from campaigns
     left join email_stats
-        using (campaign_id)
+        on campaigns.source_relation = email_stats.source_relation
+        and campaigns.campaign_id = email_stats.campaign_id
 
 )
 

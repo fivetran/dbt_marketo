@@ -24,7 +24,8 @@ with programs as (
         coalesce(email_stats.count_unique_clicks, 0) as count_unique_clicks
     from programs
     left join email_stats
-        using (program_id)
+        on programs.source_relation = email_stats.source_relation
+        and programs.program_id = email_stats.program_id
 
 )
 

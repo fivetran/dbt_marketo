@@ -1,2 +1,7 @@
-select *
-from {{ var('activity_send_email') }}
+{{
+    marketo.marketo_union_connections(
+        connection_dictionary='marketo_sources',
+        single_source_name='marketo',
+        single_table_name='activity_send_email'
+    )
+}}

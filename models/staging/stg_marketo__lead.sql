@@ -12,6 +12,7 @@ with base as (
                 staging_columns=get_lead_columns()
             )
         }}
+        {{ marketo.apply_source_relation() }}
         -- This will check if there are non-default columns to bring in
         {% set default_cols = ['id', 'created_at', 'updated_at', 'email', 'first_name', 'last_name', '_fivetran_synced',
         'phone', 'main_phone', 'mobile_phone', 'company', 'inferred_company', 'address_lead', 'address', 'city', 'state',
