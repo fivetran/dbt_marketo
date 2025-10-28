@@ -67,7 +67,7 @@ with change_data as (
         , unioned.{{ col.name }}
         , sum(case when unioned.{{ col.name }} is null and not coalesce(details.{{ col.name }}, true) then 0
             else 1 end) over (
-                partition by unioned.source_relation, unioned.lead_id
+                partition by unioned.lead_id {{ partition_by_source_relation(alias='unioned') }}
                 order by coalesce(unioned.date_day, current_date) desc
                 rows between unbounded preceding and current row)
             as {{ col.name }}_partition
@@ -96,13 +96,13 @@ with change_data as (
         {% if col.name not in change_data_columns_xf %}
         {# If the column does not exist in the change data, grab the value from the current state of the record. #}
         , last_value(field_partitions.{{ col.name }}) over (
-            partition by field_partitions.source_relation, field_partitions.lead_id
+            partition by field_partitions.lead_id {{ partition_by_source_relation(alias='field_partitions') }}
             order by field_partitions.date_day asc
             rows between unbounded preceding and current row) as {{ col.name }}
 
         {% else %}
         , first_value(field_partitions.{{ col.name }}) over (
-            partition by field_partitions.source_relation, field_partitions.lead_id, field_partitions.{{ col.name }}_partition
+            partition by field_partitions.lead_id, field_partitions.{{ col.name }}_partition {{ partition_by_source_relation(alias='field_partitions') }}
             order by field_partitions.valid_to desc
             rows between unbounded preceding and current row)
             as {{ col.name }}
