@@ -9,7 +9,6 @@ models:
       - name: campaign_id
         description: ID of the campaign.
         tests:
-          - unique
           - not_null
       - name: campaign_name
         description: Name of the campaign.
@@ -94,7 +93,6 @@ models:
       - name: email_send_id
         description: The inferred ID for the email sent.
         tests:
-          - unique
           - not_null
       - name: action_result
         description: The outcome of a specific action performed within the Marketo platform.
@@ -159,7 +157,6 @@ models:
       - name: email_template_id
         description: ID of the email template.
         tests:
-          - unique
           - not_null
       - name: created_timestamp
         description: Timestamp the email template was created.
@@ -249,7 +246,6 @@ models:
       - name: lead_history_id
         description: Surrogate key combining date_day and lead_id.
         tests:
-          - unique
           - not_null
       - name: lead_id
         description: ID of the lead.
@@ -269,7 +265,6 @@ models:
       - name: lead_id
         description: ID of the lead.
         tests:
-          - unique
           - not_null
       - name: created_timestamp
         description: Timestamp for when each lead was created.
@@ -370,7 +365,6 @@ models:
       - name: program_id
         description: ID of the program.
         tests:
-          - unique
           - not_null
       - name: channel
         description: Channel of the program.

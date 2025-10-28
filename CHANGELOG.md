@@ -1,6 +1,6 @@
 # dbt_marketo v1.1.0
 
-[PR #XX](https://github.com/fivetran/dbt_marketo/pull/XX) includes the following updates:
+[PR #52](https://github.com/fivetran/dbt_marketo/pull/52) includes the following updates:
 
 ## Schema/Data Change
 **1 total change • 0 possible breaking changes**

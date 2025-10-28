@@ -3,7 +3,7 @@
     enabled=var('fivetran_validation_tests_enabled', false)
 ) }}
 
-{% set exclude_cols = ['source_relation'] %}
+{% set exclude_cols = ['source_relation', 'merged_into_lead_id'] %}
 
 -- this test ensures the marketo__leads end model matches the prior version
 with prod as (

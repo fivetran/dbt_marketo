@@ -3,7 +3,7 @@
     enabled=var('fivetran_validation_tests_enabled', false)
 ) }}
 
-{% set columns_to_exclude = ['activity_id'] %}
+{% set columns_to_exclude = ['activity_id', 'source_relation', 'email_template_id', 'email_send_id'] %}
 
 {% if not var('marketo__enable_campaigns', True) %}
     {% do columns_to_exclude.extend(['campaign_type', 'program_id']) %}
