@@ -33,3 +33,7 @@ Count of unique clicks from related email sends.
 {% docs source_relation %}
 Identifies the record's source.
 {% enddocs %}
+
+{% docs _fivetran_synced %}
+The timestamp when the record was last synced by Fivetran.
+{% enddocs %}

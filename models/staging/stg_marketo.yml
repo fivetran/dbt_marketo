@@ -496,7 +496,9 @@ models:
         description: Email invalid status (boolean). All emails to the address will be blocked if set to true. Bounces indicating that the email is invalid will automatically set this field to true.
       - name: do_not_call
         description: Lead’s do-not-call preference (boolean)
-
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+        
   - name: stg_marketo__program
     columns:
       - name: source_relation
@@ -556,6 +558,8 @@ models:
         description: The primary attribute of the activity.
       - name: primary_attribute_value_id
         description: The ID of the primary attribute of the activity.
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
 
   - name: stg_marketo__activity_merge_leads
     description: Table with merged lead activities
@@ -584,3 +588,5 @@ models:
         description: Source of the merge.
       - name: merged_in_sales
         description: Boolean if merged in sales.
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"

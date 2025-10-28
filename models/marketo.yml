@@ -356,7 +356,9 @@ models:
         description: '{{ doc("count_unique_opens") }}'
       - name: count_unique_clicks
         description: '{{ doc("count_unique_clicks") }}'
-
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+        
   - name: marketo__programs
     description: Each record is a Marketo program.
     columns:
