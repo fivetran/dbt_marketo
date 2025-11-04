@@ -1,10 +1,10 @@
--- depends_on: {{ ref('stg_marketo__lead') }}
+-- depends_on: {{ ref('stg_marketo__lead_tmp') }}
 
 with spine as (
 
     {% if execute %}
     {% set first_date_query %}
-        select  min( created_timestamp ) as min_date from {{ ref('stg_marketo__lead') }}
+        select  min( created_at ) as min_date from {{ ref('stg_marketo__lead_tmp') }}
     {% endset %}
 
     -- can set first date with var marketo__first_date; 

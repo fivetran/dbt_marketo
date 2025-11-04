@@ -3,16 +3,14 @@
     enabled=var('fivetran_validation_tests_enabled', false)
 ) }}
 
-{% set exclude_cols = ['source_relation', 'merged_into_lead_id'] %}
-
 -- this test ensures the marketo__leads end model matches the prior version
 with prod as (
-    select {{ dbt_utils.star(from=ref('marketo__leads'), except=exclude_cols) }}
+    select {{ dbt_utils.star(from=ref('marketo__leads'), except=var('consistency_test_exclude_columns', [])) }}
     from {{ target.schema }}_marketo_prod.marketo__leads
 ),
 
 dev as (
-    select {{ dbt_utils.star(from=ref('marketo__leads'), except=exclude_cols) }}
+    select {{ dbt_utils.star(from=ref('marketo__leads'), except=var('consistency_test_exclude_columns', [])) }}
     from {{ target.schema }}_marketo_dev.marketo__leads
 ),
 

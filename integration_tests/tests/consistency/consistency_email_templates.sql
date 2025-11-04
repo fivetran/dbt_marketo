@@ -3,7 +3,7 @@
     enabled=var('fivetran_validation_tests_enabled', false)
 ) }}
 
-{% set columns_to_exclude = ['source_relation', 'email_template_history_id'] + var('consistency_test_exclude_metrics', []) %}
+{% set columns_to_exclude = var('consistency_test_exclude_columns', []) + var('consistency_test_exclude_metrics', []) %}
 
 with prod as (
     select {{ dbt_utils.star(from=ref('marketo__email_templates'), except=columns_to_exclude) }}

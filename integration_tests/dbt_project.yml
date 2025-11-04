@@ -8,6 +8,7 @@ models:
 
 vars:
     marketo_schema: marketo_integration_tests
+    consistency_test_exclude_columns: ['activity_id', 'source_relation', 'email_template_id', 'email_send_id', 'email_template_history_id', 'lead_history_id', 'merged_into_lead_id']
     # marketo__enable_campaigns: false ## Uncomment for testing to disable campaigns
     # marketo__enable_programs: false ## Uncomment for testing to disable programs
     marketo:

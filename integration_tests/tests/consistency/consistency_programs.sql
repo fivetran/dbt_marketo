@@ -7,12 +7,12 @@
 
 -- this test ensures the marketo__programs end model matches the prior version
 with prod as (
-    select {{ dbt_utils.star(from=ref('marketo__programs'), except=exclude_cols) }}
+    select {{ dbt_utils.star(from=ref('marketo__programs'), except=var('consistency_test_exclude_columns', [])) }}
     from {{ target.schema }}_marketo_prod.marketo__programs
 ),
 
 dev as (
-    select {{ dbt_utils.star(from=ref('marketo__programs'), except=exclude_cols) }}
+    select {{ dbt_utils.star(from=ref('marketo__programs'), except=var('consistency_test_exclude_columns', [])) }}
     from {{ target.schema }}_marketo_dev.marketo__programs
 ),
 
