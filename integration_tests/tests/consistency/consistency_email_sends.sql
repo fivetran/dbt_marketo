@@ -9,7 +9,7 @@
     {% do columns_to_exclude.extend(['campaign_type', 'program_id']) %}
 {% endif %}
 
-{% set columns_to_exclude = columns_to_exclude + var('consistency_test_exclude_metrics', []) %}
+{% set columns_to_exclude = ['activity_id'] + var('consistency_test_exclude_columns', []) %}
 
 with prod as (
     select {{ dbt_utils.star(

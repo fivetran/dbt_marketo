@@ -60,7 +60,7 @@ models:
       - name: click_link_url
         description: The URL of the link clicked.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: is_mobile_device
@@ -105,7 +105,7 @@ models:
       - name: email_address
         description: The email address that bounced.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: lead_id
@@ -136,7 +136,7 @@ models:
       - name: choice_number
         description: The choice number of the current step that triggered the activity.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: lead_id
@@ -169,7 +169,7 @@ models:
       - name: device
         description: The device that was used to open the email.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: is_mobile_device
@@ -208,7 +208,7 @@ models:
       - name: choice_number
         description: The choice number of the current step that triggered the activity.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: lead_id
@@ -239,7 +239,7 @@ models:
       - name: client_ip_address
         description: The IP address of the client that unsubscribed.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: form_fields

@@ -3,11 +3,15 @@
 [PR #52](https://github.com/fivetran/dbt_marketo/pull/52) includes the following updates:
 
 ## Schema/Data Change
-**1 total change • 0 possible breaking changes**
+**5 total changes • 4 possible breaking changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | ----| --- | ----- |
 | All models | New column | | `source_relation` | Identifies the source connection when using multiple Marketo connections |
+| `marketo__lead_history` | Updated surrogate key | `lead_history_id` = `lead_id` + `date_day` | `lead_history_id` = `source_relation` + `lead_id` + `date_day` |  |
+| `marketo__email_templates`<br>`stg_marketo__email_template_history` | Updated surrogate key | `email_template_history_id` = `email_template_id` + `inferred_version` | `email_template_history_id` = `source_relation` + `email_template_id` + `inferred_version` |  |
+|`marketo__email_sends`<br>`stg_marketo__activity_click_email`<br>`stg_marketo__activity_email_bounced`<br>`stg_marketo__activity_email_delivered`<br>`stg_marketo__activity_open_email`<br>`stg_marketo__activity_send_email`<br>`stg_marketo__activity_unsubscribe_email` | Updated surrogate key | `email_send_id` = `primary_attribute_value_id` + `campaign_id` + `campaign_run_id` + `lead_id` | `email_send_id` = `source_relation` + `primary_attribute_value_id` + `campaign_id` + `campaign_run_id` + `lead_id` |  |
+| `marketo__change_data_details`<br>`marketo__change_data_pivot`<br>`marketo__change_data_scd`<br>`marketo__lead_calendar_spine` | Updated surrogate key | `lead_day_id` = `lead_id` + `date_day` | `lead_day_id` = `source_relation` + `lead_id` + `date_day` |  |
 
 ## Feature Update
 - **Union Data Functionality**: This release supports running the package on multiple Marketo source connections. See the [README](https://github.com/fivetran/dbt_marketo/tree/main?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature.

@@ -61,7 +61,7 @@ with change_data as (
         -- create a batch/partition once a new value is provided
         , sum(case when new_values_present then 1
             else 0 end) over (
-                partition by lead_id {{ partition_by_source_relation() }}
+                partition by lead_id {{ marketo.partition_by_source_relation() }}
                 order by coalesce(date_day, current_date) desc
                 rows between unbounded preceding and current row)
             as {{ col.name }}_partition
@@ -78,7 +78,7 @@ with change_data as (
         -- identified by the presence of a record from the SCD table on that day
         {% for col in filtered_change_data_columns %} 
         , first_value({{ col.name }}) over (
-                partition by lead_id, {{ col.name }}_partition {{ partition_by_source_relation() }}
+                partition by lead_id, {{ col.name }}_partition {{ marketo.partition_by_source_relation() }}
                 order by date_day desc
                 rows between unbounded preceding and current row)
         as {{ col.name }}

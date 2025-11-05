@@ -3,8 +3,6 @@
     enabled=var('fivetran_validation_tests_enabled', false) and var('marketo__enable_campaigns', true) and var('marketo__enable_programs', true)
 ) }}
 
-{% set exclude_cols = ['source_relation'] %}
-
 -- this test ensures the marketo__programs end model matches the prior version
 with prod as (
     select {{ dbt_utils.star(from=ref('marketo__programs'), except=var('consistency_test_exclude_columns', [])) }}

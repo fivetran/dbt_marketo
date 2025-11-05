@@ -110,8 +110,6 @@ models:
         description: The ID of the email's campaign run.
       - name: choice_number
         description: The choice number of the current step that triggered the activity.
-      - name: email_send_id
-        description: The inferred ID for the email sent.
       - name: email_template_id
         description: The ID of the email's template.
       - name: lead_id
@@ -166,8 +164,6 @@ models:
         description: Subject line of the email.
       - name: email_template_history_id
         description: ID of the version of the email template.
-      - name: email_template_id
-        description: ID of the email template
       - name: email_template_name
         description: Name of the email template.
       - name: email_template_status
@@ -244,7 +240,7 @@ models:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: lead_history_id
-        description: Surrogate key combining date_day and lead_id.
+        description: Surrogate key hashing date_day, lead_id, and source_relation.
         tests:
           - not_null
       - name: lead_id
