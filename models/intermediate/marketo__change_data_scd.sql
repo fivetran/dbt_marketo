@@ -53,6 +53,7 @@ with change_data as (
 ), field_partitions as (
 
     select
+        unioned.source_relation,
         coalesce(unioned.date_day, current_date) as valid_to,
         unioned.date_day,
         unioned.lead_id
@@ -66,8 +67,8 @@ with change_data as (
         , unioned.{{ col.name }}
         , sum(case when unioned.{{ col.name }} is null and not coalesce(details.{{ col.name }}, true) then 0
             else 1 end) over (
-                partition by unioned.lead_id
-                order by coalesce(unioned.date_day, current_date) desc 
+                partition by unioned.lead_id {{ marketo.partition_by_source_relation(alias='unioned') }}
+                order by coalesce(unioned.date_day, current_date) desc
                 rows between unbounded preceding and current row)
             as {{ col.name }}_partition
         
@@ -76,7 +77,8 @@ with change_data as (
 
     from unioned
     left join details
-        on unioned.date_day = details.date_day
+        on unioned.source_relation = details.source_relation
+        and unioned.date_day = details.date_day
         and unioned.lead_id = details.lead_id
 
 ), today as (
@@ -86,6 +88,7 @@ with change_data as (
     -- value is because no change occurred on that day, or because there was a change and the change involved the null value.
 
     select 
+        field_partitions.source_relation,
         field_partitions.valid_to, 
         field_partitions.lead_id
 
@@ -93,13 +96,13 @@ with change_data as (
         {% if col.name not in change_data_columns_xf %}
         {# If the column does not exist in the change data, grab the value from the current state of the record. #}
         , last_value(field_partitions.{{ col.name }}) over (
-            partition by field_partitions.lead_id 
-            order by field_partitions.date_day asc 
+            partition by field_partitions.lead_id {{ marketo.partition_by_source_relation(alias='field_partitions') }}
+            order by field_partitions.date_day asc
             rows between unbounded preceding and current row) as {{ col.name }}
 
         {% else %}
         , first_value(field_partitions.{{ col.name }}) over (
-            partition by field_partitions.lead_id, field_partitions.{{ col.name }}_partition 
+            partition by field_partitions.lead_id, field_partitions.{{ col.name }}_partition {{ marketo.partition_by_source_relation(alias='field_partitions') }}
             order by field_partitions.valid_to desc
             rows between unbounded preceding and current row)
             as {{ col.name }}
@@ -112,7 +115,7 @@ with change_data as (
 
     select 
         *,
-        {{ dbt_utils.generate_surrogate_key(['lead_id','valid_to'])}} as lead_day_id
+        {{ dbt_utils.generate_surrogate_key(['source_relation','lead_id','valid_to'])}} as lead_day_id
     from today
 
 )

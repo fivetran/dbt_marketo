@@ -1,2 +1,7 @@
-select *
-from {{ var('activity_change_data_value') }}
+{{
+    marketo.marketo_union_connections(
+        connection_dictionary='marketo_sources',
+        single_source_name='marketo',
+        single_table_name='activity_change_data_value'
+    )
+}}

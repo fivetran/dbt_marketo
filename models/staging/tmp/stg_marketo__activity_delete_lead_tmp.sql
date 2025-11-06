@@ -1,4 +1,9 @@
 {{ config(enabled=var('marketo__activity_delete_lead_enabled', True)) }}
 
-select *
-from {{ var('activity_delete_lead') }}
+{{
+    marketo.marketo_union_connections(
+        connection_dictionary='marketo_sources',
+        single_source_name='marketo',
+        single_table_name='activity_delete_lead'
+    )
+}}

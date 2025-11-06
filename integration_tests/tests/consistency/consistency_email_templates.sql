@@ -3,13 +3,15 @@
     enabled=var('fivetran_validation_tests_enabled', false)
 ) }}
 
+{% set columns_to_exclude = var('consistency_test_exclude_columns', []) + var('consistency_test_exclude_metrics', []) %}
+
 with prod as (
-    select {{ dbt_utils.star(from=ref('marketo__email_templates'), except=var('consistency_test_exclude_metrics', [])) }}
+    select {{ dbt_utils.star(from=ref('marketo__email_templates'), except=columns_to_exclude) }}
     from {{ target.schema }}_marketo_prod.marketo__email_templates
 ),
 
 dev as (
-    select {{ dbt_utils.star(from=ref('marketo__email_templates'), except=var('consistency_test_exclude_metrics', [])) }}
+    select {{ dbt_utils.star(from=ref('marketo__email_templates'), except=columns_to_exclude) }}
     from {{ target.schema }}_marketo_dev.marketo__email_templates
 ), 
 

@@ -29,3 +29,11 @@ Count of unique opens from related email sends.
 {% docs count_unique_clicks %}
 Count of unique clicks from related email sends.
 {% enddocs %}
+
+{% docs source_relation %}
+Identifies the record's source.
+{% enddocs %}
+
+{% docs _fivetran_synced %}
+The timestamp when the record was last synced by Fivetran.
+{% enddocs %}

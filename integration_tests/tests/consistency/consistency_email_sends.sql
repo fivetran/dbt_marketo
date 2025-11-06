@@ -3,13 +3,11 @@
     enabled=var('fivetran_validation_tests_enabled', false)
 ) }}
 
-{% set columns_to_exclude = ['activity_id'] %}
+{% set columns_to_exclude = ['activity_id'] + var('consistency_test_exclude_columns', []) %}
 
 {% if not var('marketo__enable_campaigns', True) %}
     {% do columns_to_exclude.extend(['campaign_type', 'program_id']) %}
 {% endif %}
-
-{% set columns_to_exclude = columns_to_exclude + var('consistency_test_exclude_metrics', []) %}
 
 with prod as (
     select {{ dbt_utils.star(

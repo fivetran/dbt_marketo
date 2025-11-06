@@ -5,11 +5,12 @@ with activity as (
 
 ), aggregate as (
 
-    select 
+    select
+        source_relation,
         email_send_id,
         count(*) as count_clicks
     from activity
-    group by 1
+    group by 1, 2
 
 )
 

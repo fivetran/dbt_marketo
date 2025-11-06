@@ -8,6 +8,7 @@ with email_sends as (
 ), aggregated as (
 
     select
+        source_relation,
         campaign_id,
         count(*) as count_sends,
         sum(count_opens) as count_opens,
@@ -19,7 +20,7 @@ with email_sends as (
         count(distinct case when was_clicked = True then email_send_id end) as count_unique_clicks
     from email_sends
     where campaign_id is not null
-    group by 1
+    group by 1, 2
 
 )
 

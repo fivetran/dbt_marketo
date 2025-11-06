@@ -12,11 +12,13 @@ with base as (
                 staging_columns=get_lead_describe_columns()
             )
         }}
+        {{ marketo.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         data_type,
         display_name,
         id as lead_describe_id,

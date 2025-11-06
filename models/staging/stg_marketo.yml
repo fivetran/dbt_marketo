@@ -3,10 +3,11 @@ version: 2
 models:
   - name: stg_marketo__activity_change_data_value
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
-          - unique
           - not_null
       - name: activity_timestamp
         description: Timestamp of the activity.
@@ -37,9 +38,10 @@ models:
 
   - name: stg_marketo__activity_click_email
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         tests:
-          - unique
           - not_null
       - name: activity_timestamp
         description: Timestamp of the activity.
@@ -58,7 +60,7 @@ models:
       - name: click_link_url
         description: The URL of the link clicked.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: is_mobile_device
@@ -78,10 +80,11 @@ models:
 
   - name: stg_marketo__activity_email_bounced
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
-          - unique
           - not_null
       - name: activity_timestamp
         description: The timestamp the email bounced.
@@ -102,7 +105,7 @@ models:
       - name: email_address
         description: The email address that bounced.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: lead_id
@@ -116,10 +119,11 @@ models:
 
   - name: stg_marketo__activity_email_delivered
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
-          - unique
           - not_null
       - name: activity_timestamp
         description: The timestamp the email was delivered.
@@ -132,7 +136,7 @@ models:
       - name: choice_number
         description: The choice number of the current step that triggered the activity.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: lead_id
@@ -146,10 +150,11 @@ models:
 
   - name: stg_marketo__activity_open_email
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
-          - unique
           - not_null
       - name: activity_timestamp
         description: The timestamp the email was opened.
@@ -164,7 +169,7 @@ models:
       - name: device
         description: The device that was used to open the email.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: is_mobile_device
@@ -184,12 +189,13 @@ models:
 
   - name: stg_marketo__activity_send_email
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: action_result
         description: The outcome of a specific action performed within the Marketo platform.
       - name: activity_id
         description: ID of the activity.
         tests:
-          - unique
           - not_null
       - name: activity_timestamp
         description: The timestamp the email was sent.
@@ -202,7 +208,7 @@ models:
       - name: choice_number
         description: The choice number of the current step that triggered the activity.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: lead_id
@@ -216,10 +222,11 @@ models:
 
   - name: stg_marketo__activity_unsubscribe_email
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
         tests:
-          - unique
           - not_null
       - name: activity_timestamp
         description: The timestamp the lead unsubscribed.
@@ -232,7 +239,7 @@ models:
       - name: client_ip_address
         description: The IP address of the client that unsubscribed.
       - name: email_send_id
-        description: The inferred ID for the email sent. This is created by concatenating primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
+        description: The inferred ID for the email sent. This is created by hashing source_relation, primary_attribute_value_id, campaign_id, campaign_run_id, and lead_id. 
       - name: email_template_id
         description: The ID of the email's template.
       - name: form_fields
@@ -256,10 +263,11 @@ models:
 
   - name: stg_marketo__campaigns
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: campaign_id
         description: ID of the campaign.
         tests:
-          - unique
           - not_null
       - name: campaign_name
         description: Name of the campaign.
@@ -322,10 +330,11 @@ models:
 
   - name: stg_marketo__email_template_history
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: email_template_history_id
         description: ID of the email template.
         tests:
-          - unique
           - not_null
       - name: created_timestamp
         description: Timestamp the email template was created.
@@ -388,10 +397,11 @@ models:
 
   - name: stg_marketo__lead_describe
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: lead_describe_id
         description: ID of the description.
         tests:
-          - unique
           - not_null
       - name: data_type
         description: Datatype of the field.
@@ -412,10 +422,11 @@ models:
 
   - name: stg_marketo__lead
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: lead_id
         description: ID of the lead.
         tests:
-          - unique
           - not_null
       - name: created_timestamp
         description: The timestamp at which each lead object was created.
@@ -485,13 +496,16 @@ models:
         description: Email invalid status (boolean). All emails to the address will be blocked if set to true. Bounces indicating that the email is invalid will automatically set this field to true.
       - name: do_not_call
         description: Lead’s do-not-call preference (boolean)
-
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+        
   - name: stg_marketo__program
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: program_id
         description: ID of the program.
         tests:
-          - unique
           - not_null
       - name: channel
         description: Channel of the program.
@@ -526,6 +540,8 @@ models:
   - name: stg_marketo__activity_delete_lead
     description: Table with deleted lead activities
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_timestamp
         description: The timestamp the lead was deleted.
       - name: activity_type_id
@@ -542,10 +558,14 @@ models:
         description: The primary attribute of the activity.
       - name: primary_attribute_value_id
         description: The ID of the primary attribute of the activity.
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
 
   - name: stg_marketo__activity_merge_leads
     description: Table with merged lead activities
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: activity_timestamp
         description: The timestamp the lead was deleted.
       - name: activity_type_id
@@ -568,3 +588,5 @@ models:
         description: Source of the merge.
       - name: merged_in_sales
         description: Boolean if merged in sales.
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"

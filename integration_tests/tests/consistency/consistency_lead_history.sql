@@ -1,17 +1,17 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=var('fivetran_validation_tests_enabled', false) and var('marketo__enable_campaigns', true)
+    enabled=var('fivetran_validation_tests_enabled', false)
 ) }}
 
--- this test ensures the marketo__campaigns end model matches the prior version
+-- this test ensures the marketo__lead_history end model matches the prior version
 with prod as (
-    select {{ dbt_utils.star(from=ref('marketo__campaigns'), except=var('consistency_test_exclude_columns', [])) }}
-    from {{ target.schema }}_marketo_prod.marketo__campaigns
+    select {{ dbt_utils.star(from=ref('marketo__lead_history'), except=var('consistency_test_exclude_columns', [])) }}
+    from {{ target.schema }}_marketo_prod.marketo__lead_history
 ),
 
 dev as (
-    select {{ dbt_utils.star(from=ref('marketo__campaigns'), except=var('consistency_test_exclude_columns', [])) }}
-    from {{ target.schema }}_marketo_dev.marketo__campaigns
+    select {{ dbt_utils.star(from=ref('marketo__lead_history'), except=var('consistency_test_exclude_columns', [])) }}
+    from {{ target.schema }}_marketo_dev.marketo__lead_history
 ),
 
 prod_not_in_dev as (

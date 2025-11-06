@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_campaign_columns()
             )
         }}
+        {{ marketo.apply_source_relation() }}
     from base
 
 ), fields as (
 
-    select 
+    select
+        source_relation,
         active as is_active,
         created_at as created_timestamp,
         description,

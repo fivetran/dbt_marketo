@@ -25,7 +25,8 @@ with calendar as (
 
     select 
         calendar.date_day,
-        leads.lead_id
+        leads.lead_id,
+        leads.source_relation
     from calendar
     inner join leads
         on calendar.date_day >= cast(leads.created_timestamp as date)
@@ -34,7 +35,7 @@ with calendar as (
 
     select
         *,
-        {{ dbt_utils.generate_surrogate_key(['date_day','lead_id']) }} as lead_day_id
+        {{ dbt_utils.generate_surrogate_key(['source_relation','date_day','lead_id']) }} as lead_day_id
     from joined
 
 )

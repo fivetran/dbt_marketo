@@ -23,7 +23,8 @@ with email_templates as (
         coalesce(email_stats.count_unique_clicks, 0) as count_unique_clicks
     from email_templates
     left join email_stats
-        using (email_template_id)
+        on email_templates.email_template_id = email_stats.email_template_id
+        and email_templates.source_relation = email_stats.source_relation
 
 )
 

@@ -12,11 +12,13 @@ with base as (
                 staging_columns=get_email_template_history_columns()
             )
         }}
+        {{ marketo.apply_source_relation() }}
     from base
 
 ), fields as (
 
-    select 
+    select
+        source_relation,
         created_at as created_timestamp,
         description,
         folder_folder_name as folder_name,
@@ -46,8 +48,8 @@ with base as (
 
     select  
         *,
-        row_number() over (partition by email_template_id order by updated_timestamp) as inferred_version,
-        count(*) over (partition by email_template_id) as total_count_of_versions
+        row_number() over (partition by email_template_id {{ marketo.partition_by_source_relation() }} order by updated_timestamp) as inferred_version,
+        count(*) over (partition by email_template_id {{ marketo.partition_by_source_relation() }}) as total_count_of_versions
     from fields
 
 ), valid as (
@@ -58,7 +60,7 @@ with base as (
             when inferred_version = 1 then created_timestamp
             else updated_timestamp
         end as valid_from,
-        lead(updated_timestamp) over (partition by email_template_id order by updated_timestamp) as valid_to,
+        lead(updated_timestamp) over (partition by email_template_id {{ marketo.partition_by_source_relation() }} order by updated_timestamp) as valid_to,
         inferred_version = total_count_of_versions as is_most_recent_version
     from versions
 
@@ -66,7 +68,7 @@ with base as (
 
     select 
         *,
-        {{ dbt_utils.generate_surrogate_key(['email_template_id','inferred_version'] )}} as email_template_history_id
+        {{ dbt_utils.generate_surrogate_key(['source_relation','email_template_id','inferred_version'] )}} as email_template_history_id
     from valid
 
 )

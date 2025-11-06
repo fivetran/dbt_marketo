@@ -4,10 +4,11 @@ models:
   - name: marketo__campaigns
     description: Each record is Marketo campaign.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: campaign_id
         description: ID of the campaign.
         tests:
-          - unique
           - not_null
       - name: campaign_name
         description: Name of the campaign.
@@ -87,10 +88,11 @@ models:
   - name: marketo__email_sends
     description: Each record is a sent email in Marketo to a user.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: email_send_id
         description: The inferred ID for the email sent.
         tests:
-          - unique
           - not_null
       - name: action_result
         description: The outcome of a specific action performed within the Marketo platform.
@@ -108,8 +110,6 @@ models:
         description: The ID of the email's campaign run.
       - name: choice_number
         description: The choice number of the current step that triggered the activity.
-      - name: email_send_id
-        description: The inferred ID for the email sent.
       - name: email_template_id
         description: The ID of the email's template.
       - name: lead_id
@@ -150,10 +150,11 @@ models:
   - name: marketo__email_templates
     description: Each record is the most recent version of an email template.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: email_template_id
         description: ID of the email template.
         tests:
-          - unique
           - not_null
       - name: created_timestamp
         description: Timestamp the email template was created.
@@ -163,8 +164,6 @@ models:
         description: Subject line of the email.
       - name: email_template_history_id
         description: ID of the version of the email template.
-      - name: email_template_id
-        description: ID of the email template
       - name: email_template_name
         description: Name of the email template.
       - name: email_template_status
@@ -232,16 +231,17 @@ models:
 
   - name: marketo__lead_history
     description: >
-      Each record is what a Marketo lead looked like on each day. The columns in this model are specified with the `lead_history_columns` variable. 
-      
+      Each record is what a Marketo lead looked like on each day. The columns in this model are specified with the `lead_history_columns` variable.
+
       The start date is configured by the `marketo__first_date` variable, which by default, for dbt Core™ users, is the date of the earliest lead record.
-      For Fivetran Quickstart Data Model users, `marketo__first_date` is 18 months in the past. There is currently no way to adjust this within the Quickstart environment, 
+      For Fivetran Quickstart Data Model users, `marketo__first_date` is 18 months in the past. There is currently no way to adjust this within the Quickstart environment,
       though incremental model runs will slowly look further and further in the past. However, please be aware that a full refresh will reset the clock and limit data to 18 months prior.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: lead_history_id
-        description: Surrogate key combining date_day and lead_id.
+        description: Surrogate key hashing date_day, lead_id, and source_relation.
         tests:
-          - unique
           - not_null
       - name: lead_id
         description: ID of the lead.
@@ -256,10 +256,11 @@ models:
   - name: marketo__leads
     description: Each record is a Marketo lead.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: lead_id
         description: ID of the lead.
         tests:
-          - unique
           - not_null
       - name: created_timestamp
         description: Timestamp for when each lead was created.
@@ -351,14 +352,17 @@ models:
         description: '{{ doc("count_unique_opens") }}'
       - name: count_unique_clicks
         description: '{{ doc("count_unique_clicks") }}'
-
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+        
   - name: marketo__programs
     description: Each record is a Marketo program.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: program_id
         description: ID of the program.
         tests:
-          - unique
           - not_null
       - name: channel
         description: Channel of the program.

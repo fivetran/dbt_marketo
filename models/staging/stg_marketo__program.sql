@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_program_columns()
             )
         }}
+        {{ marketo.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         id as program_id,
         channel,
         created_at as created_timestamp,
