@@ -30,12 +30,12 @@ public_models: [
 supported_vars:
   marketo__activity_send_email_passthrough_columns:
     type: dictionary
-    description: "Addtional `ACTIVITY_SEND_EMAIL` report columns to include in `marketo__email_sends`"
+    description: "Additional `ACTIVITY_SEND_EMAIL` report columns to include in `marketo__email_sends`"
     display_name: "Additional Email Send Columns"
 
   marketo__program_passthrough_columns:
     type: dictionary
-    description: "Addtional `PROGRAM` report columns to include in `marketo__programs`"
+    description: "Additional `PROGRAM` report columns to include in `marketo__programs`"
     display_name: "Additional Program Columns"
 
   lead_history_columns:
