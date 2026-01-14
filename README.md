@@ -1,4 +1,5 @@
-# Marketo dbt Package ([docs](https://fivetran.github.io/dbt_marketo/))
+<!--section="marketo_transformation_model"-->
+# Marketo dbt Package
 
 <p align="left">
     <a alt="License"
@@ -15,36 +16,72 @@
         <img src="https://img.shields.io/badge/Fivetran_Quickstart_Compatible%3F-yes-green.svg" /></a>
 </p>
 
+This dbt package transforms data from Fivetran's Marketo connector into analytics-ready tables.
+
+## Resources
+
+- Number of materialized models¹: 40
+- Connector documentation
+  - [Marketo connector documentation](https://fivetran.com/docs/connectors/applications/marketo)
+  - [Marketo ERD](https://fivetran.com/docs/connectors/applications/marketo#schemainformation)
+- dbt package documentation
+  - [GitHub repository](https://github.com/fivetran/dbt_marketo)
+  - [dbt Docs](https://fivetran.github.io/dbt_marketo/#!/overview)
+  - [DAG](https://fivetran.github.io/dbt_marketo/#!/overview?g_v=1)
+  - [Changelog](https://github.com/fivetran/dbt_marketo/blob/main/CHANGELOG.md)
+
 ## What does this dbt package do?
-- Produces modeled tables that leverage Marketo data from [Fivetran's connector](https://fivetran.com/docs/applications/marketo) in the format described by [this ERD](https://fivetran.com/docs/applications/marketo#schema).
-- Enables you to better understand your Marketo email performance and how your leads change over time. The output includes models with enriched email metrics for leads, programs, email templates, and campaigns. It also includes a lead history table that shows the state of leads on every day, for a set of columns that you define.
-- Generates a comprehensive data dictionary of your source and modeled Marketo data through the [dbt docs site](https://fivetran.github.io/dbt_marketo/).
+This package enables you to better understand your Marketo email performance and how your leads change over time. It creates enriched models with metrics focused on leads, programs, email templates, and campaigns.
 
-<!--section="marketo_transformation_model-->
-The following table provides a detailed list of all tables materialized within this package by default.
+### Output schema
+Final output tables are generated in the following target schema:
 
-> TIP: See more details about these tables in the package's [dbt docs site](https://fivetran.github.io/dbt_marketo/).
+```
+<your_database>.<connector/schema_name>_marketo
+```
 
-| **Table**                | **Description**                                                                                                                                |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| [marketo__campaigns](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__campaigns)       | Each record represents a Marketo campaign, enriched with metrics about email performance.                                                      |
-| [marketo__email_sends](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__email_sends)     | Each record represents the send of a Marketo email, enriched with metrics about email performance.                                                   |
-| [marketo__email_templates](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__email_templates) | Each record represents a Marketo email template, enriched with metrics about email performance.                                                |
-| [marketo__lead_history](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__lead_history)    | Each record represents the state of a lead on a specific day. The columns in this model are specified with the `lead_history_columns` variable. The start date is configured by the `marketo__first_date` variable, which by default, for dbt Core™ users, is the date of the earliest lead record, and for Fivetran Quickstart Data Model users, is 18 months in the past. There is currently no way to adjust this within the Quickstart environment, though incremental model runs will slowly look further and further in the past. However, please be aware that a full refresh will reset the clock and limit data to 18 months prior. |
-| [marketo__leads](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__leads)           | Each record represents a Marketo lead, enriched with metrics about email performance.                                                          |
-| [marketo__programs](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__programs)         | Each record represents a Marketo program, enriched with metrics about email performance.                                                       |
+### Final output tables
 
-### Materialized Models
-Each Quickstart transformation job run materializes 40 models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
-<!--section-end-->
+By default, this package materializes the following final tables:
 
-## How do I use the dbt package?
+| Table | Description |
+| :---- | :---- |
+| [marketo__campaigns](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__campaigns) | Tracks marketing campaign performance with email engagement metrics, lead counts, and campaign outcomes to evaluate campaign effectiveness and ROI. <br></br>**Example Analytics Questions:**<ul><li>Which campaigns generate the highest email engagement and lead conversion rates?</li><li>How do campaign performance metrics vary by campaign type or channel?</li><li>What is the total reach and cost per lead for each campaign?</li></ul>|
+| [marketo__email_sends](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__email_sends) | Provides detailed email send data including recipient information, email content, delivery status, and engagement metrics to analyze email campaign performance at the send level. <br></br>**Example Analytics Questions:**<ul><li>Which emails have the highest open rates, click-through rates, and conversion rates?</li><li>What delivery issues (bounces, spam) are occurring and for which email templates or segments?</li><li>How do send volumes and engagement metrics vary by day of week or time of day?</li></ul>|
+| [marketo__email_templates](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__email_templates) | Analyzes email template performance including usage frequency, open rates, click rates, and engagement metrics to identify top-performing creative and optimize template design. <br></br>**Example Analytics Questions:**<ul><li>Which email templates have the highest open rates and click-through rates?</li><li>How frequently is each template used across campaigns and what is its average performance?</li><li>What template characteristics (subject line patterns, design elements) correlate with better engagement?</li></ul>|
+| [marketo__lead_history](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__lead_history) | Chronicles daily snapshots of lead states over time to track lead progression, analyze attribute changes, and measure lead velocity through the funnel. Columns are specified with the `lead_history_columns` variable, and the start date is configured by the `marketo__first_date` variable for dbt Core™ users, is the date of the earliest lead record, and for Fivetran Quickstart Data Model users, is 18 months in the past. <br></br>**Example Analytics Questions:**<ul><li>How long does it take leads to progress from one stage to another based on daily status changes?</li><li>What lead attributes change most frequently and what triggers those changes?</li><li>How do lead scores evolve over time for leads that eventually convert?</li></ul>|
+| [marketo__leads](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__leads) | Tracks all leads with demographic information, lead scores, acquisition details, program memberships, and activity metrics to manage the sales pipeline and measure lead quality. <br></br>**Example Analytics Questions:**<ul><li>Which leads have the highest scores and are most sales-ready based on engagement activity?</li><li>How do lead sources compare in terms of lead quality and conversion rates?</li><li>What program memberships and email activities correlate with higher lead scores?</li></ul>|
+| [marketo__programs](https://fivetran.github.io/dbt_marketo/#!/model/model.marketo.marketo__programs) | Summarizes marketing program performance including member counts, engagement metrics, and program costs to evaluate program effectiveness and ROI. <br></br>**Example Analytics Questions:**<ul><li>Which programs have the most members and highest engagement rates?</li><li>What is the cost per acquisition and ROI for each program?</li><li>How do program success metrics vary by program type or channel?</li></ul>|
 
-### Step 1: Prerequisites
+¹ Each Quickstart transformation job run materializes these models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
+
+---
+
+## Prerequisites
 To use this dbt package, you must have the following:
 
 - At least one Fivetran Marketo connection syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
+
+## How do I use the dbt package?
+You can either add this dbt package in the Fivetran dashboard or import it into your dbt project:
+
+- To add the package in the Fivetran dashboard, follow our [Quickstart guide](https://fivetran.com/docs/transformations/dbt).
+- To add the package to your dbt project, follow the setup instructions in the dbt package's [README file](https://github.com/fivetran/dbt_marketo/blob/main/README.md#how-do-i-use-the-dbt-package) to use this package.
+
+<!--section-end-->
+
+### Install the package
+Include the following Marketo package version in your `packages.yml` file.
+
+> TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
+
+```yml
+packages:
+  - package: fivetran/marketo
+    version: [">=1.3.0", "<1.4.0"]
+```
+> All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/marketo_source` in your `packages.yml` since this package has been deprecated.
 
 #### Databricks Dispatch Configuration
 If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
@@ -54,19 +91,7 @@ dispatch:
     search_order: ['spark_utils', 'dbt_utils']
 ```
 
-### Step 2: Install the package
-Include the following Marketo package version in your `packages.yml` file.
-
-> TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
-
-```yml
-packages:
-  - package: fivetran/marketo
-    version: [">=1.2.0", "<1.3.0"]
-```
-> All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/marketo_source` in your `packages.yml` since this package has been deprecated.
-
-### Step 3: Define database and schema variables
+### Define database and schema variables
 
 #### Option A: Single connection
 By default, this package runs using your [destination](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile) and the `marketo` schema. If this is not where your Marketo data is (for example, if your Marketo schema is named `marketo_fivetran`), add the following configuration to your root `dbt_project.yml` file:
@@ -125,7 +150,7 @@ sources:
     tables: # copy and paste from marketo/models/staging/src_marketo.yml - see https://support.atlassian.com/bitbucket-cloud/docs/yaml-anchors/ for how to use anchors to only do so once
 ```
 
-> **Note**: If there are source tables you do not have (see [Step 4](https://github.com/fivetran/dbt_marketo?tab=readme-ov-file#step-4-enablingdisabling-models)), you may still include them, as long as you have set the right variables to `False`.
+> **Note**: If there are source tables you do not have (see [Enabling/Disabling Models](https://github.com/fivetran/dbt_marketo?tab=readme-ov-file#enablingdisabling-models)), you may still include them, as long as you have set the right variables to `False`.
 
 2. Set the `has_defined_sources` variable (scoped to the `marketo` package) to `True`, like such:
 ```yml
@@ -135,7 +160,7 @@ vars:
     has_defined_sources: true
 ```
 
-### Step 4: Enabling/Disabling Models
+### Enabling/Disabling Models
 This package takes into consideration tables that may not be synced due to slowness caused by the Marketo API. By default the `campaign`, `program`, and `activity_delete_lead` tables are enabled. If you do not sync these tables, disable the related models or fields by adding the following to your `dbt_project.yml` file:
 ```yml
 vars:
@@ -144,7 +169,7 @@ vars:
     marketo__activity_delete_lead_enabled:  false     # Disable if Fivetran is not syncing the activity_delete_lead table
 ```
 
-### (Optional) Step 5: Additional configurations
+### (Optional) Additional configurations
 <details open><summary>Expand/Collapse details</summary>
 <br>
 
@@ -206,7 +231,7 @@ models:
 
 </details>
 
-### (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
+### (Optional) Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand for details</summary>
 <br>
 
@@ -229,14 +254,18 @@ packages:
       version: [">=0.3.0", "<0.4.0"]
 ```
 
+<!--section="marketo_maintenance"-->
 ## How is this package maintained and can I contribute?
+
 ### Package Maintenance
-The Fivetran team maintaining this package _only_ maintains the latest version of the package. We highly recommend you stay consistent with the [latest version](https://hub.getdbt.com/fivetran/marketo/latest/) of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_marketo/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
+The Fivetran team maintaining this package only maintains the [latest version](https://hub.getdbt.com/fivetran/marketo/latest/) of the package. We highly recommend you stay consistent with the latest version of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_marketo/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
 
 ### Contributions
 A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions.
 
-We highly encourage and welcome contributions to this package. Check out [this dbt Discourse article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) on the best workflow for contributing to a package.
+We highly encourage and welcome contributions to this package. Learn how to contribute to a package in dbt's [Contributing to an external dbt package article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657).
+
+<!--section-end-->
 
 ## Are there any resources available?
 - If you have questions or want to reach out for help, see the [GitHub Issue](https://github.com/fivetran/dbt_marketo/issues/new/choose) section to find the right avenue of support for you.

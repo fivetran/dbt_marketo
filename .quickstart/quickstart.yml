@@ -26,3 +26,28 @@ public_models: [
   "marketo__campaigns",
   "marketo__programs"
 ]
+
+supported_vars:
+  marketo__activity_send_email_passthrough_columns:
+    type: dictionary
+    description: "Addtional `ACTIVITY_SEND_EMAIL` report columns to include in `marketo__email_sends`"
+    display_name: "Additional Email Send Columns"
+
+  marketo__program_passthrough_columns:
+    type: dictionary
+    description: "Addtional `PROGRAM` report columns to include in `marketo__programs`"
+    display_name: "Additional Program Columns"
+
+  lead_history_columns:
+    type: list
+    value:
+      - "lead_status"
+      - "urgency"
+      - "priority"
+      - "relative_score"
+      - "relative_urgency"
+      - "demographic_score_marketing"
+      - "behavior_score_marketing"
+    description: "Lead fields tracked daily in `marketo__lead_history`. Must match `LEAD_DESCRIBE.restname` values in snake case"
+    display_name: "Lead History Columns"
+
