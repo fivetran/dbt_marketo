@@ -40,7 +40,14 @@ seeds:
     marketo_integration_tests:
         marketo_email_template_history_data:
             +column_types:
+                created_at: timestamp
                 updated_at: timestamp
+        marketo_activity_change_data_value_data:
+            +column_types:
+                activity_date: timestamp  
+        marketo_activity_send_email_data:
+            +column_types:
+                activity_date: timestamp  
         marketo_lead_data:
             +column_types:
                 created_at: timestamp
