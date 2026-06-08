@@ -12,7 +12,7 @@ with base as (
                 staging_columns=get_lead_describe_columns()
             )
         }}
-        {{ marketo.apply_source_relation() }}
+        {{ fivetran_utils.apply_source_relation(package_name='marketo') }}
     from base
 
 ), fields as (
