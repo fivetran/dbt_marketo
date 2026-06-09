@@ -7,7 +7,7 @@ models:
   +persist_docs:
     relation: true
     columns: "{{ false if target.type in ('databricks') else true }}"
-    +schema: "marketo_{{ var('directed_schema','dev') }}"  
+  +schema: "marketo_{{ var('directed_schema','dev') }}"
 
 vars:
     marketo_schema: marketo_integration_tests
