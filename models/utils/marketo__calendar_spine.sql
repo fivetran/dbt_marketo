@@ -19,7 +19,7 @@ with spine as (
 
         {% endif %}
 
-    {% else %} {% set first_date_adjust = "2016-01-01" %}
+    {% else %} {% set first_date_adjust = "cast('2016-01-01' as date)" %}
     
     {% endif %}
 
