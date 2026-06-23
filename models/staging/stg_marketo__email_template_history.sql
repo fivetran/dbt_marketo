@@ -12,7 +12,7 @@ with base as (
                 staging_columns=get_email_template_history_columns()
             )
         }}
-        {{ marketo.apply_source_relation() }}
+        {{ fivetran_utils.apply_source_relation(package_name='marketo') }}
     from base
 
 ), fields as (
@@ -48,8 +48,8 @@ with base as (
 
     select  
         *,
-        row_number() over (partition by email_template_id {{ marketo.partition_by_source_relation() }} order by updated_timestamp) as inferred_version,
-        count(*) over (partition by email_template_id {{ marketo.partition_by_source_relation() }}) as total_count_of_versions
+        row_number() over (partition by email_template_id {{ fivetran_utils.partition_by_source_relation(package_name='marketo') }} order by updated_timestamp) as inferred_version,
+        count(*) over (partition by email_template_id {{ fivetran_utils.partition_by_source_relation(package_name='marketo') }}) as total_count_of_versions
     from fields
 
 ), valid as (
@@ -60,7 +60,7 @@ with base as (
             when inferred_version = 1 then created_timestamp
             else updated_timestamp
         end as valid_from,
-        lead(updated_timestamp) over (partition by email_template_id {{ marketo.partition_by_source_relation() }} order by updated_timestamp) as valid_to,
+        lead(updated_timestamp) over (partition by email_template_id {{ fivetran_utils.partition_by_source_relation(package_name='marketo') }} order by updated_timestamp) as valid_to,
         inferred_version = total_count_of_versions as is_most_recent_version
     from versions
 
@@ -75,6 +75,3 @@ with base as (
 
 select *
 from surrogate_key
-
-
-

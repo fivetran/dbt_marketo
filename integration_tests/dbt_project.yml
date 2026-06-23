@@ -1,5 +1,5 @@
 name: 'marketo_integration_tests'
-version: '1.3.0'
+version: '1.4.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -7,7 +7,7 @@ models:
   +persist_docs:
     relation: true
     columns: "{{ false if target.type in ('databricks') else true }}"
-    +schema: "marketo_{{ var('directed_schema','dev') }}"  
+  +schema: "marketo_{{ var('directed_schema','dev') }}"
 
 vars:
     marketo_schema: marketo_integration_tests
@@ -37,6 +37,7 @@ dispatch:
 seeds:
     +docs:
         show: False
+    +quote_columns: "{{ target.type == 'redshift' or var('fivetran_using_source_casing', false) }}"
     marketo_integration_tests:
         marketo_email_template_history_data:
             +column_types:
