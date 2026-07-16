@@ -7,11 +7,12 @@ with spine as (
         select min(created_timestamp) as min_date from {{ ref('stg_marketo__lead') }}
     {% endset %}
 
-    -- can set first date with var marketo__first_date; 
+    -- can set first date with var marketo__first_date;
     -- default first date is the minimum date of stg_marketo__lead
-    {% set first_date = var('marketo__first_date', run_query(first_date_query).columns[0][0]|string) %}
-    
-        {% if target.type == 'postgres' %}
+    {% set first_date_result = run_query(first_date_query).columns[0][0] %}
+    {% set first_date = var('marketo__first_date', (first_date_result|string if first_date_result is not none else '2016-01-01')) %}
+
+        {% if target.type in ('postgres', 'duckdb') %}
             {% set first_date_adjust = "cast('" ~ first_date[0:10] ~ "' as date)" %}
 
         {% else %}
