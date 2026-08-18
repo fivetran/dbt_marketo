@@ -1,3 +1,11 @@
+# dbt_marketo v1.4.1
+
+[PR #59](https://github.com/fivetran/dbt_marketo/pull/59) includes the following updates:
+
+## Feature Updates
+- Adds DuckDB as a supported destination.
+
+
 # dbt_marketo v1.4.0
 
 [PR #57](https://github.com/fivetran/dbt_marketo/pull/57) includes the following updates:
