@@ -52,6 +52,15 @@ seeds:
         marketo_lead_data:
             +column_types:
                 created_at: timestamp
+        marketo_activity_email_bounced_data:
+            +column_types:
+                details: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar(65535)' }}"
+        marketo_activity_open_email_data:
+            +column_types:
+                user_agent: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar(65535)' }}"
+        marketo_activity_unsubscribe_email_data:
+            +column_types:
+                referrer_url: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar(65535)' }}"
 
 flags:
     send_anonymous_usage_stats: False
