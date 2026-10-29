@@ -1,4 +1,4 @@
 version: 1.4.2
-pr_number: 63
+pr_number: 65
 under_the_hood:
   - description: Moves the `view` materialization for `int_marketo__lead` from the model file to `dbt_project.yml`. The model still builds as a view, but you can now override its materialization from your root `dbt_project.yml`, which was previously impossible.
