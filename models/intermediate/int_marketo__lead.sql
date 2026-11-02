@@ -1,5 +1,3 @@
-{{ config(materialized='view') }}
-
 with leads as(
     select * 
     from {{ ref('stg_marketo__lead') }}
