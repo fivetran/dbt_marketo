@@ -3,7 +3,7 @@
 [PR #65](https://github.com/fivetran/dbt_marketo/pull/65) includes the following updates:
 
 ## Under the Hood
-- Moves the `view` materialization for `int_marketo__lead` from the model file to `dbt_project.yml`. The model still builds as a view, but you can now override its materialization from your root `dbt_project.yml`, which was previously impossible.
+- Moves the `view` materialization for `int_marketo__lead` from the model file to `dbt_project.yml`. The model still builds as a view, but you can now override its materialization from your root `dbt_project.yml`, which was previously impossible to do due to the in-file model config always taking precedence.
 
 # dbt_marketo v1.4.1
 
