@@ -44,7 +44,7 @@ with change_data as (
     -- we need the current state to work backwards from to backfill the slowly changing dimension model
 
     {{ 
-        fivetran_utils.union_relations(
+        marketo_union_relations(
             relations=[ref('int_marketo__lead'), ref('marketo__change_data_pivot')],
             aliases=['leads','change_data']
             ) 
