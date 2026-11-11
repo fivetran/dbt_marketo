@@ -11,7 +11,7 @@ with leads as(
     select
         source_relation,
         cast(lead_id as {{ dbt.type_int() }}) as lead_id,
-        {{ fivetran_utils.string_agg('distinct merged_lead_id', "', '") }} as merged_into_lead_id
+        {{ dbt.listagg('distinct merged_lead_id', "', '") }} as merged_into_lead_id
 
     from activity_merge_leads
     group by 1, 2 
