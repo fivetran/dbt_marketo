@@ -1,4 +1,5 @@
 version: 1.4.3
+pr_number: 66
 under_the_hood:
 - description: Moves the `union_relations` macro from `fivetran_utils` into this package as
     `marketo_union_relations`. Marketo was the only package that used it, and `fivetran_utils`
