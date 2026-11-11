@@ -1,0 +1,10 @@
+version: 1.4.3
+pr_number: 66
+bug_fixes:
+- description: Replaces `fivetran_utils.string_agg` with dbt's built-in `dbt.listagg`. On Databricks,
+    aggregated values that contain a comma followed by a space are no longer split apart. Output on
+    other warehouses doesn't change.
+under_the_hood:
+- description: Moves the `union_relations` macro from `fivetran_utils` into this package as
+    `marketo_union_relations`. Marketo was the only package that used it, and `fivetran_utils`
+    removes it in a future release. The macro logic is unchanged, so model outputs don't change.
