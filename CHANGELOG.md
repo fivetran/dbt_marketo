@@ -1,3 +1,10 @@
+# dbt_marketo v1.4.3
+
+[PR #68](https://github.com/fivetran/dbt_marketo/pull/68) includes the following updates:
+
+## Bug Fix
+- The `marketo__change_data_details` and `marketo__change_data_pivot` models no longer fail `dbt compile` on a new schema. They now query `stg_marketo__lead_describe` only during `dbt run` or `dbt build`, and use an empty column list otherwise.
+
 # dbt_marketo v1.4.2
 
 [PR #65](https://github.com/fivetran/dbt_marketo/pull/65) includes the following updates:

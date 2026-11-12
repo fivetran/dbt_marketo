@@ -1,0 +1,7 @@
+version: 1.4.3
+pr_number: 68
+bug_fixes:
+- description: The `marketo__change_data_details` and `marketo__change_data_pivot`
+    models no longer fail `dbt compile` on a new schema. They now query `stg_marketo__lead_describe`
+    only during `dbt run` or `dbt build`, and use an empty column list otherwise.
+date: '2026-11-12'
