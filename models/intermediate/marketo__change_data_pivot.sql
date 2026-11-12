@@ -8,9 +8,11 @@
         ) 
 }}
 
-{% if execute -%}
+{% if execute and flags.WHICH in ('run', 'build') -%}
     {% set results = run_query('select distinct rest_name_xf from ' ~ ref('stg_marketo__lead_describe')) %}
     {% set results_list = results.columns[0].values() %}
+{% else -%}
+    {% set results_list = [] %}
 {% endif -%}
 
 with change_data as (
