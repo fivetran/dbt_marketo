@@ -3,6 +3,12 @@ version: 2
 models:
   - name: marketo__campaigns
     description: Each record is Marketo campaign.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - campaign_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -87,6 +93,12 @@ models:
 
   - name: marketo__email_sends
     description: Each record is a sent email in Marketo to a user.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - email_send_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -149,6 +161,12 @@ models:
 
   - name: marketo__email_templates
     description: Each record is the most recent version of an email template.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - email_template_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -236,6 +254,12 @@ models:
       The start date is configured by the `marketo__first_date` variable, which by default, for dbt Core™ users, is the date of the earliest lead record.
       For Fivetran Quickstart Data Model users, `marketo__first_date` is 18 months in the past. There is currently no way to adjust this within the Quickstart environment,
       though incremental model runs will slowly look further and further in the past. However, please be aware that a full refresh will reset the clock and limit data to 18 months prior.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - lead_history_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -255,6 +279,12 @@ models:
 
   - name: marketo__leads
     description: Each record is a Marketo lead.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - lead_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -357,6 +387,12 @@ models:
         
   - name: marketo__programs
     description: Each record is a Marketo program.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - program_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

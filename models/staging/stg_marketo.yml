@@ -2,6 +2,12 @@ version: 2
 
 models:
   - name: stg_marketo__activity_change_data_value
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -37,6 +43,12 @@ models:
         description: ID of the request made.
 
   - name: stg_marketo__activity_click_email
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -79,6 +91,12 @@ models:
         description: The user's operating platform.
 
   - name: stg_marketo__activity_email_bounced
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -118,6 +136,12 @@ models:
         description: The Id of the current step in the flow.
 
   - name: stg_marketo__activity_email_delivered
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -149,6 +173,12 @@ models:
         description: The Id of the current step in the flow.
 
   - name: stg_marketo__activity_open_email
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -188,6 +218,12 @@ models:
         description: The web browser user agent information obtained when the email was opened.
 
   - name: stg_marketo__activity_send_email
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -221,6 +257,12 @@ models:
         description: The Id of the current step in the flow.
 
   - name: stg_marketo__activity_unsubscribe_email
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -262,6 +304,12 @@ models:
         description: The ID of the unsubscribe web form.
 
   - name: stg_marketo__campaigns
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - campaign_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -329,6 +377,12 @@ models:
         description: The status of the campaign.
 
   - name: stg_marketo__email_template_history
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - email_template_history_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -396,6 +450,12 @@ models:
         description: Name of the workspace.
 
   - name: stg_marketo__lead_describe
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - lead_describe_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -421,6 +481,12 @@ models:
         description: Description of SOAP API usage attributes.
 
   - name: stg_marketo__lead
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - lead_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -500,6 +566,12 @@ models:
         description: "{{ doc('_fivetran_synced') }}"
         
   - name: stg_marketo__program
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - program_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -539,6 +611,12 @@ models:
 
   - name: stg_marketo__activity_delete_lead
     description: Table with deleted lead activities
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -563,6 +641,12 @@ models:
 
   - name: stg_marketo__activity_merge_leads
     description: Table with merged lead activities
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - activity_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
