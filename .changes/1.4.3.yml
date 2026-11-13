@@ -1,7 +1,7 @@
 version: 1.4.3
 pr_number: 68
 bug_fixes:
-- description: The `marketo__change_data_details` and `marketo__change_data_pivot`
-    models no longer fail `dbt compile` on a new schema. They now query `stg_marketo__lead_describe`
-    only during `dbt run` or `dbt build`, and use an empty column list otherwise.
+- description: The `marketo__change_data_details` and `marketo__change_data_pivot` models no longer fail `dbt compile` on a new schema. They now query `stg_marketo__lead_describe` only during `dbt run` or `dbt build`, and use an empty column list otherwise.
+under_the_hood:
+- description: Adds `dbt_utils.unique_combination_of_columns` tests to the staging and end models. The tests use the `arguments` syntax introduced in dbt v1.10, which the new v1.11.0 minimum supports.
 date: '2026-11-12'
