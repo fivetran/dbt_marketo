@@ -97,9 +97,8 @@ with sends as (
     left join email_templates
         on booleans.source_relation = email_templates.source_relation
         and booleans.email_template_id = email_templates.email_template_id
-        and booleans.activity_timestamp
-            between email_templates.valid_from
-            and coalesce(email_templates.valid_to, cast('2099-01-01' as timestamp))
+        and booleans.activity_timestamp >= email_templates.valid_from
+        and booleans.activity_timestamp < coalesce(email_templates.valid_to, cast('2099-01-01' as timestamp))
 
 )
 
