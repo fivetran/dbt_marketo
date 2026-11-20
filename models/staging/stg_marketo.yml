@@ -13,7 +13,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
-        tests:
+        data_tests:
           - not_null
       - name: activity_timestamp
         description: Timestamp of the activity.
@@ -53,7 +53,7 @@ models:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: activity_id
-        tests:
+        data_tests:
           - not_null
       - name: activity_timestamp
         description: Timestamp of the activity.
@@ -102,7 +102,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
-        tests:
+        data_tests:
           - not_null
       - name: activity_timestamp
         description: The timestamp the email bounced.
@@ -147,7 +147,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
-        tests:
+        data_tests:
           - not_null
       - name: activity_timestamp
         description: The timestamp the email was delivered.
@@ -184,7 +184,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
-        tests:
+        data_tests:
           - not_null
       - name: activity_timestamp
         description: The timestamp the email was opened.
@@ -231,7 +231,7 @@ models:
         description: The outcome of a specific action performed within the Marketo platform.
       - name: activity_id
         description: ID of the activity.
-        tests:
+        data_tests:
           - not_null
       - name: activity_timestamp
         description: The timestamp the email was sent.
@@ -268,7 +268,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: activity_id
         description: ID of the activity.
-        tests:
+        data_tests:
           - not_null
       - name: activity_timestamp
         description: The timestamp the lead unsubscribed.
@@ -315,7 +315,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: campaign_id
         description: ID of the campaign.
-        tests:
+        data_tests:
           - not_null
       - name: campaign_name
         description: Name of the campaign.
@@ -388,7 +388,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: email_template_history_id
         description: ID of the email template.
-        tests:
+        data_tests:
           - not_null
       - name: created_timestamp
         description: Timestamp the email template was created.
@@ -461,7 +461,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: lead_describe_id
         description: ID of the description.
-        tests:
+        data_tests:
           - not_null
       - name: data_type
         description: Datatype of the field.
@@ -492,7 +492,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: lead_id
         description: ID of the lead.
-        tests:
+        data_tests:
           - not_null
       - name: created_timestamp
         description: The timestamp at which each lead object was created.
@@ -577,7 +577,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: program_id
         description: ID of the program.
-        tests:
+        data_tests:
           - not_null
       - name: channel
         description: Channel of the program.

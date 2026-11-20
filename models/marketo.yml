@@ -14,7 +14,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: campaign_id
         description: ID of the campaign.
-        tests:
+        data_tests:
           - not_null
       - name: campaign_name
         description: Name of the campaign.
@@ -104,7 +104,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: email_send_id
         description: The inferred ID for the email sent.
-        tests:
+        data_tests:
           - not_null
       - name: action_result
         description: The outcome of a specific action performed within the Marketo platform.
@@ -172,7 +172,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: email_template_id
         description: ID of the email template.
-        tests:
+        data_tests:
           - not_null
       - name: created_timestamp
         description: Timestamp the email template was created.
@@ -265,11 +265,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: lead_history_id
         description: Surrogate key hashing date_day, lead_id, and source_relation.
-        tests:
+        data_tests:
           - not_null
       - name: lead_id
         description: ID of the lead.
-        tests:
+        data_tests:
           - not_null
       - name: date_day
         description: >
@@ -290,7 +290,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: lead_id
         description: ID of the lead.
-        tests:
+        data_tests:
           - not_null
       - name: created_timestamp
         description: Timestamp for when each lead was created.
@@ -398,7 +398,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: program_id
         description: ID of the program.
-        tests:
+        data_tests:
           - not_null
       - name: channel
         description: Channel of the program.
