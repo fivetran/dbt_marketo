@@ -1,3 +1,11 @@
+# dbt_marketo v1.5.0
+
+[PR #69](https://github.com/fivetran/dbt_marketo/pull/69) includes the following updates:
+
+## Feature Update
+- **Breaking change**: Raises the minimum dbt version to 1.10.0.
+- Adds `dbt_utils.unique_combination_of_columns` tests to staging and end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_marketo/issues/new/choose).
+
 # dbt_marketo v1.4.3
 
 [PR #68](https://github.com/fivetran/dbt_marketo/pull/68) includes the following updates:
